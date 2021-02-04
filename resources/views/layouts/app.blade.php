@@ -12,13 +12,13 @@
             The Berondas Farm
           </div>
           <div class="hidden sm:ml-6 sm:flex">
-            <a href="{{route('home')}}" class="inline-flex items-center px-1 pt-1 border-b-2 border-indigo-500 text-sm font-medium leading-5 text-gray-900 focus:outline-none focus:border-indigo-700 transition duration-150 ease-in-out">
+            <a href="{{route('home')}}" class="inline-flex items-center px-1 pt-1 {{ Nav::isRoute('home') }}  text-sm font-medium leading-5 focus:outline-none focus:border-teal-700 transition duration-150 ease-in-out">
               Home
             </a>
             <a href="#" class="ml-8 inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
               Batches
             </a>
-             <a href="{{route('farm.create')}}" class="ml-8 inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
+             <a href="{{route('farms.index')}}" class="ml-8 {{ Nav::isRoute('farms.index') }} inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
               Farms
             </a>
             <a href="#" class="ml-8 inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
@@ -62,9 +62,9 @@
     </div>
     <div :class="{'block': open, 'hidden': !open}" class="hidden sm:hidden">
       <div class="pt-2 pb-3">
-        <a href="{{route('home')}}" class="block pl-3 pr-4 py-2 border-l-4 border-indigo-500 text-base font-medium text-indigo-700 bg-indigo-50 focus:outline-none focus:text-indigo-800 focus:bg-indigo-100 focus:border-indigo-700 transition duration-150 ease-in-out">Home</a>
+        <a href="{{route('home')}}" class="block {{ Nav::isRoute('home', $activeClass = 'border-l-4 text-teal-700 border-teal-500 bg-teal-50 ') }} pl-3 pr-4 py-2  text-base font-medium focus:outline-none focus:text-teal-800 focus:bg-teal-100 focus:border-teal-700 transition duration-150 ease-in-out">Home</a>
         <a href="#" class="mt-1 block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">Batches</a>
-        <a href="{{route('farm.create')}}" class="mt-1 block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">Farms</a>
+        <a href="{{route('farm.create')}}" class="mt-1 {{ Nav::isRoute('farm.create', $activeClass = 'border-l-4 text-teal-700 border-teal-500 bg-teal-50 ') }} block pl-3 pr-4 py-2 border-l-4 {{ Nav::isRoute('farms.index', $activeClass = 'border-l-4 text-teal-700 border-teal-500 bg-teal-50 ') }} border-transparent text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">Farms</a>
         <a href="#" class="mt-1 block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">Expenses</a>
         <a href="#" class="mt-1 block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">Report</a>
       </div>
