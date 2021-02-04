@@ -18,6 +18,7 @@ class CreateFarmsTable extends Migration
             $table->string('name');
             $table->string('address');
             $table->string('contacts');
+            $table->string('is_active')->default(false);
             $table->timestamps();
         });
     }
