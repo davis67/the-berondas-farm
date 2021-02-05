@@ -9,7 +9,7 @@ class Farm extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'contacts', 'address'];
+    protected $fillable = ['name', 'contacts', 'address', 'is_active'];
 
     /**
      * The attributes that should be cast.
@@ -17,7 +17,7 @@ class Farm extends Model
      * @var array
      */
     protected $casts = [
-        'status' => 'boolean',
+        'is_active' => 'boolean',
     ];
 
     /**
@@ -27,7 +27,7 @@ class Farm extends Model
      */
     public function getCurrentStatusAttribute()
     {
-        return $this->status ? 'active' : 'in-active';
+        return true === $this->is_active ? 'active' : 'in-active';
     }
 
     /**

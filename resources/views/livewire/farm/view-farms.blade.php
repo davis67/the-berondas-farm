@@ -7,7 +7,7 @@
         <div class="bg-white shadow my-2 overflow-hidden sm:rounded-md">
           <ul>
             <li>
-              <a href="#" class="block hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition duration-150 ease-in-out">
+              <a href="{{route('farms.edit', $farm->id)}}" class="block hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition duration-150 ease-in-out">
                 <div class="flex items-center px-4 py-4 sm:px-6">
                   <div class="min-w-0 flex-1 flex items-center">
                     <div class="flex-shrink-0">
@@ -20,7 +20,7 @@
                           <svg class="-ml-1 mr-2 h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
                             </svg>
-                          <span class="truncate">{{$farm->contacts}}/span>
+                          <span class="truncate">{{$farm->contacts}}</span>
                         </div>
                         <div class="mt-2 flex items-center text-sm leading-5 text-gray-500">
 

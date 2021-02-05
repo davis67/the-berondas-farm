@@ -9,6 +9,7 @@ use App\Http\Livewire\Auth\Passwords\Reset;
 use App\Http\Livewire\Auth\Register;
 use App\Http\Livewire\Auth\Verify;
 use App\Http\Livewire\Dashboard\Dashboard;
+use App\Http\Livewire\Farm\EditFarm;
 use App\Http\Livewire\Farm\RegisterFarm;
 use App\Http\Livewire\Farm\ViewFarms;
 use Illuminate\Support\Facades\Route;
@@ -20,6 +21,7 @@ Route::middleware('guest')->group(function () {
 
     Route::get('farm/register', RegisterFarm::class)->name('farm.create');
     Route::get('farms', ViewFarms::class)->name('farms.index');
+    Route::get('farms/{farm}', EditFarm::class)->name('farms.edit');
 });
 
 Route::get('password/reset', Email::class)->name('password.request');
