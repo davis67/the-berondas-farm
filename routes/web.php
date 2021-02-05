@@ -18,10 +18,6 @@ Route::middleware('guest')->group(function () {
     Route::get('login', Login::class)->name('login');
 
     Route::get('register', Register::class)->name('register');
-
-    Route::get('farm/register', RegisterFarm::class)->name('farm.create');
-    Route::get('farms', ViewFarms::class)->name('farms.index');
-    Route::get('farms/{farm}', EditFarm::class)->name('farms.edit');
 });
 
 Route::get('password/reset', Email::class)->name('password.request');
@@ -46,4 +42,7 @@ Route::middleware('auth')->group(function () {
 
     Route::post('logout', LogoutController::class)
         ->name('logout');
+    Route::get('farm/register', RegisterFarm::class)->name('farm.create');
+    Route::get('farms', ViewFarms::class)->name('farms.index');
+    Route::get('farms/{farm}', EditFarm::class)->name('farms.edit');
 });
