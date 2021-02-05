@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Cage extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['cage_no', 'batch_id'];
 }

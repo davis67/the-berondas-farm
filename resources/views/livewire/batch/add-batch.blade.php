@@ -6,60 +6,73 @@
         <div class="flex flex-col mt-2">
           <div class="align-middle min-w-full  shadow overflow-hidden sm:rounded-lg">
 
-            <form class="bg-white py-3 px-6" wire:submit.prevent="registerFarm">
+            <form class="bg-white py-3 px-6" wire:submit.prevent="addBatch">
               <div>
                 <div class="mt-3 pt-2">
                   <div>
                     <h3 class="text-lg leading-6 font-medium text-gray-900">
-                      Add Farm Info
+                      Add Batch Info
                     </h3>
                     <p class="mt-1 text-sm leading-5 text-gray-500">
                       This information will be displayed publicly on the platform lists.
+                      The system will generate random batch number
                     </p>
                   </div>
-                  <div class="mt-6 grid grid-cols-1 row-gap-6 col-gap-4 sm:grid-cols-6">
+                  <div class="mt-4 grid grid-cols-1 row-gap-6 col-gap-4 sm:grid-cols-6">
                     <div class="sm:col-span-3">
-                      <label for="name" class="block text-sm font-medium leading-5 text-gray-700">
-                        Farm Name
+                      <label for="date_of_construction" class="block text-sm font-medium leading-5 text-gray-700">
+                        Date of Construction
                       </label>
                       <div class="mt-1 rounded-md shadow-sm">
-                        <input id="name" wire:model.lazy="name" class="form-input block w-full rounded-none border transition duration-150 ease-in-out sm:text-sm sm:leading-5 @error('name') border-red-300 text-red-900 placeholder-red-300 focus:border-red-300 focus:shadow-outline-red @enderror" />
-                        @error('name')
-                            <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                      </div>
-                    </div>
-
-                    <div class="sm:col-span-4">
-                      <label for="address" class="block text-sm font-medium leading-5 text-gray-700">
-                        Street Address
-                      </label>
-                      <div class="mt-1 rounded-md shadow-sm">
-                        <input id="address" wire:model.lazy="address" class="form-input block w-full rounded-none border transition duration-150 ease-in-out sm:text-sm sm:leading-5 @error('address') border-red-300 text-red-900 placeholder-red-300 focus:border-red-300 focus:shadow-outline-red @enderror" />
-                        @error('address')
+                        <input id="date_of_construction" type="date" wire:model.lazy="date_of_construction" class="form-input block w-full rounded-none border transition duration-150 ease-in-out sm:text-sm sm:leading-5 @error('date_of_construction') border-red-300 text-red-900 placeholder-red-300 focus:border-red-300 focus:shadow-outline-red @enderror" />
+                        @error('date_of_construction')
                             <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                         @enderror
                       </div>
                     </div>
                   </div>
                 </div>
-                <div class="mt-3 pt-2">
-                   <div>
-                    <h3 class="text-lg leading-6 font-medium text-gray-900">
-                      Contact Information
-                    </h3>
-                    <p class="mt-1 text-sm leading-5 text-gray-500">
-                      This is the information of the direct contact of the customer.
-                    </p>
-                  </div>
+                <div class="pt-1">
                   <div class="mt-6 grid grid-cols-1 row-gap-6 col-gap-4 sm:grid-cols-6">
                     <div class="sm:col-span-3">
-                      <label for="contacts" class="block text-sm font-medium leading-5 text-gray-700">
-                        Contacts
+                      <label for="cost_of_construction" class="block text-sm font-medium leading-5 text-gray-700">
+                        Cost of Construction
                       </label>
                       <div class="mt-1 rounded-md shadow-sm">
-                        <input id="contacts" wire:model.lazy="contacts" class="form-input block w-full transition duration-150 rounded-none border ease-in-out sm:text-sm sm:leading-5 @error('contacts') border-red-300 text-red-900 placeholder-red-300 focus:border-red-300 focus:shadow-outline-red @enderror" />
-                        @error('contacts')
+                        <input id="cost_of_construction" wire:model.lazy="cost_of_construction" class="form-input block w-full transition duration-150 rounded-none border ease-in-out sm:text-sm sm:leading-5 @error('cost_of_construction') border-red-300 text-red-900 placeholder-red-300 focus:border-red-300 focus:shadow-outline-red @enderror" />
+                        @error('cost_of_construction')
+                            <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+                <div class="pt-1">
+                  <div class="mt-6 grid grid-cols-1 row-gap-6 col-gap-4 sm:grid-cols-6">
+                    <div class="sm:col-span-3">
+                      <label for="number_of_cages" class="block text-sm font-medium leading-5 text-gray-700">
+                        Number of Cages
+                      </label>
+                      <div class="mt-1 rounded-md shadow-sm">
+                        <input id="number_of_cages" wire:model.lazy="number_of_cages" class="form-input block w-full transition duration-150 rounded-none border ease-in-out sm:text-sm sm:leading-5 @error('number_of_cages') border-red-300 text-red-900 placeholder-red-300 focus:border-red-300 focus:shadow-outline-red @enderror" />
+                        @error('number_of_cages')
+                            <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+                <div class="pt-1">
+                  <div class="mt-6 grid grid-cols-1 row-gap-6 col-gap-4 sm:grid-cols-6">
+                    <div class="sm:col-span-3">
+                      <label for="expected_number_of_rabbits" class="block text-sm font-medium leading-5 text-gray-700">
+                        Expected Number of Rabbits
+                      </label>
+                      <div class="mt-1 rounded-md shadow-sm">
+                        <input id="expected_number_of_rabbits" wire:model.lazy="expected_number_of_rabbits" class="form-input block w-full transition duration-150 rounded-none border ease-in-out sm:text-sm sm:leading-5 @error('expected_number_of_rabbits') border-red-300 text-red-900 placeholder-red-300 focus:border-red-300 focus:shadow-outline-red @enderror" />
+                        @error('expected_number_of_rabbits')
                             <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                         @enderror
                       </div>
