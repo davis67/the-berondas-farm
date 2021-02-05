@@ -15,8 +15,6 @@ class EditFarmTest extends TestCase
     /** @test */
     public function farmEditPageContainsLivewireComponent()
     {
-        $this->withoutExceptionHandling();
-
         $farm = Farm::factory()->create();
 
         $this->get(route('farms.edit', $farm->id))

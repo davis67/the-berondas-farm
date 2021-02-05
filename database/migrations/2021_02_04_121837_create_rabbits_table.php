@@ -16,6 +16,7 @@ class CreateRabbitsTable extends Migration
         Schema::create('rabbits', function (Blueprint $table) {
             $table->id();
             $table->string('rabbit_no');
+            $table->unsignedBigInteger('farm_id')->index()->nullable();
             $table->string('name');
             $table->string('breed');
             $table->string('gender');

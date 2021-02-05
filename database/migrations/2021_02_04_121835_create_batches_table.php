@@ -15,7 +15,8 @@ class CreateBatchesTable extends Migration
     {
         Schema::create('batches', function (Blueprint $table) {
             $table->id();
-            $table->string('batch_id');
+            $table->unsignedBigInteger('batch_id')->index()->nullable();
+            $table->unsignedBigInteger('farm_id')->index()->nullable();
             $table->date('date_of_construction');
             $table->integer('cost_of_construction');
             $table->integer('number_of_cages');
