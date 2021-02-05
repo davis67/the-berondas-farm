@@ -8,34 +8,25 @@ use App\Http\Livewire\Auth\Passwords\Email;
 use App\Http\Livewire\Auth\Passwords\Reset;
 use App\Http\Livewire\Auth\Register;
 use App\Http\Livewire\Auth\Verify;
+use App\Http\Livewire\Dashboard\Dashboard;
+use App\Http\Livewire\Farm\EditFarm;
+use App\Http\Livewire\Farm\RegisterFarm;
+use App\Http\Livewire\Farm\ViewFarms;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
-Route::view('/', 'welcome')->name('home');
-
 Route::middleware('guest')->group(function () {
-    Route::get('login', Login::class)
-        ->name('login');
+    Route::get('login', Login::class)->name('login');
 
-    Route::get('register', Register::class)
-        ->name('register');
+    Route::get('register', Register::class)->name('register');
+
+    Route::get('farm/register', RegisterFarm::class)->name('farm.create');
+    Route::get('farms', ViewFarms::class)->name('farms.index');
+    Route::get('farms/{farm}', EditFarm::class)->name('farms.edit');
 });
 
-Route::get('password/reset', Email::class)
-    ->name('password.request');
+Route::get('password/reset', Email::class)->name('password.request');
 
-Route::get('password/reset/{token}', Reset::class)
-    ->name('password.reset');
+Route::get('password/reset/{token}', Reset::class)->name('password.reset');
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('email/verify', Verify::class)
@@ -46,7 +37,9 @@ Route::middleware('auth:sanctum')->group(function () {
         ->name('password.confirm');
 });
 
-Route::middleware('auth:sanctum')->group(function () {
+Route::get('/', Dashboard::class)->name('home');
+
+Route::middleware('auth')->group(function () {
     Route::get('email/verify/{id}/{hash}', EmailVerificationController::class)
         ->middleware('signed')
         ->name('verification.verify');
