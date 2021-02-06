@@ -8,6 +8,7 @@ use App\Http\Livewire\Batch\AddBatch;
 use App\Http\Livewire\Farm\ViewFarms;
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\Batch\ShowBatch;
+use App\Http\Livewire\Rabbit\AddRabbit;
 use App\Http\Livewire\Batch\ViewBatches;
 use App\Http\Livewire\Farm\RegisterFarm;
 use App\Http\Livewire\Dashboard\Dashboard;
@@ -50,4 +51,6 @@ Route::middleware('auth')->group(function () {
     Route::get('batches/create', AddBatch::class)->name('batches.create');
     Route::get('batches', ViewBatches::class)->name('batches.index');
     Route::get('batches/{batch}', ShowBatch::class)->name('batches.show');
+
+    Route::get('rabbits/create', AddRabbit::class)->name('rabbits.create');
 });
