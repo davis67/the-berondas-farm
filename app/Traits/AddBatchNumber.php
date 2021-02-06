@@ -16,7 +16,7 @@ trait AddBatchNumber
     {
         static::creating(function ($model) {
             $model->batch_no = self::generateBatchNumber();
-            $model->farm_id = session()->get('farm_id');
+            $model->farm_id = auth()->user()->farm_id;
         });
 
         static::created(function ($batch) {
