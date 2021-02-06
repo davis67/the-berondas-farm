@@ -2,11 +2,11 @@
 
 namespace Tests\Feature\Batch;
 
-use App\Http\Livewire\Batch\AddBatch;
-use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Livewire\Livewire;
 use Tests\TestCase;
+use App\Models\User;
+use Livewire\Livewire;
+use App\Http\Livewire\Batch\AddBatch;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class AddBatchTest extends TestCase
 {

@@ -16,7 +16,7 @@ class CreateCagesTable extends Migration
         Schema::create('cages', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('batch_id');
-            $table->string('cage_no');
+            $table->string('cage_no')->unique();
             $table->timestamps();
         });
     }
