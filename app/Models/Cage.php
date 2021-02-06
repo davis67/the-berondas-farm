@@ -20,4 +20,14 @@ class Cage extends Model
     {
         return $this->belongsTo(Batch::class);
     }
+
+    /**
+     * Rabbit can be one or many cages.
+     *
+     * @return [type] [description]
+     */
+    public function rabbits()
+    {
+        return $this->belongsToMany(Rabbit::class);
+    }
 }

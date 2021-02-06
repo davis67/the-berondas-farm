@@ -16,8 +16,6 @@ class ShowBatchTest extends TestCase
     /** @test */
     public function showBatchesPageContainsLivewireComponent()
     {
-        $this->withoutExceptionHandling();
-
         $this->actingAs($user = User::factory()->create());
 
         $batch = Batch::factory()->create();

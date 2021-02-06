@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Rabbit;
 
+use App\Models\Rabbit;
 use Livewire\Component;
 
 class AddRabbit extends Component

@@ -3,6 +3,7 @@
 use App\Http\Livewire\Auth\Login;
 use App\Http\Livewire\Auth\Verify;
 use App\Http\Livewire\Auth\Register;
+use App\Http\Livewire\Cage\ShowCage;
 use App\Http\Livewire\Farm\EditFarm;
 use App\Http\Livewire\Batch\AddBatch;
 use App\Http\Livewire\Farm\ViewFarms;
@@ -53,4 +54,6 @@ Route::middleware('auth')->group(function () {
     Route::get('batches/{batch}', ShowBatch::class)->name('batches.show');
 
     Route::get('rabbits/create', AddRabbit::class)->name('rabbits.create');
+
+    Route::get('cages/{cage}', ShowCage::class)->name('cages.show');
 });

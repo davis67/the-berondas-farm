@@ -6,7 +6,7 @@
            <div class="grid grid-cols-5 gap-4">
             @forelse($batch->cages as $cage)
             <div class="border border-1 pl-3 flex items-center bg-white shadow-sm h-32 my-2 overflow-hidden rounded-none">
-              <a href="" class="w-full">
+              <a href="{{route('cages.show', $cage->id)}}" class="w-full">
                 <div class="flex w-full items-center">
                   <div class="space-y-2">
                     <div><span>{{$cage->cage_no}}</span></div>
