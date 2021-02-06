@@ -11,6 +11,6 @@ class ViewBatches extends Component
     {
         return view('livewire.batch.view-batches', [
             'batches' => Batch::all(),
-        ]);
+        ])->extends('layouts.app');
     }
 }
