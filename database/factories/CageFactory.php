@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Cage;
+use App\Models\Batch;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class CageFactory extends Factory
@@ -22,7 +23,8 @@ class CageFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'batch_id' => Batch::factory()->create(),
+            'cage_no' => 'CAGE-1234',
         ];
     }
 }
