@@ -4,7 +4,7 @@
       <div class="mx-auto text-lg leading-6 font-medium text-cool-gray-900">
         <div class="flex flex-col mt-2">
             <div>
-                <form class="bg-white py-3 px-6 w-full" wire:submit.prevent="addBatch">
+                <form class="bg-white py-3 px-6 w-full" wire:submit.prevent="handleTransfer">
                   <div>
                     <div class="mt-3 pt-2">
                       <div>
@@ -22,8 +22,10 @@
                           </label>
                           <div class="mt-1 rounded-md shadow-sm">
                             <select id="rabbit" type="date" wire:model.lazy="rabbit" class="form-input block w-full rounded-none border transition duration-150 ease-in-out sm:text-sm sm:leading-5 @error('rabbit') border-red-300 text-red-900 placeholder-red-300 focus:border-red-300 focus:shadow-outline-red @enderror">
-                                <option>rabbit 1</option>
-                                <option>rabbit 2</option>
+                                <option>Select Rabbit ... </option>
+                                @foreach($rabbits as $rabbit)
+                                    <option value="{{$rabbit->id}}">{{$rabbit->rabbit_no}}</option>
+                                @endforeach
                             </select>
                             @error('rabbit')
                                 <p class="mt-2 text-sm text-red-600">{{ $message }}</p>

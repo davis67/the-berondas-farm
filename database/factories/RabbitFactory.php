@@ -22,7 +22,9 @@ class RabbitFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'breed' => $this->faker->name,
+            'gender' => 'female',
+            'status' => 'alive',
         ];
     }
 }

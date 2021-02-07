@@ -29,6 +29,7 @@ class AddRabbit extends Component
             'date_of_birth' => $this->date_of_birth,
             'status' => $this->status,
             'gender' => $this->gender,
+            'farm_id' => auth()->user()->farm_id,
         ]);
     }
 

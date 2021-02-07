@@ -15,7 +15,6 @@ trait GenerateRabbitNumber
     {
         static::creating(function ($model) {
             $model->rabbit_no = self::randomRabbitNumber();
-            $model->farm_id = auth()->user()->farm_id;
         });
     }
 
