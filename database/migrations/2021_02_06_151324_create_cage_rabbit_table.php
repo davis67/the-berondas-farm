@@ -18,6 +18,7 @@ class CreateCageRabbitTable extends Migration
             $table->unsignedBigInteger('cage_id')->index();
             $table->unsignedBigInteger('rabbit_id')->index();
             $table->date('date_of_transfer');
+            $table->boolean('is_occupant')->default(false);
             $table->timestamps();
         });
     }

@@ -12,6 +12,15 @@ class Cage extends Model
     protected $fillable = ['cage_no', 'batch_id'];
 
     /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'is_occupant' => 'boolean',
+    ];
+
+    /**
      * Cage belongs To the Batch.
      *
      * @return [type] [description]
@@ -28,6 +37,6 @@ class Cage extends Model
      */
     public function rabbits()
     {
-        return $this->belongsToMany(Rabbit::class);
+        return $this->belongsToMany(Rabbit::class)->withPivot('date_of_transfer', 'is_occupant');
     }
 }

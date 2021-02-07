@@ -10,11 +10,18 @@ class ShowCage extends Component
 {
     public $cage;
 
+    public $selectRabbit;
+
     public $rabbit;
 
     public function mount(Cage $cage)
     {
-        $this->cage = $cage;
+        $this->cage = $cage->loadMissing('rabbits');
+    }
+
+    public function updated()
+    {
+        $this->cage->fresh();
     }
 
     public function handleTransfer()
@@ -24,7 +31,17 @@ class ShowCage extends Component
         ]);
         $this->cage->rabbits()->attach($this->rabbit, [
             'date_of_transfer' => now(),
+            'is_occupant' => true,
         ]);
+
+        session()->flash('success', 'Cage Info successfully updated.');
+    }
+
+    public function updatingRabbit($value)
+    {
+        if (! empty($value)) {
+            $this->selectRabbit = Rabbit::findOrFail($value);
+        }
     }
 
     public function render()
