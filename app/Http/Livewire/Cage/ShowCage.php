@@ -8,34 +8,90 @@ use Livewire\Component;
 
 class ShowCage extends Component
 {
+<
+    /**
+     * The cage instance.
+     *
+     * @var mixed
+     */
     public $cage;
 
+    /**
+     * The selected rabbit instance.
+     *
+     * @var mixed
+     */
     public $selectRabbit;
 
+    /**
+     * Indicates if rabbit transfer is being confirmed.
+     *
+     * @var bool
+     */
+    public $confirmingRabbitTransfer = false;
+
+    /**
+     * The rabbit id.
+     *
+     * @var int
+     */
     public $rabbit;
+
+    /**
+     * Mount the component.
+     *
+     * @param mixed $cage
+     *
+     * @return void
+     */
 
     public function mount(Cage $cage)
     {
         $this->cage = $cage->loadMissing('rabbits');
     }
 
-    public function updated()
-    {
-        $this->cage->fresh();
-    }
-
-    public function handleTransfer()
+<
+    /**
+     * Validate the transfer of the rabbit from one cage to another.
+     *
+     * @return void
+     */
+    public function validateTransfer()
     {
         $this->validate([
             'rabbit' => ['required'],
         ]);
+
+        $this->confirmingRabbitTransfer = true;
+    }
+
+    /**
+     * Handler the transfer of the rabbit from one cage to another.
+     *
+     * @return void
+     */
+    public function handleTransfer()
+    {
+
         $this->cage->rabbits()->attach($this->rabbit, [
             'date_of_transfer' => now(),
             'is_occupant' => true,
         ]);
 
+        $this->confirmingRabbitTransfer = false;
+
+        $this->rabbit = '';
+
         session()->flash('success', 'Cage Info successfully updated.');
+
+        return redirect(route('cages.show', $this->cage->id));
     }
+
+    /**
+     * Updating the rabbit instance.
+     *
+     * @return void
+     */
 
     public function updatingRabbit($value)
     {
@@ -43,6 +99,13 @@ class ShowCage extends Component
             $this->selectRabbit = Rabbit::findOrFail($value);
         }
     }
+
+
+    /**
+     * Render the component.
+     *
+     * @return \Illuminate\View\View
+     */
 
     public function render()
     {

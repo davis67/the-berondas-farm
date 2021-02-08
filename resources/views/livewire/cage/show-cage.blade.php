@@ -55,15 +55,14 @@
                   <div class="mt-8 border-t border-gray-200 pt-5">
                     <div class="flex justify-end">
                       <span class="inline-flex rounded-md shadow-sm">
-                        <a href="{{route('farms.index')}}" class="py-2 px-4 border border-gray-300 rounded-md text-sm leading-5 font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800 transition duration-150 ease-in-out">
-                          Cancel
-                        </a>
+                        <x-secondary-button wire:click="" wire:loading.attr="disabled">
+                           cancel
+                         </x-secondary-button>
                       </span>
                       <span class="ml-3 inline-flex rounded-md shadow-sm">
-                        <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-teal-600 hover:bg-teal-500 focus:outline-none focus:border-teal-700 focus:shadow-outline-teal active:bg-teal-700 transition duration-150 ease-in-out">
+                        <x-primary-button  wire:click="validateTransfer" wire:loading.attr="disabled">
                           Transfer to {{$cage->cage_no}}
-                        </button>
-                      </span>
+                        </x-primary-button>
                     </div>
                   </div>
                 </form>
@@ -89,4 +88,28 @@
         </div>
       </div>
     </div>
+
+<!-- Add Rabbit Confirmation Modal -->
+@if($confirmingRabbitTransfer === true)
+<x-confirmation-modal>
+    <x-slot name="title">
+        Confirm Transfer of the rabbit {{$selectRabbit->rabbit_no}} to {{$cage->cage_no}}
+    </x-slot>
+
+    <x-slot name="content">
+        Are you sure you want to transfet this rabbit? Once a rabbit is transfered, all of its resources and data will be permanently updated and altered.
+    </x-slot>
+
+    <x-slot name="footer">
+        <x-secondary-button wire:click="$toggle('confirmingRabbitTransfer')" wire:loading.attr="disabled">
+            Nevermind
+        </x-secondary-button>
+
+        <x-danger-button class="ml-2" wire:click="handleTransfer" wire:loading.attr="disabled">
+            Confirm Transfer
+        </x-danger-button>
+    </x-slot>
+</x-confirmation-modal>
+@endif
 </div>
+
