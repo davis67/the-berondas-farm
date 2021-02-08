@@ -5,10 +5,10 @@ namespace App\Http\Livewire\Cage;
 use App\Models\Cage;
 use App\Models\Rabbit;
 use Livewire\Component;
+use App\Rules\checkFourMonthsOldRabbitInCage;
 
 class ShowCage extends Component
 {
-<
     /**
      * The cage instance.
      *
@@ -44,13 +44,11 @@ class ShowCage extends Component
      *
      * @return void
      */
-
     public function mount(Cage $cage)
     {
         $this->cage = $cage->loadMissing('rabbits');
     }
 
-<
     /**
      * Validate the transfer of the rabbit from one cage to another.
      *
@@ -59,7 +57,7 @@ class ShowCage extends Component
     public function validateTransfer()
     {
         $this->validate([
-            'rabbit' => ['required'],
+            'rabbit' => ['required', new checkFourMonthsOldRabbitInCage($this->cage)],
         ]);
 
         $this->confirmingRabbitTransfer = true;
@@ -72,11 +70,7 @@ class ShowCage extends Component
      */
     public function handleTransfer()
     {
-
-        $this->cage->rabbits()->attach($this->rabbit, [
-            'date_of_transfer' => now(),
-            'is_occupant' => true,
-        ]);
+        $this->cage->transferRabbit($this->rabbit);
 
         $this->confirmingRabbitTransfer = false;
 
@@ -92,7 +86,6 @@ class ShowCage extends Component
      *
      * @return void
      */
-
     public function updatingRabbit($value)
     {
         if (! empty($value)) {
@@ -100,17 +93,15 @@ class ShowCage extends Component
         }
     }
 
-
     /**
      * Render the component.
      *
      * @return \Illuminate\View\View
      */
-
     public function render()
     {
         return view('livewire.cage.show-cage', [
-            'rabbits' => Rabbit::all(),
+            'rabbits' => Rabbit::latest()->get(),
         ])->extends('layouts.app');
     }
 }

@@ -39,4 +39,29 @@ class Cage extends Model
     {
         return $this->belongsToMany(Rabbit::class)->withPivot('date_of_transfer', 'is_occupant');
     }
+
+    /**
+     * Transfer Rabbit to the cage.
+     *
+     * @return bool
+     */
+    public function transferRabbit($rabbit)
+    {
+        return $this->rabbits()->attach($rabbit, [
+            'date_of_transfer' => now(),
+            'is_occupant' => true,
+        ]);
+    }
+
+    /**
+     * Get 4months old male rabbit.
+     *
+     * @return bool
+     */
+    public function checkFourMonthsOldRabbitInCage()
+    {
+        return $this->rabbits()->pluck('age_number')->contains(function ($key, $value) {
+            return $value >= 120;
+        });
+    }
 }
