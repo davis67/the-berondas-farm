@@ -25,6 +25,7 @@ class RabbitFactory extends Factory
             'breed' => $this->faker->name,
             'gender' => 'female',
             'status' => 'alive',
+            'date_of_birth' => now()->addDays(-(mt_rand(10, 100))),
         ];
     }
 }

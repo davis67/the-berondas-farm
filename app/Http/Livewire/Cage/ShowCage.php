@@ -8,7 +8,6 @@ use Livewire\Component;
 
 class ShowCage extends Component
 {
-<
     /**
      * The cage instance.
      *
@@ -38,19 +37,26 @@ class ShowCage extends Component
     public $rabbit;
 
     /**
+     * Rules.
+     *
+     * @var array
+     */
+    protected $rules = [
+        'rabbit' => 'required',
+    ];
+
+    /**
      * Mount the component.
      *
      * @param mixed $cage
      *
      * @return void
      */
-
     public function mount(Cage $cage)
     {
         $this->cage = $cage->loadMissing('rabbits');
     }
 
-<
     /**
      * Validate the transfer of the rabbit from one cage to another.
      *
@@ -58,9 +64,17 @@ class ShowCage extends Component
      */
     public function validateTransfer()
     {
-        $this->validate([
-            'rabbit' => ['required'],
-        ]);
+        //check for for the male rabbit and older than 4months old
+        $validateRabbit = Rabbit::findOrFail($this->rabbit);
+        if ($validateRabbit->isMale()) {
+            //check if the age of the rabbits in the cage
+            //validate
+            //check if the rabbits are less than one month
+            //validate
+            $this->addError('rabbit', 'Something Here');
+        }
+
+        $this->validate();
 
         $this->confirmingRabbitTransfer = true;
     }
@@ -72,11 +86,7 @@ class ShowCage extends Component
      */
     public function handleTransfer()
     {
-
-        $this->cage->rabbits()->attach($this->rabbit, [
-            'date_of_transfer' => now(),
-            'is_occupant' => true,
-        ]);
+        $this->cage->transferRabbit($this->rabbit);
 
         $this->confirmingRabbitTransfer = false;
 
@@ -92,7 +102,6 @@ class ShowCage extends Component
      *
      * @return void
      */
-
     public function updatingRabbit($value)
     {
         if (! empty($value)) {
@@ -100,13 +109,11 @@ class ShowCage extends Component
         }
     }
 
-
     /**
      * Render the component.
      *
      * @return \Illuminate\View\View
      */
-
     public function render()
     {
         return view('livewire.cage.show-cage', [
