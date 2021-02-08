@@ -8,6 +8,7 @@ use Livewire\Component;
 
 class ShowCage extends Component
 {
+<
     /**
      * The cage instance.
      *
@@ -43,11 +44,13 @@ class ShowCage extends Component
      *
      * @return void
      */
+
     public function mount(Cage $cage)
     {
         $this->cage = $cage->loadMissing('rabbits');
     }
 
+<
     /**
      * Validate the transfer of the rabbit from one cage to another.
      *
@@ -69,6 +72,7 @@ class ShowCage extends Component
      */
     public function handleTransfer()
     {
+
         $this->cage->rabbits()->attach($this->rabbit, [
             'date_of_transfer' => now(),
             'is_occupant' => true,
@@ -88,6 +92,7 @@ class ShowCage extends Component
      *
      * @return void
      */
+
     public function updatingRabbit($value)
     {
         if (! empty($value)) {
@@ -95,11 +100,13 @@ class ShowCage extends Component
         }
     }
 
+
     /**
      * Render the component.
      *
      * @return \Illuminate\View\View
      */
+
     public function render()
     {
         return view('livewire.cage.show-cage', [

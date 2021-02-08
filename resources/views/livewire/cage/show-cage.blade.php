@@ -63,7 +63,6 @@
                         <x-primary-button  wire:click="validateTransfer" wire:loading.attr="disabled">
                           Transfer to {{$cage->cage_no}}
                         </x-primary-button>
-                      </span>
                     </div>
                   </div>
                 </form>
@@ -89,6 +88,7 @@
         </div>
       </div>
     </div>
+
 <!-- Add Rabbit Confirmation Modal -->
 @if($confirmingRabbitTransfer === true)
 <x-confirmation-modal>
