@@ -50,7 +50,7 @@ class Rabbit extends Model
      *
      * @return string
      */
-    public function ageNumber()
+    public function getAgeNumberAttribute()
     {
         return Carbon::parse($this->date_of_birth)->diffInDays(Carbon::now(), false);
     }
@@ -73,15 +73,5 @@ class Rabbit extends Model
     public function isFemale()
     {
         return 'female' == $this->gender;
-    }
-
-    /**
-     * Get 4months old male rabbit.
-     *
-     * @return string
-     */
-    public function checkFourMonthsMaleRabbit()
-    {
-        return $this->isMale() && $this->age() >= 120;
     }
 }

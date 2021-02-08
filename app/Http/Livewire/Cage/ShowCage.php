@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Cage;
 use App\Models\Cage;
 use App\Models\Rabbit;
 use Livewire\Component;
+use App\Rules\checkFourMonthsOldRabbitInCage;
 
 class ShowCage extends Component
 {
@@ -37,15 +38,6 @@ class ShowCage extends Component
     public $rabbit;
 
     /**
-     * Rules.
-     *
-     * @var array
-     */
-    protected $rules = [
-        'rabbit' => 'required',
-    ];
-
-    /**
      * Mount the component.
      *
      * @param mixed $cage
@@ -64,17 +56,9 @@ class ShowCage extends Component
      */
     public function validateTransfer()
     {
-        //check for for the male rabbit and older than 4months old
-        $validateRabbit = Rabbit::findOrFail($this->rabbit);
-        if ($validateRabbit->isMale()) {
-            //check if the age of the rabbits in the cage
-            //validate
-            //check if the rabbits are less than one month
-            //validate
-            $this->addError('rabbit', 'Something Here');
-        }
-
-        $this->validate();
+        $this->validate([
+            'rabbit' => ['required', new checkFourMonthsOldRabbitInCage($this->cage)],
+        ]);
 
         $this->confirmingRabbitTransfer = true;
     }
@@ -117,7 +101,7 @@ class ShowCage extends Component
     public function render()
     {
         return view('livewire.cage.show-cage', [
-            'rabbits' => Rabbit::all(),
+            'rabbits' => Rabbit::latest()->get(),
         ])->extends('layouts.app');
     }
 }
