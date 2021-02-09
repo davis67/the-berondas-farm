@@ -37,4 +37,14 @@ class Servicing extends Model
     {
         return Rabbit::findOrFail($this->mother_id);
     }
+
+    /**
+     * Age number of the rabbit.
+     *
+     * @return string
+     */
+    public function getGestationPeriodAttribute()
+    {
+        return Carbon::now()->diffInDays(Carbon::parse($this->expected_date_of_birth), false);
+    }
 }

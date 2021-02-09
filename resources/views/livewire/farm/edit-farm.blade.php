@@ -5,6 +5,9 @@
     <div class="block">
       <div class="mx-auto text-lg leading-6 font-medium text-cool-gray-900">
         <div class="flex flex-col mt-2">
+           <div class="py-4">
+              <a href="{{route('farms.rabbits', $farm->id)}}" class="underline font-bold leading-6 text-md uppercase">Serve Rabbit to the Male</a>
+            </div>
           <div class="align-middle min-w-full  shadow overflow-hidden sm:rounded-lg">
 
             <form class="bg-white py-3 px-6" wire:submit.prevent="updateFarm">
@@ -99,9 +102,7 @@
                   </div>
               </div>
             </form>
-             <div>
-              <a href="{{route('farms.rabbits', $farm->id)}}">Serve Rabbits</a>
-            </div>
+
           </div>
         </div>
       </div>
