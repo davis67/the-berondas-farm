@@ -39,9 +39,17 @@
                             @enderror
                           </div>
                         </div>
+                              {{$cage->rabbits->pluck('age_number')->contains(function($key, $value){
+                                return $value >= 120;
+                            })}}
                         @if($selectRabbit)
+
                         <div class="p-4 flex-1 flex shadow-sm border w-full my-4 border-gray-200">
                             <div class=" flex flex-col">
+
+                              <span>Date of Birth: {{$selectRabbit->date_of_birth}}</span>
+                              <span>Age: {{$selectRabbit->age()}}</span>
+                              <span>Age: {{$selectRabbit->age_number}}</span>
                               <span>Rabbit No: {{$selectRabbit->rabbit_no}}</span>
                               <span>Breed: {{$selectRabbit->breed}}</span>
                               <span>Gender: {{$selectRabbit->gender}}</span>
