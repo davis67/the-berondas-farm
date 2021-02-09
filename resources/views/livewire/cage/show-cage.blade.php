@@ -40,9 +40,6 @@
                             @enderror
                           </div>
                         </div>
-                              {{$cage->rabbits->pluck('age_number')->contains(function($key, $value){
-                                return $value >= 120;
-                            })}}
                         @if($selectRabbit)
 
                         <div class="p-4 flex-1 flex shadow-sm border w-full my-4 border-gray-200">

@@ -12,6 +12,7 @@ use App\Http\Livewire\Batch\ShowBatch;
 use App\Http\Livewire\Rabbit\AddRabbit;
 use App\Http\Livewire\Batch\ViewBatches;
 use App\Http\Livewire\Farm\RegisterFarm;
+use App\Http\Livewire\Rabbit\ServeRabbit;
 use App\Http\Livewire\Dashboard\Dashboard;
 use App\Http\Livewire\Auth\Passwords\Email;
 use App\Http\Livewire\Auth\Passwords\Reset;
@@ -48,6 +49,7 @@ Route::middleware('auth')->group(function () {
     Route::get('farm/register', RegisterFarm::class)->name('farm.create');
     Route::get('farms', ViewFarms::class)->name('farms.index');
     Route::get('farms/{farm}', EditFarm::class)->name('farms.edit');
+    Route::get('farms/{farm}/rabbit-transfer', ServeRabbit::class)->name('farms.rabbits');
 
     Route::get('batches/create', AddBatch::class)->name('batches.create');
     Route::get('batches', ViewBatches::class)->name('batches.index');

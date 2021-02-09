@@ -13,6 +13,11 @@ class Batch extends Model
     use BelongsToFarm;
     use AddBatchNumber;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
     protected $fillable = ['date_of_construction', 'cost_of_construction', 'number_of_cages', 'expected_number_of_rabbits'];
 
     /**
