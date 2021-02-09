@@ -16,6 +16,7 @@ use App\Http\Livewire\Rabbit\ServeRabbit;
 use App\Http\Livewire\Dashboard\Dashboard;
 use App\Http\Livewire\Auth\Passwords\Email;
 use App\Http\Livewire\Auth\Passwords\Reset;
+use App\Http\Livewire\Expense\ViewExpenses;
 use App\Http\Livewire\Auth\Passwords\Confirm;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Livewire\Expense\RegisterExpenses;
@@ -62,5 +63,6 @@ Route::middleware('auth')->group(function () {
 
     Route::get('cages/{cage}', ShowCage::class)->name('cages.show');
 
-    Route::get('expenses', RegisterExpenses::class)->name('expenses.create');
+    Route::get('expenses/create', RegisterExpenses::class)->name('expenses.create');
+    Route::get('expenses', ViewExpenses::class)->name('expenses.index');
 });
