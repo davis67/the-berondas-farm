@@ -1,4 +1,5 @@
 @section('title', 'Add a new Rabbit')
+@section('header', 'Add a new Rabbit')
 <div class="mt-2">
     <!-- Add Batch Form -->
     <div class="block">

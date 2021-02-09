@@ -1,4 +1,5 @@
 @section('title', 'Batches')
+@section('header', 'Batches')
 <div class="mt-2">
     <div class="block">
       <div class="mx-auto text-lg leading-6 font-medium text-cool-gray-900">
