@@ -16,11 +16,16 @@
                     </div>
                     <div class="pr-4">
                         <div>
-                            <a href="" class="underline font-bold leading-6 text-md uppercase">Register a birth</a>
+                            <a href="{{route('rabbits.register-birth', $rabbit->id)}}" class="underline font-bold leading-6 text-md uppercase">Register a birth</a>
                         </div>
                     </div>
                 </div>
             @empty
+            <div class="w-full flex justify-between bg-white border border-gray-200 py-4 px-2 my-2">
+                <div>
+                    No Served Rabbits at the moment...
+                </div>
+            </div>
             @endforelse
         </div>
         @endif

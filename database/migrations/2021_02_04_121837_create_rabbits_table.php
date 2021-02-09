@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 class CreateRabbitsTable extends Migration
 {
@@ -17,11 +17,10 @@ class CreateRabbitsTable extends Migration
             $table->id();
             $table->string('rabbit_no')->unique();
             $table->unsignedBigInteger('farm_id')->index();
-            $table->unsignedBigInteger('mother_id')->index()->nullable();
-            $table->unsignedBigInteger('father_id')->index()->nullable();
-            $table->string('breed');
-            $table->string('gender');
-            $table->string('status');
+            $table->unsignedBigInteger('servicing_id')->index()->nullable();
+            $table->string('breed')->nullable();
+            $table->string('gender')->nullable();
+            $table->string('status')->default('alive');
             $table->date('date_of_birth')->nullable();
             $table->timestamps();
         });

@@ -21,6 +21,7 @@ class CreateServicingsTable extends Migration
             $table->date('date_of_servicing');
             $table->date('expected_date_of_birth');
             $table->date('actual_date_of_birth')->nullable();
+            $table->integer('number_of_kits')->nullable();
             $table->timestamps();
         });
     }

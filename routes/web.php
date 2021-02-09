@@ -18,6 +18,8 @@ use App\Http\Livewire\Auth\Passwords\Email;
 use App\Http\Livewire\Auth\Passwords\Reset;
 use App\Http\Livewire\Auth\Passwords\Confirm;
 use App\Http\Controllers\Auth\LogoutController;
+use App\Http\Livewire\Expense\RegisterExpenses;
+use App\Http\Livewire\Rabbit\RegisterRabbitsBirth;
 use App\Http\Controllers\Auth\EmailVerificationController;
 
 Route::middleware('guest')->group(function () {
@@ -56,6 +58,9 @@ Route::middleware('auth')->group(function () {
     Route::get('batches/{batch}', ShowBatch::class)->name('batches.show');
 
     Route::get('rabbits/create', AddRabbit::class)->name('rabbits.create');
+    Route::get('rabbits/servicing/{service}/register-rabbit-birth', RegisterRabbitsBirth::class)->name('rabbits.register-birth');
 
     Route::get('cages/{cage}', ShowCage::class)->name('cages.show');
+
+    Route::get('expenses', RegisterExpenses::class)->name('expenses.create');
 });

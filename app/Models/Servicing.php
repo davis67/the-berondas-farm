@@ -17,7 +17,7 @@ class Servicing extends Model
      *
      * @var array
      */
-    protected $fillable = ['mother_id', 'father_id', 'date_of_servicing', 'expected_date_of_birth', 'actual_date_of_birth'];
+    protected $fillable = ['mother_id', 'father_id', 'date_of_servicing', 'expected_date_of_birth', 'actual_date_of_birth', 'number_of_kits'];
 
     /**
      * The "booted" method of the model.

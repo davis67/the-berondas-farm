@@ -19,7 +19,7 @@ class Rabbit extends Model
      *
      * @var array
      */
-    protected $fillable = ['breed', 'date_of_birth', 'status', 'gender', 'rabbit_no', 'farm_id'];
+    protected $fillable = ['breed', 'date_of_birth', 'status', 'gender', 'rabbit_no', 'farm_id', 'servicing_id'];
 
     /**
      * The attributes that should be cast to native types.
