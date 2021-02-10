@@ -57,16 +57,4 @@ class Cage extends Model
             'is_occupant' => true,
         ]);
     }
-
-    /**
-     * Get 4months old male rabbit.
-     *
-     * @return bool
-     */
-    public function checkFourMonthsOldRabbitInCage()
-    {
-        return $this->rabbits()->pluck('age_number')->contains(function ($key, $value) {
-            return $value >= 120;
-        });
-    }
 }
