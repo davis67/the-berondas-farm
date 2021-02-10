@@ -12,11 +12,15 @@ use App\Http\Livewire\Batch\ShowBatch;
 use App\Http\Livewire\Rabbit\AddRabbit;
 use App\Http\Livewire\Batch\ViewBatches;
 use App\Http\Livewire\Farm\RegisterFarm;
+use App\Http\Livewire\Rabbit\ServeRabbit;
 use App\Http\Livewire\Dashboard\Dashboard;
 use App\Http\Livewire\Auth\Passwords\Email;
 use App\Http\Livewire\Auth\Passwords\Reset;
+use App\Http\Livewire\Expense\ViewExpenses;
 use App\Http\Livewire\Auth\Passwords\Confirm;
 use App\Http\Controllers\Auth\LogoutController;
+use App\Http\Livewire\Expense\RegisterExpenses;
+use App\Http\Livewire\Rabbit\RegisterRabbitsBirth;
 use App\Http\Controllers\Auth\EmailVerificationController;
 
 Route::middleware('guest')->group(function () {
@@ -48,12 +52,17 @@ Route::middleware('auth')->group(function () {
     Route::get('farm/register', RegisterFarm::class)->name('farm.create');
     Route::get('farms', ViewFarms::class)->name('farms.index');
     Route::get('farms/{farm}', EditFarm::class)->name('farms.edit');
+    Route::get('farms/{farm}/rabbit-transfer', ServeRabbit::class)->name('farms.rabbits');
 
     Route::get('batches/create', AddBatch::class)->name('batches.create');
     Route::get('batches', ViewBatches::class)->name('batches.index');
     Route::get('batches/{batch}', ShowBatch::class)->name('batches.show');
 
     Route::get('rabbits/create', AddRabbit::class)->name('rabbits.create');
+    Route::get('rabbits/servicing/{service}/register-rabbit-birth', RegisterRabbitsBirth::class)->name('rabbits.register-birth');
 
     Route::get('cages/{cage}', ShowCage::class)->name('cages.show');
+
+    Route::get('expenses/create', RegisterExpenses::class)->name('expenses.create');
+    Route::get('expenses', ViewExpenses::class)->name('expenses.index');
 });

@@ -1,4 +1,5 @@
 @section('title', 'Register a new Farm')
+@section('header', 'Register a new Farm')
 <div class="mt-2">
     <!-- Add Customer Form -->
     <div class="block">

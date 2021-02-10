@@ -32,6 +32,8 @@ class AddBatch extends Component
             'number_of_cages' => $this->number_of_cages,
             'expected_number_of_rabbits' => $this->expected_number_of_rabbits,
         ]);
+
+        return redirect(route('batches.index'));
     }
 
     public function render()

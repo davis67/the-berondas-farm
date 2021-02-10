@@ -33,6 +33,11 @@ class AddRabbit extends Component
         ]);
     }
 
+    /**
+     * Render the component.
+     *
+     * @return \Illuminate\View\View
+     */
     public function render()
     {
         return view('livewire.rabbit.add-rabbit');

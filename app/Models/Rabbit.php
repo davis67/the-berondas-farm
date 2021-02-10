@@ -14,7 +14,12 @@ class Rabbit extends Model
     use GenerateRabbitNumber;
     use BelongsToFarm;
 
-    protected $fillable = ['breed', 'date_of_birth', 'status', 'gender', 'rabbit_no', 'farm_id'];
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['breed', 'date_of_birth', 'status', 'gender', 'rabbit_no', 'farm_id', 'servicing_id'];
 
     /**
      * The attributes that should be cast to native types.

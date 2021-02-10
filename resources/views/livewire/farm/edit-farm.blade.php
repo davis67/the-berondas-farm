@@ -1,9 +1,13 @@
 @section('title', 'Edit a {{$form->name}}')
+@section('header', 'Edit a {{$farm->name}}')
 <div class="mt-2">
     <!-- Edit Customer Form -->
     <div class="block">
       <div class="mx-auto text-lg leading-6 font-medium text-cool-gray-900">
         <div class="flex flex-col mt-2">
+           <div class="py-4">
+              <a href="{{route('farms.rabbits', $farm->id)}}" class="underline font-bold leading-6 text-md uppercase">Serve Rabbit to the Male</a>
+            </div>
           <div class="align-middle min-w-full  shadow overflow-hidden sm:rounded-lg">
 
             <form class="bg-white py-3 px-6" wire:submit.prevent="updateFarm">
@@ -85,17 +89,17 @@
               </div>
               <div class="mt-8 border-t border-gray-200 pt-5">
                 <div class="flex justify-end">
-                  <span class="inline-flex rounded-md shadow-sm">
-                    <a href="{{route('farms.index')}}" class="py-2 px-4 border border-gray-300 rounded-md text-sm leading-5 font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800 transition duration-150 ease-in-out">
-                      Cancel
-                    </a>
-                  </span>
-                  <span class="ml-3 inline-flex rounded-md shadow-sm">
-                    <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-teal-600 hover:bg-teal-500 focus:outline-none focus:border-teal-700 focus:shadow-outline-teal active:bg-teal-700 transition duration-150 ease-in-out">
-                      Update
-                    </button>
-                  </span>
-                </div>
+                      <span class="inline-flex rounded-md shadow-sm">
+                        <x-secondary-button wire:click="" wire:loading.attr="disabled">
+                           cancel
+                         </x-secondary-button>
+                      </span>
+                      <span class="ml-3 inline-flex rounded-md shadow-sm">
+                        <x-primary-button  type="submit">
+                          Update
+                        </x-primary-button>
+                      </span>
+                  </div>
               </div>
             </form>
 
@@ -104,3 +108,4 @@
       </div>
     </div>
 </div>
+

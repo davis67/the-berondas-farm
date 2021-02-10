@@ -1,4 +1,5 @@
 @section('title', 'Show Cage')
+@section('header', 'Show Cage')
 <div class="mt-2">
     <div class="block">
       <div class="mx-auto text-lg leading-6 font-medium text-cool-gray-900">
@@ -39,9 +40,6 @@
                             @enderror
                           </div>
                         </div>
-                              {{$cage->rabbits->pluck('age_number')->contains(function($key, $value){
-                                return $value >= 120;
-                            })}}
                         @if($selectRabbit)
 
                         <div class="p-4 flex-1 flex shadow-sm border w-full my-4 border-gray-200">
@@ -97,27 +95,27 @@
       </div>
     </div>
 
-<!-- Add Rabbit Confirmation Modal -->
-@if($confirmingRabbitTransfer === true)
-<x-confirmation-modal>
-    <x-slot name="title">
-        Confirm Transfer of the rabbit {{$selectRabbit->rabbit_no}} to {{$cage->cage_no}}
-    </x-slot>
+    <!-- Add Rabbit Confirmation Modal -->
+    @if($confirmingRabbitTransfer === true)
+    <x-confirmation-modal>
+        <x-slot name="title">
+            Confirm Transfer of the rabbit {{$selectRabbit->rabbit_no}} to {{$cage->cage_no}}
+        </x-slot>
 
-    <x-slot name="content">
-        Are you sure you want to transfet this rabbit? Once a rabbit is transfered, all of its resources and data will be permanently updated and altered.
-    </x-slot>
+        <x-slot name="content">
+            Are you sure you want to transfet this rabbit? Once a rabbit is transfered, all of its resources and data will be permanently updated and altered.
+        </x-slot>
 
-    <x-slot name="footer">
-        <x-secondary-button wire:click="$toggle('confirmingRabbitTransfer')" wire:loading.attr="disabled">
-            Nevermind
-        </x-secondary-button>
+        <x-slot name="footer">
+            <x-secondary-button wire:click="$toggle('confirmingRabbitTransfer')" wire:loading.attr="disabled">
+                Nevermind
+            </x-secondary-button>
 
-        <x-danger-button class="ml-2" wire:click="handleTransfer" wire:loading.attr="disabled">
-            Confirm Transfer
-        </x-danger-button>
-    </x-slot>
-</x-confirmation-modal>
-@endif
+            <x-danger-button class="ml-2" wire:click="handleTransfer" wire:loading.attr="disabled">
+                Confirm Transfer
+            </x-danger-button>
+        </x-slot>
+    </x-confirmation-modal>
+    @endif
 </div>
 

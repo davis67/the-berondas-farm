@@ -8,18 +8,47 @@ use Livewire\Component;
 class EditFarm extends Component
 {
     /**
-     * @var
+     * Farm Istance.
+     *
+     * @var mixed
      */
     public $farm;
 
+    /**
+     * Name.
+     *
+     * @var string
+     */
     public $name;
 
+    /**
+     * Contacts.
+     *
+     * @var string
+     */
     public $contacts;
 
+    /**
+     * Address.
+     *
+     * @var string
+     */
     public $address;
 
+    /**
+     * Is active.
+     *
+     * @var bool
+     */
     public $is_active;
 
+    /**
+     * Mount the component.
+     *
+     * @param mixed $farm
+     *
+     * @return void
+     */
     public function mount(Farm $farm)
     {
         $this->farm = $farm;
@@ -29,6 +58,11 @@ class EditFarm extends Component
         $this->is_active = $farm->is_active;
     }
 
+    /**
+     * Updating the Farm resource.
+     *
+     * @return void
+     */
     public function updateFarm()
     {
         $this->validate([
@@ -37,16 +71,19 @@ class EditFarm extends Component
             'address' => ['required'],
         ]);
 
-        $data = [
+        $this->farm->update([
             'name' => $this->name,
             'contacts' => $this->contacts,
             'address' => $this->address,
             'is_active' => (bool) $this->is_active,
-         ];
-
-        $this->farm->update($data);
+        ]);
     }
 
+    /**
+     * Render the component.
+     *
+     * @return \Illuminate\View\View
+     */
     public function render()
     {
         return view('livewire.farm.edit-farm')->extends('layouts.app');
