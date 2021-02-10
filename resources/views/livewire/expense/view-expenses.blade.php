@@ -1,4 +1,4 @@
-@section('title', 'Expenses')
+ @section('title', 'Expenses')
 @section('header', 'Expenses')
 <div class="mt-1 space-y-4">
     <div class="bg-white rounded-none border border-cool-gray-200">
@@ -21,7 +21,7 @@
                                 </dt>
                                 <dd>
                                     <div class="text-lg leading-7 font-medium text-cool-gray-900">
-                                        expenses
+                                       shs {{$expenses->pluck('amount')->sum()}}
                                     </div>
                                 </dd>
                             </dl>
@@ -30,9 +30,9 @@
                 </div>
                 <div class="bg-cool-gray-50 px-5 py-3">
                     <div class="text-sm leading-5">
-                        <a href=""
+                        <a href="{{route('expenses.create')}}"
                             class="font-medium text-teal-600 hover:text-teal-900 transition ease-in-out duration-150">
-                            View all
+                            Add New
                         </a>
                     </div>
                 </div>
@@ -45,7 +45,12 @@
     <div class="bg-white border border-cool-gray-200  sm:px-6 lg:px-8">
         <div class="w-full">
             <div class="py-2 w-3/4 w-full flex space-x-4">
-                <x-input.text placeholder="Search expenses ..." wire:model="filters.search" />
+                <select id="search" wire:model="search" class="form-select px-3 py-3 block w-full rounded-none border transition duration-150 ease-in-out sm:text-sm sm:leading-5">
+                    <option value="" >Select Expense by type ...</option>
+                    @foreach($expense_types as $expense_type)
+                        <option value="{{$expense_type->id}}">{{$expense_type->name}}</option>
+                    @endforeach
+                </select>
                 <x-button.link wire:click="$toggle('showFilters')">@if($showFilters) Hide @endif Advanced Search ...</x-button.link>
             </div>
         </div>
@@ -57,11 +62,11 @@
 
                <div class="w-1/2 pl-2 space-y-4">
                    <x-input.group inline for="filter-date-min" label="Minimum Date">
-                       <x-input.date type="date" wire:model="filters.date-min" id="filter-date-min" placeholder="MM/DD/YYYY" />
+                       <x-input.date type="date" wire:model.lazy="date_min" id="date_min" placeholder="MM/DD/YYYY" />
                    </x-input.group>
 
                    <x-input.group inline for="filter-date-max" label="Maximum Date">
-                       <x-input.date type="date" wire:model="filters.date-max" id="filter-date-max" placeholder="MM/DD/YYYY" />
+                       <x-input.date type="date" wire:model.lazy="date_max" id="date_max" placeholder="MM/DD/YYYY" />
                    </x-input.group>
 
                    <x-button.link wire:click="resetFilters" class="absolute right-0 bottom-0 p-4">Reset Filters</x-button.link>
@@ -83,13 +88,13 @@
                     @forelse($expenses as $expense)
                     <x-table.row wire:loading.class="opacity-50">
                         <x-table.cell>
-                            {{ $expense->expense_type_id }}
+                            {{ $expense->category->name }}
                         </x-table.cell>
                         <x-table.cell>
                             shs {{ $expense->amount }}
                         </x-table.cell>
                         <x-table.cell>
-                            {{ $expense->created_at }}
+                            {{ $expense->date_for_humans }}
                         </x-table.cell>
                     </x-table.row>
                     @empty

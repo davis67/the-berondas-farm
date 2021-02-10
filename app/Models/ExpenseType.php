@@ -15,4 +15,14 @@ class ExpenseType extends Model
      * @var array
      */
     protected $fillable = ['name', 'description'];
+
+    /**
+     * Has Many.
+     *
+     * @return [type] [description]
+     */
+    public function expenses()
+    {
+        return $this->hasMany(Expense::class);
+    }
 }

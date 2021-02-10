@@ -48,6 +48,8 @@ class RegisterExpenses extends Component
             'amount' => $this->amount,
             'farm_id' => auth()->user()->farm_id,
         ]);
+
+        return redirect(route('expenses.index'));
     }
 
     /**

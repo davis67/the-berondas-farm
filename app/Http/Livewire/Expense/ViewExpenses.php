@@ -2,13 +2,22 @@
 
 namespace App\Http\Livewire\Expense;
 
+use Carbon\Carbon;
 use App\Models\Expense;
 use Livewire\Component;
+use App\Models\ExpenseType;
 use Livewire\WithPagination;
 
 class ViewExpenses extends Component
 {
     use WithPagination;
+
+    /**
+     * Search.
+     *
+     * @var string
+     */
+    public $search = '';
 
     /**
      * The Sort.
@@ -39,15 +48,18 @@ class ViewExpenses extends Component
     public $selected = [];
 
     /**
-     * The Filters.
+     * Date min.
      *
      * @var array
      */
-    public $filters = [
-        'search' => '',
-        'date-min' => null,
-        'date-max' => null,
-    ];
+    public $date_min;
+
+    /**
+     * Date max.
+     *
+     * @var array
+     */
+    public $date_max;
 
     /**
      * Query String.
@@ -79,17 +91,7 @@ class ViewExpenses extends Component
      */
     public function resetFilters()
     {
-        $this->reset('filters');
-    }
-
-    /**
-     * Update the reset filters.
-     *
-     * @var void
-     */
-    public function updatedFIlters()
-    {
-        $this->resetPage();
+        $this->reset(['date_max', 'date_min']);
     }
 
     /**
@@ -101,12 +103,13 @@ class ViewExpenses extends Component
     {
         return view('livewire.expense.view-expenses', [
             'expenses' => Expense::query()
-                ->when($this->filters['date-min'], fn ($query, $date) => $query->where('created_at', '>=', Carbon::parse($date)))
-                ->when($this->filters['date-max'], fn ($query, $date) => $query->where('created_at', '<=', Carbon::parse($date)))
-                ->search('amount', $this->filters['search'])
+                ->with('category')
+                ->when($this->search, fn ($query, $value) => $query->where('expense_type_id', $value))
+                 ->when($this->date_min, fn ($query, $date) => $query->where('created_at', '>=', Carbon::parse($date)))
+                ->when($this->date_max, fn ($query, $date) => $query->where('created_at', '<=', Carbon::parse($date)))
                 ->orderBy($this->sortField, $this->sortDirection)
                 ->paginate(10),
-            'all_expenses' => Expense::count(),
+            'expense_types' => ExpenseType::all(),
         ])->extends('layouts.app');
     }
 }
