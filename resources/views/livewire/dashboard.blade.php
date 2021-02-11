@@ -2,7 +2,12 @@
 @section('header', 'Home')
 <div>
     <div>
-        <a href="{{route('rabbits.create')}}" class="underline font-bold leading-6 text-md uppercase">Add rabbits to the farm</a>
+        <div>
+            <a href="{{route('rabbits.create')}}" class="underline font-bold leading-6 text-md uppercase">Add rabbits to the farm</a>
+        </div>
+        <div class="my-4">
+            <a href="{{route('register')}}" class="underline font-bold leading-6 text-md uppercase">Add New User to the Farm</a>
+        </div>
         @if($rabbits)
         <div class="my-8">
             <div class="uppercase text-sm font-bold">Served Rabbits</div>

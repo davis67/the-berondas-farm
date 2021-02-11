@@ -25,8 +25,6 @@ use App\Http\Controllers\Auth\EmailVerificationController;
 
 Route::middleware('guest')->group(function () {
     Route::get('login', Login::class)->name('login');
-
-    Route::get('register', Register::class)->name('register');
 });
 
 Route::get('password/reset', Email::class)->name('password.request');
@@ -43,6 +41,8 @@ Route::middleware('auth:sanctum')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
+    Route::get('register', Register::class)->name('register');
+
     Route::get('/', Dashboard::class)->name('home');
     Route::get('email/verify/{id}/{hash}', EmailVerificationController::class)
         ->middleware('signed')
