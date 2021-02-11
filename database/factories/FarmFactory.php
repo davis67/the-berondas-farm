@@ -22,7 +22,9 @@ class FarmFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'name' => $this->faker->name,
+            'contacts' => "{$this->faker->phoneNumber} / {$this->faker->phoneNumber}",
+            'address' => $this->faker->address,
         ];
     }
 }

@@ -22,7 +22,10 @@ class BatchFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'date_of_construction' => now()->addDays(-4),
+            'cost_of_construction' => 56000,
+            'number_of_cages' => 10,
+            'expected_number_of_rabbits' => 50,
         ];
     }
 }

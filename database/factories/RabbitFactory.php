@@ -22,7 +22,10 @@ class RabbitFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'breed' => $this->faker->name,
+            'gender' => 'female',
+            'status' => 'alive',
+            'date_of_birth' => now()->addDays(-(mt_rand(10, 100))),
         ];
     }
 }
