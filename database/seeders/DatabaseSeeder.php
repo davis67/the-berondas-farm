@@ -44,10 +44,10 @@ class DatabaseSeeder extends Seeder
         foreach ($expenseTypes as $ExpenseType) {
             ExpenseType::create($ExpenseType);
         }
-        User::factory(5)->create();
-        Farm::factory(15)->create();
-        Rabbit::factory(15)->create([
-            'farm_id' => 1,
-        ]);
+        // User::factory(5)->create();
+        // Farm::factory(15)->create();
+        // Rabbit::factory(15)->create([
+        //     'farm_id' => 1,
+        // ]);
     }
 }
