@@ -17,6 +17,8 @@ use App\Http\Livewire\Dashboard\Dashboard;
 use App\Http\Livewire\Auth\Passwords\Email;
 use App\Http\Livewire\Auth\Passwords\Reset;
 use App\Http\Livewire\Expense\ViewExpenses;
+use App\Http\Livewire\Rabbit\EditBreedTypes;
+use App\Http\Livewire\Rabbit\ViewBreedTypes;
 use App\Http\Livewire\Auth\Passwords\Confirm;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Livewire\Expense\RegisterExpenses;
@@ -61,7 +63,9 @@ Route::middleware('auth')->group(function () {
 
     Route::get('rabbits/create', AddRabbit::class)->name('rabbits.create');
     Route::get('rabbits/servicing/{service}/register-rabbit-birth', RegisterRabbitsBirth::class)->name('rabbits.register-birth');
-    Route::get('rabbits-types/create', RegisterBreedTypes::class)->name('rabbits-types.create');
+    Route::get('breed-types/create', RegisterBreedTypes::class)->name('breed-types.create');
+    Route::get('breed-types/index', ViewBreedTypes::class)->name('breed-types.index');
+    Route::get('breed-types/{rabbit-type}/edit', EditBreedTypes::class)->name('breed-types.edit');
 
     Route::get('cages/{cage}', ShowCage::class)->name('cages.show');
 
