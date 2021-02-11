@@ -47,4 +47,14 @@ class Servicing extends Model
     {
         return Carbon::now()->diffInDays(Carbon::parse($this->expected_date_of_birth), false);
     }
+
+    /**
+     * Age number of the rabbit.
+     *
+     * @return string
+     */
+    public function rabbit()
+    {
+        return $this->hasOne(Rabbit::class, 'servicing_id');
+    }
 }
