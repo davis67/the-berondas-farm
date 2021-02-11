@@ -20,6 +20,7 @@ use App\Http\Livewire\Expense\ViewExpenses;
 use App\Http\Livewire\Auth\Passwords\Confirm;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Livewire\Expense\RegisterExpenses;
+use App\Http\Livewire\Rabbit\RegisterBreedTypes;
 use App\Http\Livewire\Rabbit\RegisterRabbitsBirth;
 use App\Http\Controllers\Auth\EmailVerificationController;
 
@@ -60,6 +61,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('rabbits/create', AddRabbit::class)->name('rabbits.create');
     Route::get('rabbits/servicing/{service}/register-rabbit-birth', RegisterRabbitsBirth::class)->name('rabbits.register-birth');
+    Route::get('rabbits-types/create', RegisterBreedTypes::class)->name('rabbits-types.create');
 
     Route::get('cages/{cage}', ShowCage::class)->name('cages.show');
 

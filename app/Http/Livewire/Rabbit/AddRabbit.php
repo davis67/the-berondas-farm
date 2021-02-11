@@ -7,12 +7,32 @@ use Livewire\Component;
 
 class AddRabbit extends Component
 {
+    /**
+     * The Instance of Breed.
+     *
+     * @var mixed
+     */
     public $breed;
 
+    /**
+     * Date of Birth.
+     *
+     * @var date
+     */
     public $date_of_birth;
 
+    /**
+     * Gender.
+     *
+     * @var string
+     */
     public $gender;
 
+    /**
+     * Status.
+     *
+     * @var string
+     */
     public $status;
 
     public function addRabbit()
