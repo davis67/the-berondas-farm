@@ -38,6 +38,10 @@ class RegisterBreedTypes extends Component
             'description' => mb_strtolower($this->description),
             // 'farm_id' => auth()->user()->id,
         ]);
+
+        session()->flash('success', 'We have new breed_types in the farm.');
+
+        return redirect(route('breed-types.index'));
     }
 
     /**

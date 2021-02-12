@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Rabbit;
 
 use App\Models\Rabbit;
 use Livewire\Component;
+use App\Models\BreedType;
 
 class AddRabbit extends Component
 {

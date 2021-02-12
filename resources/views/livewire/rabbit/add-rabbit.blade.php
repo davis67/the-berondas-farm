@@ -70,6 +70,7 @@
                       <option value="alive" >Select the breed type</option>
                       @foreach($breeds as $breed)
                         <option value="{{$breed->id}}">{{$breed->name}}</option>
+                      @endforeach
                     </select>
                     @error('breed_id')
                         <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
@@ -81,14 +82,14 @@
               <div class="mt-8 border-t border-gray-200 pt-5">
                 <div class="flex justify-end">
                   <span class="inline-flex rounded-md shadow-sm">
-                    <a href="{{route('farms.index')}}" class="py-2 px-4 border border-gray-300 rounded-md text-sm leading-5 font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800 transition duration-150 ease-in-out">
+                    <x-primary-button >
                       Cancel
-                    </a>
+                    </x-primary-button>
                   </span>
                   <span class="ml-3 inline-flex rounded-md shadow-sm">
-                    <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-teal-600 hover:bg-teal-500 focus:outline-none focus:border-teal-700 focus:shadow-outline-teal active:bg-teal-700 transition duration-150 ease-in-out">
+                    <x-secondary-button type="submit">
                       Save
-                    </button>
+                    </x-secondary-button>
                   </span>
                 </div>
               </div>
