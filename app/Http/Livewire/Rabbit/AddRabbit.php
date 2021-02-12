@@ -60,6 +60,8 @@ class AddRabbit extends Component
      */
     public function render()
     {
-        return view('livewire.rabbit.add-rabbit');
+        return view('livewire.rabbit.add-rabbit', [
+            'breeds' =>
+        ]);
     }
 }

@@ -18,6 +18,7 @@ class CreateRabbitsTable extends Migration
             $table->string('rabbit_no')->unique();
             $table->unsignedBigInteger('farm_id')->index();
             $table->unsignedBigInteger('servicing_id')->index()->nullable();
+            $table->unsignedBigInteger('cage_id')->index()->nullable();
             $table->string('breed')->nullable();
             $table->string('gender')->nullable();
             $table->string('status')->default('alive');

@@ -2,11 +2,20 @@
 @section('header', 'Home')
 <div>
     <div>
+<<<<<<< HEAD
         <a href="{{route('rabbits.create')}}" class="underline font-bold leading-6 text-md uppercase">Add rabbits to the farm</a>
     </div>
     <div class="my-4">
         <a href="{{route('breed-types.index')}}" class="underline font-bold leading-6 text-md uppercase">View all Breed Types</a>
     </div>
+=======
+        <div>
+            <a href="{{route('rabbits.create')}}" class="underline font-bold leading-6 text-md uppercase">Add rabbits to the farm</a>
+        </div>
+        <div class="my-4">
+            <a href="{{route('register')}}" class="underline font-bold leading-6 text-md uppercase">Add New User to the Farm</a>
+        </div>
+>>>>>>> dev
         @if($rabbits)
         <div class="my-8">
             <div class="uppercase text-sm font-bold">Served Rabbits</div>
