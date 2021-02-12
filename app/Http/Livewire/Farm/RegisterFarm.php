@@ -25,7 +25,11 @@ class RegisterFarm extends Component
             'name' => $this->name,
             'contacts' => $this->contacts,
             'address' => $this->address,
-         ]);
+        ]);
+
+        session()->flash('success', 'Farm Info successfully added.');
+
+        return redirect(route('farms.index'));
     }
 
     public function render()

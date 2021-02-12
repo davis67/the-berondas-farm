@@ -11,8 +11,8 @@
                 <div class="flex w-full items-center">
                   <div class="space-y-2">
                     <div><span>{{$batch->batch_no}}</span></div>
-                    <div><span>{{$batch->number_of_cages}} Cages</span></div>
-                    <div><span>{{$batch->expected_number_of_rabbits}} Rabbits</span></div>
+                    <div><span>{{$batch->number_of_cages}} Doors</span></div>
+                    <div><span>{{$batch->expected_number_of_rabbits}} Exp Rabbits</span></div>
                   </div>
 
                 </div>

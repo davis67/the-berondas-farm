@@ -14,7 +14,7 @@ class ExpenseType extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'description'];
+    protected $fillable = ['name', 'description', 'farm_id'];
 
     /**
      * Has Many.

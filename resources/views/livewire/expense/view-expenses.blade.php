@@ -42,6 +42,10 @@
         </div>
     </div>
 
+    <div class="my-4">
+        <a href="{{route('expense-types.index')}}" class="underline font-bold leading-6 text-md uppercase">View all Expense Types</a>
+    </div>
+
     <div class="bg-white border border-cool-gray-200  sm:px-6 lg:px-8">
         <div class="w-full">
             <div class="py-2 w-3/4 w-full flex space-x-4">

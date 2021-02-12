@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Livewire\Rabbit;
+namespace App\Http\Livewire\Expense;
 
 use Livewire\Component;
-use App\Models\BreedType;
+use App\Models\ExpenseType;
 
-class RegisterBreedTypes extends Component
+class CreateExpenseTypes extends Component
 {
     /**
      * Name.
@@ -26,18 +26,22 @@ class RegisterBreedTypes extends Component
      *
      * @return void
      */
-    public function addBreedTypes()
+    public function addExpenseTypes()
     {
         $this->validate([
-            'name' => 'required|unique:breed_types',
+            'name' => 'required',
             'description' => 'nullable',
         ]);
 
-        BreedType::create([
+        ExpenseType::create([
             'name' => mb_strtolower($this->name),
             'description' => mb_strtolower($this->description),
             'farm_id' => auth()->user()->id,
         ]);
+
+        session()->flash('success', 'You have successfully added an Expense Type.');
+
+        return redirect(route('expense-types.index'));
     }
 
     /**
@@ -47,6 +51,6 @@ class RegisterBreedTypes extends Component
      */
     public function render()
     {
-        return view('livewire.rabbit.register-breed-types');
+        return view('livewire.expense.create-expense-types');
     }
 }

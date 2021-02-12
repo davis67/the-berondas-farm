@@ -69,4 +69,14 @@ class Cage extends Model
             return $value >= 120;
         });
     }
+
+    /**
+     * Get total number of rabbits in the cage.
+     *
+     * @return mixed
+     */
+    public function totalRabbitsInCage()
+    {
+        return Rabbit::where('cage_id', $this->id)->count();
+    }
 }

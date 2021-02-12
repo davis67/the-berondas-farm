@@ -65,18 +65,20 @@ class EditFarm extends Component
      */
     public function updateFarm()
     {
-        $this->validate([
+        $data = $this->validate([
             'name' => ['required'],
             'contacts' => ['required'],
             'address' => ['required'],
+            'is_active' => ['nullable'],
         ]);
 
-        $this->farm->update([
-            'name' => $this->name,
-            'contacts' => $this->contacts,
-            'address' => $this->address,
-            'is_active' => (bool) $this->is_active,
-        ]);
+        // dd($data);
+
+        $this->farm->update($data);
+
+        session()->flash('success', 'Farm Info successfully Udated.');
+
+        return redirect(route('farms.index'));
     }
 
     /**

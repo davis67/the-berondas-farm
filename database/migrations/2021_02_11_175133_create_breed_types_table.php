@@ -17,6 +17,7 @@ class CreateBreedTypesTable extends Migration
             $table->id();
             $table->string('name')->unique();
             $table->string('description')->nullable();
+            $table->unsignedBigInteger('farm_id');
             $table->timestamps();
         });
     }
