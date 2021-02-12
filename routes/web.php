@@ -64,27 +64,17 @@ Route::middleware('auth')->group(function () {
 	Route::get('batches', ViewBatches::class)->name('batches.index');
 	Route::get('batches/{batch}', ShowBatch::class)->name('batches.show');
 
-<<<<<<< HEAD
-    Route::get('rabbits/create', AddRabbit::class)->name('rabbits.create');
-    Route::get('rabbits/servicing/{service}/register-rabbit-birth', RegisterRabbitsBirth::class)->name('rabbits.register-birth');
-    Route::get('breed-types/create', RegisterBreedTypes::class)->name('breed-types.create');
-    Route::get('breed-types/index', ViewBreedTypes::class)->name('breed-types.index');
-    Route::get('breed-types/{breedType}/edit', EditBreedTypes::class)->name('breed-types.edit');
-=======
 	Route::get('rabbits/create', AddRabbit::class)->name('rabbits.create');
 	Route::get('rabbits/servicing/{service}/register-rabbit-birth', RegisterRabbitsBirth::class)->name('rabbits.register-birth');
->>>>>>> dev
+	Route::get('breed-types/create', RegisterBreedTypes::class)->name('breed-types.create');
+	Route::get('breed-types/index', ViewBreedTypes::class)->name('breed-types.index');
+	Route::get('breed-types/{breedType}/edit', EditBreedTypes::class)->name('breed-types.edit');
 
 	Route::get('cages/{cage}', ShowCage::class)->name('cages.show');
 
-<<<<<<< HEAD
-    Route::get('expenses/create', RegisterExpenses::class)->name('expenses.create');
-    Route::get('expenses', ViewExpenses::class)->name('expenses.index');
-    Route::get('expense-types/create', CreateExpenseTypes::class)->name('expense-types.create');
-    Route::get('expense-types/index', ViewExpenseTypes::class)->name('expense-types.index');
-    Route::get('expense-types/{expenseType}/edit', EditExpenseTypes::class)->name('expense-types.edit');
-=======
 	Route::get('expenses/create', RegisterExpenses::class)->name('expenses.create');
 	Route::get('expenses', ViewExpenses::class)->name('expenses.index');
->>>>>>> dev
+	Route::get('expense-types/create', CreateExpenseTypes::class)->name('expense-types.create');
+	Route::get('expense-types/index', ViewExpenseTypes::class)->name('expense-types.index');
+	Route::get('expense-types/{expenseType}/edit', EditExpenseTypes::class)->name('expense-types.edit');
 });
