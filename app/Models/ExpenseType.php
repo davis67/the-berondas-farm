@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class ExpenseType extends Model
 {
     use HasFactory;
+    use BelongsToFarm;
 
     /**
      * The attributes that are mass assignable.

@@ -61,7 +61,7 @@ class AddRabbit extends Component
     public function render()
     {
         return view('livewire.rabbit.add-rabbit', [
-            'breeds' => 1,
+            'breeds' => BreedType::all(),
         ]);
     }
 }

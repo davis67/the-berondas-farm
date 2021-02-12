@@ -36,7 +36,7 @@ class CreateExpenseTypes extends Component
         ExpenseType::create([
             'name' => mb_strtolower($this->name),
             'description' => mb_strtolower($this->description),
-            'farm_id' => auth()->user()->id,
+            // 'farm_id' => auth()->user()->id,
         ]);
 
         session()->flash('success', 'You have successfully added an Expense Type.');

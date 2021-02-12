@@ -61,20 +61,19 @@
                     </div>
                   </div>
                 </div>
-                <div class="pt-1">
-                  <div class="mt-6 grid grid-cols-1 row-gap-6 col-gap-4 sm:grid-cols-6">
-                    <div class="sm:col-span-3">
-                      <label for="breed" class="block text-sm font-medium leading-5 text-gray-700">
-                        Breed
-                      </label>
-                      <div class="mt-1 rounded-md shadow-sm">
-                        <input id="breed" wire:model.lazy="breed" class="form-input block w-full transition duration-150 rounded-none border ease-in-out sm:text-sm sm:leading-5 @error('breed') border-red-300 text-red-900 placeholder-red-300 focus:border-red-300 focus:shadow-outline-red @enderror" />
-                        @error('breed')
-                            <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                      </div>
-                    </div>
-
+                <div class="sm:col-span-4">
+                  <label for="breed_id" class="block text-sm font-medium leading-5 text-gray-700">
+                    Breed
+                  </label>
+                  <div class="mt-1 rounded-md shadow-sm">
+                    <select id="breed_id" wire:model.lazy="breed_id" class="form-select px-3 py-3 block w-full rounded-none border transition duration-150 ease-in-out sm:text-sm sm:leading-5 @error('breed_id') border-red-300 text-red-900 placeholder-red-300 focus:border-red-300 focus:shadow-outline-red @enderror">
+                      <option value="alive" >Select the breed type</option>
+                      @foreach($breeds as $breed)
+                        <option value="{{$breed->id}}">{{$breed->name}}</option>
+                    </select>
+                    @error('breed_id')
+                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
                   </div>
                 </div>
 

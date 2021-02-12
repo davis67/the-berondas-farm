@@ -36,7 +36,7 @@ class RegisterBreedTypes extends Component
         BreedType::create([
             'name' => mb_strtolower($this->name),
             'description' => mb_strtolower($this->description),
-            'farm_id' => auth()->user()->id,
+            // 'farm_id' => auth()->user()->id,
         ]);
     }
 
