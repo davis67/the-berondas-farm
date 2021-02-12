@@ -5,7 +5,7 @@
         <a href="{{route('rabbits.create')}}" class="underline font-bold leading-6 text-md uppercase">Add rabbits to the farm</a>
     </div>
     <div class="my-4">
-        <a href="{{route('rabbits-types.create')}}" class="underline font-bold leading-6 text-md uppercase">Add new Breed Types</a>
+        <a href="{{route('breed-types.index')}}" class="underline font-bold leading-6 text-md uppercase">Add new Breed Types</a>
     </div>
         @if($rabbits)
         <div class="my-8">

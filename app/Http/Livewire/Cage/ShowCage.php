@@ -5,7 +5,6 @@ namespace App\Http\Livewire\Cage;
 use App\Models\Cage;
 use App\Models\Rabbit;
 use Livewire\Component;
-use App\Rules\checkFourMonthsOldRabbitInCage;
 
 class ShowCage extends Component
 {
@@ -57,7 +56,7 @@ class ShowCage extends Component
     public function validateTransfer()
     {
         $this->validate([
-            'rabbit' => ['required', new checkFourMonthsOldRabbitInCage($this->cage)],
+            'rabbit' => ['required'],
         ]);
 
         $this->confirmingRabbitTransfer = true;

@@ -34,8 +34,8 @@ class RegisterBreedTypes extends Component
         ]);
 
         BreedType::create([
-            'name' => $this->name,
-            'description' => $this->description,
+            'name' => mb_strtolower($this->name),
+            'description' => mb_strtolower($this->description),
         ]);
     }
 

@@ -3,6 +3,9 @@
 <div class="mt-2">
     <div class="block">
       <div class="mx-auto text-lg leading-6 font-medium text-cool-gray-900">
+         <div class="my-4">
+            <a href="{{route('breed-types.create')}}" class="underline font-bold leading-6 text-md uppercase">Add new Breed Types</a>
+        </div>
         <div class="flex flex-col mt-2">
         @forelse($breed_types as $breed_type)
         <div class="bg-white shadow my-2 overflow-hidden sm:rounded-md">

@@ -65,7 +65,7 @@ Route::middleware('auth')->group(function () {
     Route::get('rabbits/servicing/{service}/register-rabbit-birth', RegisterRabbitsBirth::class)->name('rabbits.register-birth');
     Route::get('breed-types/create', RegisterBreedTypes::class)->name('breed-types.create');
     Route::get('breed-types/index', ViewBreedTypes::class)->name('breed-types.index');
-    Route::get('breed-types/{rabbit-type}/edit', EditBreedTypes::class)->name('breed-types.edit');
+    Route::get('breed-types/{breedType}/edit', EditBreedTypes::class)->name('breed-types.edit');
 
     Route::get('cages/{cage}', ShowCage::class)->name('cages.show');
 

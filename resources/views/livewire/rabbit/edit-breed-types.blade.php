@@ -1,5 +1,5 @@
-@section('title', 'Add a new Rabbit')
-@section('header', 'Add a new Rabbit')
+@section('title', 'Edit Breed Type')
+@section('header', 'Edit Breed Type')
 <div class="mt-2">
     <!-- Add Batch Form -->
     <div class="block">
@@ -7,7 +7,7 @@
         <div class="flex flex-col mt-2">
           <div class="align-middle min-w-full  shadow overflow-hidden sm:rounded-lg">
 
-            <form class="bg-white py-3 px-6" wire:submit.prevent="addBreedTypes">
+            <form class="bg-white py-3 px-6" wire:submit.prevent="updateBreedTypes">
               <div>
                 <div class="mt-3 pt-2">
                   <div>
@@ -47,6 +47,11 @@
               </div>
               <div class="mt-8 border-t border-gray-200 pt-5">
                 <div class="flex justify-end">
+                  <div class="mx-4 inline-flex rounded-md shadow-sm">
+                    <x-danger-button type="button" wire:click="confirmingDeletion"  wire:loading.attr="disabled">
+                      Delete Breed Type
+                    </x-danger-button >
+                  </div>
                   <span class="inline-flex rounded-md shadow-sm">
                     <x-secondary-button>
                       Cancel
@@ -54,16 +59,38 @@
                   </span>
                   <span class="ml-3 inline-flex rounded-md shadow-sm">
                     <x-primary-button type="submit">
-                      Save
+                      Update
                     </x-primary-button >
                   </span>
                 </div>
               </div>
             </form>
+            <!-- Add Confirmation Modal -->
+            @if($confirmingRabbitDeletion === true)
+            <x-confirmation-modal>
+                <x-slot name="title">
+                    Confirm the Deletion of the breed type
+                </x-slot>
 
+                <x-slot name="content">
+                    Are you sure you want to perform this action? Once a breed is deleted, all of its resources and data will be permanently updated and altered.
+                </x-slot>
+
+                <x-slot name="footer">
+                    <x-secondary-button wire:click="closeConfirmingDeletion" wire:loading.attr="disabled">
+                        Close
+                    </x-secondary-button>
+
+                    <x-danger-button class="ml-2" wire:click="deleteBreed" wire:loading.attr="disabled">
+                        Delete the Breed
+                    </x-danger-button>
+                </x-slot>
+            </x-confirmation-modal>
+            @endif
           </div>
         </div>
       </div>
     </div>
 </div>
+
 
