@@ -40,20 +40,20 @@
                             @enderror
                           </div>
                         </div>
+
                         @if($selectRabbit)
+                          <div class="p-4 flex-1 flex shadow-sm border w-full my-4 border-gray-200">
+                              <div class=" flex flex-col">
 
-                        <div class="p-4 flex-1 flex shadow-sm border w-full my-4 border-gray-200">
-                            <div class=" flex flex-col">
-
-                              <span>Date of Birth: {{$selectRabbit->date_of_birth}}</span>
-                              <span>Age: {{$selectRabbit->age()}}</span>
-                              <span>Age: {{$selectRabbit->age_number}}</span>
-                              <span>Rabbit No: {{$selectRabbit->rabbit_no}}</span>
-                              <span>Breed: {{$selectRabbit->breed}}</span>
-                              <span>Gender: {{$selectRabbit->gender}}</span>
-                              <span>Status: {{$selectRabbit->status}}</span>
-                            </div>
-                        </div>
+                                <span>Date of Birth: {{$selectRabbit->date_of_birth}}</span>
+                                <span>Age: {{$selectRabbit->age()}}</span>
+                                <span>Age: {{$selectRabbit->age_number}}</span>
+                                <span>Rabbit No: {{$selectRabbit->rabbit_no}}</span>
+                                <span>Breed: {{$selectRabbit->breed}}</span>
+                                <span>Gender: {{$selectRabbit->gender}}</span>
+                                <span>Status: {{$selectRabbit->status}}</span>
+                              </div>
+                          </div>
                         @endif
                       </div>
                     </div>
@@ -80,9 +80,23 @@
                   Current Rabbits in <span>{{$cage->cage_no}}</span>
                 </h3>
                 @forelse($cage->rabbits as $rabbit)
-                <div class="flex space-x-4">
-                    <div>{{$rabbit->rabbit_no}}</div>
-                    <div>{{($rabbit->pivot->is_occupant)? "True" : "False"}}</div>
+                <div class="space-y-4 my-4">
+                  <div x-data="{ tooltip: false }" class="relative z-30 inline-flex">
+                    <div x-on:mouseover="tooltip = true" x-on:mouseleave="tooltip = false" class="inline-flex items-center justify-center px-4 py-2 bg-teal-600 border border-transparent rounded-none font-semibold text-xs text-white uppercase space-x-4 tracking-widest hover:bg-teal-500 focus:outline-none focus:border-teal-700 focus:shadow-outline-teal active:bg-teal-600 transition ease-in-out duration-150">
+                      <span>{{$rabbit->rabbit_no}}</span>
+                    </div>
+                    <div class="relative" x-cloak x-show.transition.origin.top="tooltip">
+                      <div class="absolute top-0 z-10 w-64 p-2 -mt-1 text-sm leading-tight transform -translate-x-1/2 -translate-y-full bg-teal-50 rounded-none border border-gray-50 shadow-lg">
+                        <div class="text-gray-500">NAME: {{$rabbit->rabbit_no}}</div>
+                        <div class="text-gray-500">AGE: {{$rabbit->age()}}</div>
+                        <div class="text-gray-500 uppercase">GENDER: {{$rabbit->gender}}</div>
+                        @if($rabbit->breed)<div class="text-gray-500 uppercase">BREED: {{$rabbit->breed}}</div>@endif
+                      </div>
+                      <svg class="absolute z-10 w-6 h-6 text-gray-50 transform -translate-x-12 -translate-y-3 fill-current stroke-current" width="8" height="8">
+                        <rect x="12" y="-10" width="8" height="8" transform="rotate(45)" />
+                      </svg>
+                    </div>
+                  </div>
                 </div>
                 @empty
                 <div class="my-4 w-full">
