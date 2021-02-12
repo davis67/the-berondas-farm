@@ -24,7 +24,7 @@ use App\Http\Livewire\Rabbit\RegisterRabbitsBirth;
 use App\Http\Controllers\Auth\EmailVerificationController;
 
 Route::middleware('guest')->group(function () {
-    Route::get('login', Login::class)->name('login');
+	Route::get('login', Login::class)->name('login');
 });
 
 Route::get('password/reset', Email::class)->name('password.request');
@@ -32,37 +32,37 @@ Route::get('password/reset', Email::class)->name('password.request');
 Route::get('password/reset/{token}', Reset::class)->name('password.reset');
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::get('email/verify', Verify::class)
-        ->middleware('throttle:6,1')
-        ->name('verification.notice');
+	Route::get('email/verify', Verify::class)
+		->middleware('throttle:6,1')
+		->name('verification.notice');
 
-    Route::get('password/confirm', Confirm::class)
-        ->name('password.confirm');
+	Route::get('password/confirm', Confirm::class)
+		->name('password.confirm');
 });
 
 Route::middleware('auth')->group(function () {
-    Route::get('register', Register::class)->name('register');
+	Route::get('register', Register::class)->name('register');
 
-    Route::get('/', Dashboard::class)->name('home');
-    Route::get('email/verify/{id}/{hash}', EmailVerificationController::class)
-        ->middleware('signed')
-        ->name('verification.verify');
-    Route::post('logout', LogoutController::class)->name('logout');
+	Route::get('/', Dashboard::class)->name('home');
+	Route::get('email/verify/{id}/{hash}', EmailVerificationController::class)
+		->middleware('signed')
+		->name('verification.verify');
+	Route::post('logout', LogoutController::class)->name('logout');
 
-    Route::get('farm/register', RegisterFarm::class)->name('farm.create');
-    Route::get('farms', ViewFarms::class)->name('farms.index');
-    Route::get('farms/{farm}', EditFarm::class)->name('farms.edit');
-    Route::get('farms/{farm}/rabbit-transfer', ServeRabbit::class)->name('farms.rabbits');
+	Route::get('farm/register', RegisterFarm::class)->name('farm.create');
+	Route::get('farms', ViewFarms::class)->name('farms.index');
+	Route::get('farms/{farm}', EditFarm::class)->name('farms.edit');
+	Route::get('farms/{farm}/rabbit-transfer', ServeRabbit::class)->name('farms.rabbits');
 
-    Route::get('batches/create', AddBatch::class)->name('batches.create');
-    Route::get('batches', ViewBatches::class)->name('batches.index');
-    Route::get('batches/{batch}', ShowBatch::class)->name('batches.show');
+	Route::get('batches/create', AddBatch::class)->name('batches.create');
+	Route::get('batches', ViewBatches::class)->name('batches.index');
+	Route::get('batches/{batch}', ShowBatch::class)->name('batches.show');
 
-    Route::get('rabbits/create', AddRabbit::class)->name('rabbits.create');
-    Route::get('rabbits/servicing/{service}/register-rabbit-birth', RegisterRabbitsBirth::class)->name('rabbits.register-birth');
+	Route::get('rabbits/create', AddRabbit::class)->name('rabbits.create');
+	Route::get('rabbits/servicing/{service}/register-rabbit-birth', RegisterRabbitsBirth::class)->name('rabbits.register-birth');
 
-    Route::get('cages/{cage}', ShowCage::class)->name('cages.show');
+	Route::get('cages/{cage}', ShowCage::class)->name('cages.show');
 
-    Route::get('expenses/create', RegisterExpenses::class)->name('expenses.create');
-    Route::get('expenses', ViewExpenses::class)->name('expenses.index');
+	Route::get('expenses/create', RegisterExpenses::class)->name('expenses.create');
+	Route::get('expenses', ViewExpenses::class)->name('expenses.index');
 });

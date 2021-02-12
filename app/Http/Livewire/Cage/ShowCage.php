@@ -8,105 +8,105 @@ use Livewire\Component;
 
 class ShowCage extends Component
 {
-    /**
-     * The cage instance.
-     *
-     * @var mixed
-     */
-    public $cage;
+	/**
+	 * The cage instance.
+	 *
+	 * @var mixed
+	 */
+	public $cage;
 
-    /**
-     * The selected rabbit instance.
-     *
-     * @var mixed
-     */
-    public $selectRabbit;
+	/**
+	 * The selected rabbit instance.
+	 *
+	 * @var mixed
+	 */
+	public $selectRabbit;
 
-    /**
-     * Indicates if rabbit transfer is being confirmed.
-     *
-     * @var bool
-     */
-    public $confirmingRabbitTransfer = false;
+	/**
+	 * Indicates if rabbit transfer is being confirmed.
+	 *
+	 * @var bool
+	 */
+	public $confirmingRabbitTransfer = false;
 
-    /**
-     * The rabbit id.
-     *
-     * @var int
-     */
-    public $rabbit;
+	/**
+	 * The rabbit id.
+	 *
+	 * @var int
+	 */
+	public $rabbit;
 
-    /**
-     * Mount the component.
-     *
-     * @param mixed $cage
-     *
-     * @return void
-     */
-    public function mount(Cage $cage)
-    {
-        $this->cage = $cage->loadMissing('rabbits');
-    }
+	/**
+	 * Mount the component.
+	 *
+	 * @param mixed $cage
+	 *
+	 * @return void
+	 */
+	public function mount(Cage $cage)
+	{
+		$this->cage = $cage->loadMissing('rabbits');
+	}
 
-    /**
-     * Validate the transfer of the rabbit from one cage to another.
-     *
-     * @return void
-     */
-    public function validateTransfer()
-    {
-        $this->validate([
-            'rabbit' => ['required'],
-        ]);
+	/**
+	 * Validate the transfer of the rabbit from one cage to another.
+	 *
+	 * @return void
+	 */
+	public function validateTransfer()
+	{
+		$this->validate([
+			'rabbit' => ['required'],
+		]);
 
-        $this->confirmingRabbitTransfer = true;
-    }
+		$this->confirmingRabbitTransfer = true;
+	}
 
-    /**
-     * Handler the transfer of the rabbit from one cage to another.
-     *
-     * @return void
-     */
-    public function handleTransfer()
-    {
-        $this->cage->transferRabbit($this->rabbit);
+	/**
+	 * Handler the transfer of the rabbit from one cage to another.
+	 *
+	 * @return void
+	 */
+	public function handleTransfer()
+	{
+		$this->cage->transferRabbit($this->rabbit);
 
-        $transferedRabbit = Rabbit::findOrFail($this->rabbit);
+		$transferedRabbit = Rabbit::findOrFail($this->rabbit);
 
-        $this->rabbit->update([
-            'cage_id' => $this->cage->id,
-        ]);
+		$this->rabbit->update([
+			'cage_id' => $this->cage->id,
+		]);
 
-        $this->confirmingRabbitTransfer = false;
+		$this->confirmingRabbitTransfer = false;
 
-        $this->rabbit = '';
+		$this->rabbit = '';
 
-        session()->flash('success', 'Cage Info successfully updated.');
+		session()->flash('success', 'Cage Info successfully updated.');
 
-        return redirect(route('cages.show', $this->cage->id));
-    }
+		return redirect(route('cages.show', $this->cage->id));
+	}
 
-    /**
-     * Updating the rabbit instance.
-     *
-     * @return void
-     */
-    public function updatingRabbit($value)
-    {
-        if (! empty($value)) {
-            $this->selectRabbit = Rabbit::findOrFail($value);
-        }
-    }
+	/**
+	 * Updating the rabbit instance.
+	 *
+	 * @return void
+	 */
+	public function updatingRabbit($value)
+	{
+		if (!empty($value)) {
+			$this->selectRabbit = Rabbit::findOrFail($value);
+		}
+	}
 
-    /**
-     * Render the component.
-     *
-     * @return \Illuminate\View\View
-     */
-    public function render()
-    {
-        return view('livewire.cage.show-cage', [
-            'rabbits' => Rabbit::latest()->get(),
-        ])->extends('layouts.app');
-    }
+	/**
+	 * Render the component.
+	 *
+	 * @return \Illuminate\View\View
+	 */
+	public function render()
+	{
+		return view('livewire.cage.show-cage', [
+			'rabbits' => Rabbit::latest()->get(),
+		])->extends('layouts.app');
+	}
 }
