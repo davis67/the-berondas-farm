@@ -22,15 +22,6 @@ class Rabbit extends Model
     protected $fillable = ['breed', 'date_of_birth', 'status', 'gender', 'rabbit_no', 'farm_id', 'servicing_id', 'cage_id'];
 
     /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'is_occupant' => 'boolean',
-    ];
-
-    /**
      * Cage has one or many rabbits.
      *
      * @return [type] [description]

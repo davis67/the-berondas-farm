@@ -47,15 +47,16 @@
                     </div>
 
                     <div class="sm:col-span-4">
-                      <label for="is_active" class="block text-sm font-medium leading-5 text-gray-700">
+                      <label for="status" class="block text-sm font-medium leading-5 text-gray-700">
                         Status
                       </label>
                       <div class="mt-1 rounded-md shadow-sm">
-                        <select id="is_active" wire:model.lazy="is_active" class="form-select px-3 py-3 block w-full rounded-none border transition duration-150 ease-in-out sm:text-sm sm:leading-5 @error('is_active') border-red-300 text-red-900 placeholder-red-300 focus:border-red-300 focus:shadow-outline-red @enderror">
-                            <option value=true @if($farm->is_active == true) selected @endif >Active</option>
-                            <option value=false @if($farm->is_active == false) selected @endif>Not Active</option>
+                        <select id="status" wire:model.lazy="status" class="form-select px-3 py-3 block w-full rounded-none border transition duration-150 ease-in-out sm:text-sm sm:leading-5 @error('status') border-red-300 text-red-900 placeholder-red-300 focus:border-red-300 focus:shadow-outline-red @enderror">
+                            <option value="active" @if($farm->status == "active") selected @endif >Active</option>
+                            <option value="pending" @if($farm->status == "pending") selected @endif>Pending</option>
+                            <option value="inactive" @if($farm->status == "inactive") selected @endif>Not Active</option>
                         </select>
-                        @error('is_active')
+                        @error('status')
                             <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                         @enderror
                       </div>

@@ -14,16 +14,7 @@ class Farm extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'contacts', 'address', 'is_active'];
-
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'is_active' => 'boolean',
-    ];
+    protected $fillable = ['name', 'contacts', 'address', 'status'];
 
     /**
      * Returns the status color of the farm.

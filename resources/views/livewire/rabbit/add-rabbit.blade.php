@@ -25,6 +25,7 @@
                     </label>
                     <div class="mt-1 rounded-md shadow-sm">
                       <select id="gender" wire:model.lazy="gender" class="form-select px-3 py-3 block w-full rounded-none border transition duration-150 ease-in-out sm:text-sm sm:leading-5 @error('gender') border-red-300 text-red-900 placeholder-red-300 focus:border-red-300 focus:shadow-outline-red @enderror">
+                          <option value="" >Select the gender...</option>
                           <option value="male" >Male</option>
                           <option value="female">Female</option>
                       </select>
@@ -46,20 +47,6 @@
                       </div>
                     </div>
                   </div>
-                  <div class="sm:col-span-4">
-                    <label for="status" class="block text-sm font-medium leading-5 text-gray-700">
-                      Status
-                    </label>
-                    <div class="mt-1 rounded-md shadow-sm">
-                      <select id="status" wire:model.lazy="status" class="form-select px-3 py-3 block w-full rounded-none border transition duration-150 ease-in-out sm:text-sm sm:leading-5 @error('status') border-red-300 text-red-900 placeholder-red-300 focus:border-red-300 focus:shadow-outline-red @enderror">
-                          <option value="alive" >Alive</option>
-                          <option value="dead">Dead</option>
-                      </select>
-                      @error('status')
-                          <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
-                      @enderror
-                    </div>
-                  </div>
                 </div>
                 <div class="sm:col-span-4">
                   <label for="breed_id" class="block text-sm font-medium leading-5 text-gray-700">
@@ -67,7 +54,7 @@
                   </label>
                   <div class="mt-1 rounded-md shadow-sm">
                     <select id="breed_id" wire:model.lazy="breed_id" class="form-select px-3 py-3 block w-full rounded-none border transition duration-150 ease-in-out sm:text-sm sm:leading-5 @error('breed_id') border-red-300 text-red-900 placeholder-red-300 focus:border-red-300 focus:shadow-outline-red @enderror">
-                      <option value="alive" >Select the breed type</option>
+                      <option value="" >Select the breed type</option>
                       @foreach($breeds as $breed)
                         <option value="{{$breed->id}}">{{$breed->name}}</option>
                       @endforeach

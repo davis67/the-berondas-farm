@@ -71,6 +71,12 @@ class ShowCage extends Component
     {
         $this->cage->transferRabbit($this->rabbit);
 
+        $updatedRabbitInfo = Rabbit::findOrFail($this->rabbit);
+
+        $updatedRabbitInfo->update([
+            'cage_id' => $this->cage->id,
+        ]);
+
         $this->confirmingRabbitTransfer = false;
 
         $this->rabbit = '';
@@ -100,7 +106,7 @@ class ShowCage extends Component
     public function render()
     {
         return view('livewire.cage.show-cage', [
-            'rabbits' => Rabbit::latest()->get(),
+            'rabbits' => Rabbit::where('cage_id', null)->get(),
         ])->extends('layouts.app');
     }
 }

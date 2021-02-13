@@ -32,7 +32,7 @@
                             Select the Rabbit
                           </label>
                           <div class="mt-1 rounded-md shadow-sm">
-                            <select id="rabbit" type="date" wire:model.lazy="rabbit" class="form-input block w-full rounded-none border transition duration-150 ease-in-out sm:text-sm sm:leading-5 @error('rabbit') border-red-300 text-red-900 placeholder-red-300 focus:border-red-300 focus:shadow-outline-red @enderror">
+                            <select id="rabbit" wire:model.lazy="rabbit" class="form-input block w-full rounded-none border transition duration-150 ease-in-out sm:text-sm sm:leading-5 @error('rabbit') border-red-300 text-red-900 placeholder-red-300 focus:border-red-300 focus:shadow-outline-red @enderror">
                                 <option value="">Select Rabbit ... </option>
                                 @foreach($rabbits as $rabbit)
                                     <option value="{{$rabbit->id}}">{{$rabbit->rabbit_no}}</option>
