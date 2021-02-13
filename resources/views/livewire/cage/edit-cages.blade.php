@@ -1,23 +1,18 @@
-@section('title', 'Edit Breed Type')
-@section('header', 'Edit Breed Type')
+@section('title', 'Edit Cage')
+@section('header', 'Edit Cage')
 <div class="mt-2">
-    <!-- Add Batch Form -->
+    <!-- Edit Cage Form -->
     <div class="block">
       <div class="mx-auto text-lg leading-6 font-medium text-cool-gray-900">
         <div class="flex flex-col mt-2">
           <div class="align-middle min-w-full  shadow overflow-hidden sm:rounded-lg">
-            <div class="my-4">
-              <a href="{{route('breed-types.create')}}" class="underline font-bold leading-6 text-md uppercase">Add the Breed Types</a>
-            </div>
-            <div class="my-4">
-              <a href="{{route('breed-types.index')}}" class="underline font-bold leading-6 text-md uppercase">View all Breed Types</a>
-            </div>
-            <form class="bg-white py-3 px-6" wire:submit.prevent="updateBreedTypes">
+
+            <form class="bg-white py-3 px-6" wire:submit.prevent="updateCage">
               <div>
                 <div class="mt-3 pt-2">
                   <div>
                     <h3 class="text-lg leading-6 font-medium text-gray-900">
-                      Add RabbitType Info
+                      Edit Cage Type Info
                     </h3>
                     <p class="mt-1 text-sm leading-5 text-gray-500">
                       This information will be displayed publicly on the platform lists.
@@ -25,24 +20,12 @@
                     </p>
                   </div>
                   <div class="sm:col-span-4">
-                    <label for="name" class="block text-sm font-medium leading-5 text-gray-700">
-                      Name
+                    <label for="cage_no" class="block text-sm font-medium leading-5 text-gray-700">
+                      Cage No
                     </label>
                     <div class="mt-1 rounded-md shadow-sm">
-                      <input id="name" type="text" wire:model.lazy="name" class="form-input block w-full rounded-none border transition duration-150 ease-in-out sm:text-sm sm:leading-5 @error('name') border-red-300 text-red-900 placeholder-red-300 focus:border-red-300 focus:shadow-outline-red @enderror" />
-                      @error('name')
-                          <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
-                      @enderror
-                    </div>
-                  </div>
-
-                  <div class="sm:col-span-4 my-4">
-                    <label for="description" class="block text-sm font-medium leading-5 text-gray-700">
-                      Description
-                    </label>
-                    <div class="mt-1 rounded-md shadow-sm">
-                      <input id="description" type="text" wire:model.lazy="description" class="form-input block w-full rounded-none border transition duration-150 ease-in-out sm:text-sm sm:leading-5 @error('description') border-red-300 text-red-900 placeholder-red-300 focus:border-red-300 focus:shadow-outline-red @enderror" />
-                      @error('description')
+                      <input id="cage_no" type="text" wire:model.lazy="cage_no" class="form-input block w-full rounded-none border transition duration-150 ease-in-out sm:text-sm sm:leading-5 @error('cage_no') border-red-300 text-red-900 placeholder-red-300 focus:border-red-300 focus:shadow-outline-red @enderror" />
+                      @error('cage_no')
                           <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                       @enderror
                     </div>
@@ -54,7 +37,7 @@
                 <div class="flex justify-end">
                   <div class="mx-4 inline-flex rounded-md shadow-sm">
                     <x-danger-button type="button" wire:click="confirmingDeletion"  wire:loading.attr="disabled">
-                      Delete Breed Type
+                      Delete Cage Type
                     </x-danger-button >
                   </div>
                   <span class="inline-flex rounded-md shadow-sm">
@@ -71,14 +54,14 @@
               </div>
             </form>
             <!-- Add Confirmation Modal -->
-            @if($confirmingRabbitDeletion === true)
+            @if($confirmingCageDeletion === true)
             <x-confirmation-modal>
                 <x-slot name="title">
-                    Confirm the Deletion of the breed type
+                    Confirm the Deletion of the Cage
                 </x-slot>
 
                 <x-slot name="content">
-                    Are you sure you want to perform this action? Once a breed is deleted, all of its resources and data will be permanently updated and altered.
+                    Are you sure you want to perform this action? Once a cage is deleted, all of its resources and data will be permanently updated and altered.
                 </x-slot>
 
                 <x-slot name="footer">
@@ -86,8 +69,8 @@
                         Close
                     </x-secondary-button>
 
-                    <x-danger-button class="ml-2" wire:click="deleteBreed" wire:loading.attr="disabled">
-                        Delete the Breed
+                    <x-danger-button class="ml-2" wire:click="deleteCage" wire:loading.attr="disabled">
+                        Delete the Cage
                     </x-danger-button>
                 </x-slot>
             </x-confirmation-modal>

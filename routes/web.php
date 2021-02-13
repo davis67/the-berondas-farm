@@ -6,6 +6,7 @@ use App\Http\Livewire\Auth\Register;
 use App\Http\Livewire\Cage\ShowCage;
 use App\Http\Livewire\Farm\EditFarm;
 use App\Http\Livewire\Batch\AddBatch;
+use App\Http\Livewire\Cage\EditCages;
 use App\Http\Livewire\Farm\ViewFarms;
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\Batch\ShowBatch;
@@ -71,6 +72,7 @@ Route::middleware('auth')->group(function () {
     Route::get('breed-types/{breedType}/edit', EditBreedTypes::class)->name('breed-types.edit');
 
     Route::get('cages/{cage}', ShowCage::class)->name('cages.show');
+    Route::get('cages/{cage}/edit', EditCages::class)->name('cages.edit');
 
     Route::get('expenses/create', RegisterExpenses::class)->name('expenses.create');
     Route::get('expenses', ViewExpenses::class)->name('expenses.index');

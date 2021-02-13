@@ -6,7 +6,9 @@
       <div class="mx-auto text-lg leading-6 font-medium text-cool-gray-900">
         <div class="flex flex-col mt-2">
           <div class="align-middle min-w-full  shadow overflow-hidden sm:rounded-lg">
-
+            <div class="my-4">
+              <a href="{{route('breed-types.index')}}" class="underline font-bold leading-6 text-md uppercase">View all Breed Types</a>
+            </div>
             <form class="bg-white py-3 px-6" wire:submit.prevent="addBreedTypes">
               <div>
                 <div class="mt-3 pt-2">

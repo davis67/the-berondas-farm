@@ -12,6 +12,9 @@
                     </div>
                 @endif
                 </div>
+                <div class="my-4">
+                    <a href="{{route('cages.edit', $cage->id)}}" class="underline font-bold leading-6 text-md uppercase">Edit this Cage Type</a>
+                </div>
                 <form class="bg-white py-3 px-6 w-full" wire:submit.prevent="handleTransfer">
                   <div>
                     <div class="mt-3 pt-2">

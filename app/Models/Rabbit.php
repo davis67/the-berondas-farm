@@ -79,4 +79,14 @@ class Rabbit extends Model
     {
         return 'female' == $this->gender;
     }
+
+    /**
+     * Returns the date of registration of the farm in human readible form.
+     *
+     * @return date [<description>]
+     */
+    public function getDateForHumansAttribute()
+    {
+        return Carbon::parse($this->created_at)->format('d M, Y');
+    }
 }
