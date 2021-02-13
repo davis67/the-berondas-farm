@@ -17,6 +17,11 @@ class ShowBatch extends Component
         $this->batch = $batch->loadMissing('cages');
     }
 
+    /**
+     * Render the component.
+     *
+     * @return \Illuminate\View\View
+     */
     public function render()
     {
         return view('livewire.batch.show-batch')->extends('layouts.app');
