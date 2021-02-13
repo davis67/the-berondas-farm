@@ -2,32 +2,38 @@
 
 namespace App\Http\Livewire\Expense;
 
+use App\Models\Expense;
 use Livewire\Component;
 use App\Models\ExpenseType;
-use Illuminate\Validation\Rule;
 
-class EditExpenseTypes extends Component
+class EditExpenses extends Component
 {
     /**
-     * Name.
+     * Instace of the expense.
      *
-     * @var string
+     * @var int
      */
-    public $name;
+    public $expense;
+    /**
+     * Amount.
+     *
+     * @var int
+     */
+    public $amount;
 
     /**
-     * Instance of Breed Type.
+     * Date of Expense.
      *
-     * @var string
+     * @var date
      */
-    public $expenseType;
+    public $expense_date;
 
     /**
-     * Description.
+     * Expense Type.
      *
-     * @var string
+     * @var int
      */
-    public $description;
+    public $expense_type_id;
 
     /**
      * Indicates if breed deletion is being confirmed.
@@ -43,33 +49,34 @@ class EditExpenseTypes extends Component
      *
      * @return void
      */
-    public function mount(ExpenseType $expenseType)
+    public function mount(Expense $expense)
     {
-        $this->expenseType = $expenseType;
-        $this->name = $expenseType->name;
-        $this->description = $expenseType->description;
+        $this->expense = $expense;
+        $this->expense_date = $expense->expense_date;
+        $this->amount = $expense->amount;
+        $this->expense_type_id = $expense->expense_type_id;
     }
 
     /**
-     * Add the Expense Types.
+     * Storing the Farm resource.
      *
      * @return void
      */
-    public function updateExpenseTypes()
+    public function updateExpense()
     {
         $this->validate([
-            'name' => ['required', Rule::unique('expense_types')->ignore($this->expenseType->id)],
-            'description' => 'nullable',
+            'expense_date' => ['required'],
+            'expense_type_id' => ['required'],
+            'amount' => ['required'],
         ]);
 
-        $this->expenseType->update([
-            'name' => mb_strtolower($this->name),
-            'description' => mb_strtolower($this->description),
+        $this->expense->update([
+            'expense_date' => $this->expense_date,
+            'expense_type_id' => $this->expense_type_id,
+            'amount' => $this->amount,
         ]);
 
-        session()->flash('success', 'You have successfully updated an expenseType.');
-
-        return redirect(route('breed-types.index'));
+        return redirect(route('expenses.index'));
     }
 
     /**
@@ -99,13 +106,13 @@ class EditExpenseTypes extends Component
      */
     public function deleteExpense()
     {
-        $this->expenseType->delete();
+        $this->expense->delete();
 
         $this->confirmingExpenseDeletion = false;
 
-        session()->flash('success', 'You have successfully deleted a expenseType.');
+        session()->flash('success', 'You have successfully deleted a Expense.');
 
-        return redirect(route('expense-types.index'));
+        return redirect(route('expenses.index'));
     }
 
     /**
@@ -115,6 +122,8 @@ class EditExpenseTypes extends Component
      */
     public function render()
     {
-        return view('livewire.expense.edit-expense-types');
+        return view('livewire.expense.edit-expenses', [
+            'expense_types' => ExpenseType::all(),
+        ]);
     }
 }

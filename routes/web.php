@@ -17,6 +17,7 @@ use App\Http\Livewire\Rabbit\ServeRabbit;
 use App\Http\Livewire\Dashboard\Dashboard;
 use App\Http\Livewire\Auth\Passwords\Email;
 use App\Http\Livewire\Auth\Passwords\Reset;
+use App\Http\Livewire\Expense\EditExpenses;
 use App\Http\Livewire\Expense\ViewExpenses;
 use App\Http\Livewire\Rabbit\EditBreedTypes;
 use App\Http\Livewire\Rabbit\ViewBreedTypes;
@@ -76,6 +77,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('expenses/create', RegisterExpenses::class)->name('expenses.create');
     Route::get('expenses', ViewExpenses::class)->name('expenses.index');
+    Route::get('expenses/{expense}/edit', EditExpenses::class)->name('expenses.edit');
     Route::get('expense-types/create', CreateExpenseTypes::class)->name('expense-types.create');
     Route::get('expense-types/index', ViewExpenseTypes::class)->name('expense-types.index');
     Route::get('expense-types/{expenseType}/edit', EditExpenseTypes::class)->name('expense-types.edit');

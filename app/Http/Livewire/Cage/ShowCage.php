@@ -77,7 +77,7 @@ class ShowCage extends Component
 
         session()->flash('success', 'Cage Info successfully updated.');
 
-        return redirect(route('cages.show', $this->cage->id));
+        return redirect(route('batches.show', $this->cage->batch_id));
     }
 
     /**

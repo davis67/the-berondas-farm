@@ -100,6 +100,9 @@
                         <x-table.cell>
                             {{ $expense->date_for_humans }}
                         </x-table.cell>
+                        <x-table.cell>
+                            <a href="{{route('expenses.edit', $expense->id)}}" class="underline font-bold leading-6 text-md uppercase">Edit Expense</a>
+                        </x-table.cell>
                     </x-table.row>
                     @empty
                     <x-table.row>

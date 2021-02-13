@@ -46,7 +46,6 @@ class RegisterExpenses extends Component
             'expense_date' => $this->expense_date,
             'expense_type_id' => $this->expense_type_id,
             'amount' => $this->amount,
-            'farm_id' => auth()->user()->farm_id,
         ]);
 
         return redirect(route('expenses.index'));
