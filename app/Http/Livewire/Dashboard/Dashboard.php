@@ -10,7 +10,7 @@ class Dashboard extends Component
     public function render()
     {
         return view('livewire.dashboard', [
-            'rabbits' => Servicing::all(),
+            'rabbits' => Servicing::where('actual_date_of_birth', '!=', null)->get(),
         ])->extends('layouts.app');
     }
 }
