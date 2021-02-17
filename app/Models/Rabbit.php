@@ -22,6 +22,23 @@ class Rabbit extends Model
     protected $fillable = ['breed', 'date_of_birth', 'status', 'gender', 'rabbit_no', 'farm_id', 'servicing_id', 'cage_id'];
 
     /**
+     * Load relationship data.
+     *
+     * @return void
+     */
+    protected $with = ['currentCage'];
+
+    /**
+     * Returns the current cage info of the rabbit.
+     *
+     * @return [type] [description]
+     */
+    public function currentCage()
+    {
+        return Rabbit::findOrFail($this->cage_id);
+    }
+
+    /**
      * Cage has one or many rabbits.
      *
      * @return [type] [description]

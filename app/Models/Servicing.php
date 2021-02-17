@@ -20,6 +20,13 @@ class Servicing extends Model
     protected $fillable = ['mother_id', 'father_id', 'date_of_servicing', 'expected_date_of_birth', 'actual_date_of_birth', 'number_of_kits'];
 
     /**
+     * Load relationship data.
+     *
+     * @return void
+     */
+    protected $with = ['rabbit'];
+
+    /**
      * The "booted" method of the model.
      *
      * @return void
