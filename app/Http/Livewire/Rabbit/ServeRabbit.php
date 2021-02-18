@@ -66,6 +66,10 @@ class ServeRabbit extends Component
             'mother_id' => $this->female_rabbit,
             'date_of_servicing' => $this->date_of_serving,
         ]);
+
+        session()->flash('success', 'We have served the rabbit in the farm.');
+
+        return redirect(route('home'));
     }
 
     public function render()

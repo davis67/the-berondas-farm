@@ -40,7 +40,7 @@ class EditFarm extends Component
      *
      * @var bool
      */
-    public $is_active;
+    public $status;
 
     /**
      * Mount the component.
@@ -55,7 +55,7 @@ class EditFarm extends Component
         $this->name = $farm->name;
         $this->contacts = $farm->contacts;
         $this->address = $farm->address;
-        $this->is_active = $farm->is_active;
+        $this->status = $farm->status;
     }
 
     /**
@@ -69,10 +69,8 @@ class EditFarm extends Component
             'name' => ['required'],
             'contacts' => ['required'],
             'address' => ['required'],
-            'is_active' => ['nullable'],
+            'status' => ['nullable'],
         ]);
-
-        // dd($data);
 
         $this->farm->update($data);
 

@@ -13,7 +13,7 @@ class AddRabbit extends Component
      *
      * @var mixed
      */
-    public $breed;
+    public $breed_id;
 
     /**
      * Date of Birth.
@@ -39,19 +39,21 @@ class AddRabbit extends Component
     public function addRabbit()
     {
         $this->validate([
-            'breed' => ['required'],
-            'date_of_birth' => ['required'],
-            'status' => ['required'],
+            'breed_id' => ['nullable'],
+            'date_of_birth' => ['nullable'],
             'gender' => ['required'],
         ]);
 
         Rabbit::create([
-            'breed' => $this->breed,
+            'breed_id' => $this->breed_id,
             'date_of_birth' => $this->date_of_birth,
-            'status' => $this->status,
             'gender' => $this->gender,
             'farm_id' => auth()->user()->farm_id,
         ]);
+
+        session()->flash('success', 'You have successfully updated a rabbit.');
+
+        return redirect(route('home'));
     }
 
     /**

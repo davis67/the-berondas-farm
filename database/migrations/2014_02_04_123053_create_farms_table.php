@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 class CreateFarmsTable extends Migration
 {
@@ -18,7 +18,7 @@ class CreateFarmsTable extends Migration
             $table->string('name');
             $table->string('address');
             $table->string('contacts');
-            $table->boolean('is_active')->default(false);
+            $table->string('status')->default('pending');
             $table->timestamps();
         });
     }

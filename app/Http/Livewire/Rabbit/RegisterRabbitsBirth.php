@@ -58,13 +58,13 @@ class RegisterRabbitsBirth extends Component
             'number_of_kits' => $this->number_of_kits,
         ]);
 
-        $motherRabbit = findOrFail($this->service->mother_id);
+        $motherRabbit = Rabbit::findOrFail($this->service->mother_id);
 
         for ($count = 0; $count < $this->number_of_kits; ++$count) {
             Rabbit::create([
                 'date_of_birth' => $this->actual_date_of_birth,
                 'servicing_id' => $this->service->id,
-                'cage_id' => $this->$motherRabbit->cage_id,
+                'cage_id' => $motherRabbit->cage_id,
                 'farm_id' => auth()->user()->farm_id,
             ]);
         }
