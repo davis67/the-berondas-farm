@@ -22,13 +22,21 @@ class Rabbit extends Model
     protected $fillable = ['breed', 'date_of_birth', 'status', 'gender', 'rabbit_no', 'farm_id', 'servicing_id', 'cage_id'];
 
     /**
-     * The attributes that should be cast to native types.
+     * Load relationship data.
      *
-     * @var array
+     * @return void
      */
-    protected $casts = [
-        'is_occupant' => 'boolean',
-    ];
+    protected $with = ['currentCage'];
+
+    /**
+     * Returns the current cage info of the rabbit.
+     *
+     * @return [type] [description]
+     */
+    public function currentCage()
+    {
+        return Rabbit::findOrFail($this->cage_id);
+    }
 
     /**
      * Cage has one or many rabbits.
