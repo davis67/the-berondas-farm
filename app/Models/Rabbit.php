@@ -35,7 +35,7 @@ class Rabbit extends Model
      */
     public function currentCage()
     {
-        return Rabbit::findOrFail($this->cage_id);
+        return self::findOrFail($this->cage_id);
     }
 
     /**
