@@ -10,7 +10,7 @@
     <div class="my-8">
         <div class="uppercase text-sm font-bold">Served Rabbits</div>
         @forelse($rabbits as $rabbit)
-        <div class="w-full flex justify-between bg-white border border-gray-200 py-4 px-2 my-2">
+        <div class="w-full flex-shrink-0 flex-col lg:flex lg:justify-between bg-white border border-gray-200 py-4 px-2 my-2">
             <div>
                 <div>{{$rabbit->mother->rabbit_no}} @if($rabbit->mother->current_cage)<span class="font-bold text-teal-700">({{ $rabbit->mother->current_cage->cage_no}})</span>@endif</div>
                 <div>
