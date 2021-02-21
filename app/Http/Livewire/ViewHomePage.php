@@ -9,8 +9,12 @@ class ViewHomePage extends Component
 {
     public function render()
     {
+        $rabbits = Servicing::where('actual_date_of_birth', '=', null)->latest()->get();
+
+        // dd($rabbits);
+
         return view('livewire.view-home-page', [
-            'rabbits' => Servicing::where('actual_date_of_birth', '!=', null)->latest()->get(),
+            'rabbits' => Servicing::where('actual_date_of_birth', '=', null)->latest()->get(),
         ])->extends('layouts.app');
     }
 }

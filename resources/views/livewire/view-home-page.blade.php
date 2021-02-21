@@ -7,13 +7,12 @@
     <div class="my-4">
         <a href="{{route('breed-types.index')}}" class="underline font-bold leading-6 text-md uppercase">View all Breed Types</a>
     </div>
-    @if($rabbits)
     <div class="my-8">
         <div class="uppercase text-sm font-bold">Served Rabbits</div>
         @forelse($rabbits as $rabbit)
         <div class="w-full flex justify-between bg-white border border-gray-200 py-4 px-2 my-2">
             <div>
-                <div>{{$rabbit->mother->rabbit_no}}</div>
+                <div>{{$rabbit->mother->rabbit_no}} @if($rabbit->mother->current_cage)<span class="font-bold text-teal-700">({{ $rabbit->mother->current_cage->cage_no}})</span>@endif</div>
                 <div>
                     Gestation Period: {{$rabbit->gestation_period}} days
                 </div>
@@ -32,5 +31,4 @@
         </div>
         @endforelse
     </div>
-    @endif
 </div>
