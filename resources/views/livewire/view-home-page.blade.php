@@ -16,6 +16,12 @@
                 <div>
                     Gestation Period: {{$rabbit->gestation_period}} days
                 </div>
+                <div>
+                    Date of Servicing: {{$rabbit->date_of_servicing}}
+                </div>
+                <div>
+                    Expected Date of Birth: {{$rabbit->expected_date_of_birth}}
+                </div>
             </div>
             <div class="pr-4">
                 <div>

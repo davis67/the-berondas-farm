@@ -4,7 +4,7 @@
     <div class="block">
       <div class="mx-auto text-lg leading-6 font-medium text-cool-gray-900">
         <div class="flex flex-col mt-2">
-           <div class="grid grid-cols-5 gap-4">
+           <div class="grid grid-cols-3 lg:grid-cols-5 gap-4">
             @forelse($batch->cages as $cage)
             <div class="border border-1 pl-3 flex items-center bg-white shadow-sm h-32 my-2 overflow-hidden rounded-none">
               <a href="{{route('cages.show', $cage->id)}}" class="w-full">
