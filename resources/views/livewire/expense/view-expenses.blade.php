@@ -86,7 +86,7 @@
                     <x-table.header sortable wire:click="sortBy('amount')"
                         :direction="$sortField === 'amount' ? $sortDirection : null">Amount</x-table.header>
                     <x-table.header sortable wire:click="sortBy('created_at')"
-                        :direction="$sortField === 'created_at' ? $sortDirection : null">Added on</x-table.header>
+                        :direction="$sortField === 'created_at' ? $sortDirection : null">Expense Date</x-table.header>
                 </x-slot>
                 <x-slot name="body">
                     @forelse($expenses as $expense)
@@ -98,7 +98,7 @@
                             shs {{ $expense->amount }}
                         </x-table.cell>
                         <x-table.cell>
-                            {{ $expense->date_for_humans }}
+                            {{ $expense->expense_date_for_humans }}
                         </x-table.cell>
                         <x-table.cell>
                             <a href="{{route('expenses.edit', $expense->id)}}" class="underline font-bold leading-6 text-md uppercase">Edit Expense</a>
