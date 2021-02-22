@@ -21,7 +21,7 @@
                                 </dt>
                                 <dd>
                                     <div class="text-lg leading-7 font-medium text-cool-gray-900">
-                                       shs {{$expenses->pluck('amount')->sum()}}
+                                       shs {{$expenses_count}}
                                     </div>
                                 </dd>
                             </dl>
