@@ -82,7 +82,8 @@
                 <h3 class="text-lg leading-6 font-medium text-gray-900">
                   Current Rabbits in <span>{{$cage->cage_no}}</span>
                 </h3>
-                @forelse($cage->rabbits as $rabbit)
+
+                @forelse($cage->current_rabbits as $rabbit)
                 <div class="space-y-4 my-4">
                   <div x-data="{ tooltip: false }" class="relative z-30 inline-flex">
                     <div x-on:mouseover="tooltip = true" x-on:mouseleave="tooltip = false" class="inline-flex items-center justify-center px-4 py-2 bg-teal-600 border border-transparent rounded-none font-semibold text-xs text-white uppercase space-x-4 tracking-widest hover:bg-teal-500 focus:outline-none focus:border-teal-700 focus:shadow-outline-teal active:bg-teal-600 transition ease-in-out duration-150">

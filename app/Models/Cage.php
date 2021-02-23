@@ -36,6 +36,16 @@ class Cage extends Model
     }
 
     /**
+     * Current Rabbits in the cage.
+     *
+     * @return [type] [description]
+     */
+    public function getCurrentRabbitsAttribute()
+    {
+        return Rabbit::where('cage_id', $this->id)->get();
+    }
+
+    /**
      * Rabbit can be one or many cages.
      *
      * @return [type] [description]
