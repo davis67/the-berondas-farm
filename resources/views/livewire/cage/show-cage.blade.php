@@ -35,7 +35,7 @@
                             <select id="rabbit" wire:model.lazy="rabbit" class="form-input block w-full rounded-none border transition duration-150 ease-in-out sm:text-sm sm:leading-5 @error('rabbit') border-red-300 text-red-900 placeholder-red-300 focus:border-red-300 focus:shadow-outline-red @enderror">
                                 <option value="">Select Rabbit ... </option>
                                 @foreach($rabbits as $rabbit)
-                                    <option value="{{$rabbit->id}}">{{$rabbit->rabbit_no}}</option>
+                                    <option value="{{$rabbit->id}}">{{$rabbit->rabbit_no}}@if($rabbit->current_cage)({{ $rabbit->current_cage->cage_no}})@endif</option>
                                 @endforeach
                             </select>
                             @error('rabbit')
@@ -93,6 +93,7 @@
                       <div class="absolute top-0 z-10 w-64 p-2 -mt-1 text-sm leading-tight transform -translate-x-1/2 -translate-y-full bg-teal-50 rounded-none border border-gray-50 shadow-lg">
                         <div class="text-gray-500">NAME: {{$rabbit->rabbit_no}}</div>
                         <div class="text-gray-500">AGE: {{$rabbit->age()}}</div>
+                        @if($rabbit->date_of_birth)<div class="text-gray-500">Date of Birth: {{$rabbit->date_of_birth}}</div>@endif
                         <div class="text-gray-500 uppercase">GENDER: {{$rabbit->gender}}</div>
                         @if($rabbit->breed)<div class="text-gray-500 uppercase">BREED: {{$rabbit->breed}}</div>@endif
                       </div>
