@@ -25,8 +25,9 @@
                   <div class="mt-1 rounded-md shadow-sm">
                     <select id="gender" wire:model.lazy="gender" class="form-select px-3 py-3 block w-full rounded-none border transition duration-150 ease-in-out sm:text-sm sm:leading-5 @error('gender') border-red-300 text-red-900 placeholder-red-300 focus:border-red-300 focus:shadow-outline-red @enderror">
                       <option value="" >Select the gender...</option>
-                      <option value="male" >Male</option>
-                      <option value="female">Female</option>
+                      <option value="male" >Buck</option>
+                      <option value="female">Doe</option>
+                      <option value="female">Unknown</option>
                     </select>
                     @error('gender')
                     <p class="mt-2 text-sm text-red-600">{{ $message }}</p>

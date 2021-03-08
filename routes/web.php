@@ -15,6 +15,7 @@ use App\Http\Livewire\Rabbit\AddRabbit;
 use App\Http\Livewire\Batch\ViewBatches;
 use App\Http\Livewire\Farm\RegisterFarm;
 use App\Http\Livewire\Rabbit\ServeRabbit;
+use App\Http\Livewire\Rabbit\ViewRabbits;
 use App\Http\Livewire\Auth\Passwords\Email;
 use App\Http\Livewire\Auth\Passwords\Reset;
 use App\Http\Livewire\Expense\EditExpenses;
@@ -68,6 +69,7 @@ Route::middleware('auth')->group(function () {
     Route::get('batches/{batch}', ShowBatch::class)->name('batches.show');
 
     Route::get('rabbits/create', AddRabbit::class)->name('rabbits.create');
+    Route::get('rabbits', ViewRabbits::class)->name('rabbits.index');
     Route::get('rabbits/servicing/{service}/register-rabbit-birth', RegisterRabbitsBirth::class)->name('rabbits.register-birth');
     Route::get('breed-types/create', RegisterBreedTypes::class)->name('breed-types.create');
     Route::get('breed-types/index', ViewBreedTypes::class)->name('breed-types.index');
