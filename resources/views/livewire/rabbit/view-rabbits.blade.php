@@ -11,7 +11,7 @@
                             <div class="w-full">
                                 <div class="py-2 w-full flex space-x-4">
                                     <x-input.text id="search" wire:model.lazy="search"  id="search" placeholder="Indentification no eg RBT-001" />
-                                    <x-button.link wire:click="$toggle('showFilters')">@if($showFilters) Hide @endif Advanced Search ...</x-button.link>
+                                    <x-button.link wire:click="$toggle('showFilters')">@if($showFilters) Hide @endif Filter</x-button.link>
                                 </div>
                             </div>
                             <div>
@@ -80,7 +80,8 @@
                             Not Specified
                             </x-table.cell>
                             <x-table.cell>
-                            <a href="" class="underline font-bold leading-6 text-md uppercase">Edit rabbit</a>
+                            <a href="{{ route('rabbits.edit', $rabbit->id) }}" class="underline font-bold leading-6 text-md uppercase">Edit rabbit</a>
+                            <a href="" class="underline font-bold leading-6 text-md uppercase">Delete rabbit</a>
                             </x-table.cell>
                             </x-table.row>
                             @empty
