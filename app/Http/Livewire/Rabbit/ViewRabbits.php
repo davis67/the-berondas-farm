@@ -54,6 +54,13 @@ class ViewRabbits extends Component
     public $date_min;
 
     /**
+     * The selected rabbit instance.
+     *
+     * @var mixed
+     */
+    public $selectRabbitId;
+
+    /**
      * Status     *.
      *
      * @var string
@@ -75,6 +82,13 @@ class ViewRabbits extends Component
     public $date_max;
 
     /**
+     * Indicates if rabbit transfer is being confirmed.
+     *
+     * @var bool
+     */
+    public $confirmingRabbitDeletion = false;
+
+    /**
      * Cage Id.
      *
      * @var array
@@ -87,6 +101,18 @@ class ViewRabbits extends Component
      * @var array
      */
     protected $queryString = ['sortField', 'sortDirection'];
+
+    /**
+     * Validate the transfer of the rabbit from one cage to another.
+     *
+     * @return void
+     */
+    public function validateDeletion($id)
+    {
+        $this->selectRabbitId = $id;
+
+        $this->confirmingRabbitDeletion = true;
+    }
 
     /**
      * Sort the expenses by the fields.
@@ -112,6 +138,24 @@ class ViewRabbits extends Component
     public function resetFilters()
     {
         $this->reset(['date_max', 'date_min']);
+    }
+
+    /**
+     * Handle the deletion of the rabbit.
+     *
+     * @return void
+     */
+    public function handleDeletion()
+    {
+        $selectedRabbit = Rabbit::findOrFail($this->selectRabbitId);
+
+        $selectedRabbit->delete();
+
+        $this->confirmingRabbitTransfer = false;
+
+        session()->flash('success', 'Rabbit Info successfully deleted.');
+
+        return redirect(route('rabbits.index'));
     }
 
     /**
