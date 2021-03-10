@@ -127,7 +127,7 @@
 
         <x-slot name="footer">
             <x-secondary-button wire:click="$toggle('confirmingRabbitTransfer')" wire:loading.attr="disabled">
-                Nevermind
+                Close
             </x-secondary-button>
 
             <x-danger-button class="ml-2" wire:click="handleTransfer" wire:loading.attr="disabled">

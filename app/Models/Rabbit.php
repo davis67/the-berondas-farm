@@ -35,7 +35,7 @@ class Rabbit extends Model
      */
     public function getCurrentCageAttribute()
     {
-        return $this->cages()->where('cage_id', '=', $this->cage_id)->first();
+        return Cage::findOrFail($this->cage_id);
     }
 
     /**
