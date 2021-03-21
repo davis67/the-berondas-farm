@@ -14,6 +14,27 @@ class Rabbit extends Model
     use GenerateRabbitNumber;
     use BelongsToFarm;
 
+    const GENDER = [
+        'doe' => 'Doe',
+        'buck' => 'Buck',
+        'unknown' => 'Unknown',
+    ];
+
+    const STATUS = [
+        'alive' => 'Alive',
+        'sold' => 'Sold',
+        'dead' => 'Dead',
+    ];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'date_of_birth' => 'date:Y-m-d',
+    ];
+
     /**
      * The attributes that are mass assignable.
      *
@@ -22,30 +43,13 @@ class Rabbit extends Model
     protected $fillable = ['breed', 'date_of_birth', 'status', 'gender', 'rabbit_no', 'farm_id', 'servicing_id', 'cage_id'];
 
     /**
-     * Load relationship data.
-     *
-     * @return void
-     */
-    protected $appends = ['currentCage'];
-
-    /**
      * Returns the current cage info of the rabbit.
      *
      * @return [type] [description]
      */
-    public function getCurrentCageAttribute()
+    public function cage()
     {
-        return Cage::findOrFail($this->cage_id);
-    }
-
-    /**
-     * Cage has one or many rabbits.
-     *
-     * @return [type] [description]
-     */
-    public function cages()
-    {
-        return $this->belongsToMany(Cage::class, 'cage_rabbit', 'rabbit_id', 'cage_id')->withPivot('date_of_transfer', 'is_occupant')->withTimestamps();
+        return $this->belongsTo(Cage::class, 'cage_id');
     }
 
     /**

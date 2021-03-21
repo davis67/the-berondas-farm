@@ -1,5 +1,5 @@
 @section('title', 'Edit a {{$form->name}}')
-@section('header', 'Edit a {{$farm->name}}')
+@section('header', 'Edit a "{{$farm->name}}"')
 <div class="mt-2">
     <div class="block">
       <div class="mx-auto text-lg leading-6 font-medium text-cool-gray-900">
@@ -90,26 +90,4 @@
         </div>
       </div>
     </div>
-
-    <!-- Add Confirmation Modal -->
-
-    <x-confirmation-modal>
-        <x-slot name="title">
-            Confirm Transfer of the rabbit
-        </x-slot>
-
-        <x-slot name="content">
-            Are you sure you want to transfet this rabbit? Once a rabbit is transfered, all of its resources and data will be permanently updated and altered.
-        </x-slot>
-
-        <x-slot name="footer">
-            <x-secondary-button wire:click="" wire:loading.attr="disabled">
-                Nevermind
-            </x-secondary-button>
-
-            <x-danger-button class="ml-2" wire:click="" wire:loading.attr="disabled">
-                Confirm Transfer
-            </x-danger-button>
-        </x-slot>
-    </x-confirmation-modal>
 </div>

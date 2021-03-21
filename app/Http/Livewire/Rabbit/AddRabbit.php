@@ -2,12 +2,14 @@
 
 namespace App\Http\Livewire\Rabbit;
 
+use App\Models\Cage;
 use App\Models\Rabbit;
 use Livewire\Component;
 use App\Models\BreedType;
 
 class AddRabbit extends Component
 {
+    public Rabbit $rabbit;
     /**
      * The Instance of Breed.
      *
@@ -30,6 +32,13 @@ class AddRabbit extends Component
     public $gender;
 
     /**
+     * cage.
+     *
+     * @var int
+     */
+    public $cage_id;
+
+    /**
      * Status.
      *
      * @var string
@@ -41,12 +50,14 @@ class AddRabbit extends Component
         $this->validate([
             'breed_id' => ['nullable'],
             'date_of_birth' => ['nullable'],
+            'cage_id' => ['nullable'],
             'gender' => ['required'],
         ]);
 
         Rabbit::create([
             'breed_id' => $this->breed_id,
             'date_of_birth' => $this->date_of_birth,
+            'cage_id' => $this->cage_id,
             'gender' => $this->gender,
             'farm_id' => auth()->user()->farm_id,
         ]);
@@ -65,6 +76,7 @@ class AddRabbit extends Component
     {
         return view('livewire.rabbit.add-rabbit', [
             'breeds' => BreedType::all(),
+            'cages' => Cage::all(),
         ]);
     }
 }

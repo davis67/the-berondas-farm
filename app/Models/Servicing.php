@@ -40,6 +40,31 @@ class Servicing extends Model
         });
     }
 
+    /**
+     * Expected Date of birth.
+     *
+     * @return string
+     */
+    public function getDateOfMatingAttribute()
+    {
+        return Carbon::parse($this->date_of_servicing)->format('d M, Y');
+    }
+
+    /**
+     * Expected Date of birth.
+     *
+     * @return string
+     */
+    public function getExpectedKiddleDateAttribute()
+    {
+        return Carbon::parse($this->expected_date_of_birth)->format('d M, Y');
+    }
+
+    /**
+     * Age number of the rabbit.
+     *
+     * @return string
+     */
     public function getMotherAttribute()
     {
         return Rabbit::findOrFail($this->mother_id);

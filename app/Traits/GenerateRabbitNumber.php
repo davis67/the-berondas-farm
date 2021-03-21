@@ -13,8 +13,10 @@ trait GenerateRabbitNumber
      */
     protected static function bootGenerateRabbitNumber()
     {
-        static::creating(function ($model) {
-            $model->rabbit_no = self::randomRabbitNumber();
+        static::saving(function ($model) {
+            if (is_null($model->rabbit_no)) {
+                $model->rabbit_no = self::randomRabbitNumber();
+            }
         });
     }
 

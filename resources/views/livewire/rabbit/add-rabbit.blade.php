@@ -34,6 +34,22 @@
                     @enderror
                   </div>
                 </div>
+                <div class="sm:col-span-4">
+                    <label for="cage_id" class="block text-sm font-medium leading-5 text-gray-700">
+                        Cage
+                    </label>
+                    <div class="mt-1 rounded-md shadow-sm">
+                        <select id="cage_id" wire:model.lazy="cage_id" class="form-select px-3 py-3 block w-full rounded-none border transition duration-150 ease-in-out sm:text-sm sm:leading-5 @error('cage_id') border-red-300 text-red-900 placeholder-red-300 focus:border-red-300 focus:shadow-outline-red @enderror">
+                            <option value="" >Select the cage</option>
+                            @foreach($cages as $cage)
+                            <option value="{{$cage->id}}">{{$cage->cage_no}}</option>
+                            @endforeach
+                        </select>
+                        @error('cage_id')
+                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+                </div>
                 <div class="mt-4 grid grid-cols-1 row-gap-6 col-gap-4 sm:grid-cols-6">
                   <div class="sm:col-span-3">
                     <label for="date_of_birth" class="block text-sm font-medium leading-5 text-gray-700">

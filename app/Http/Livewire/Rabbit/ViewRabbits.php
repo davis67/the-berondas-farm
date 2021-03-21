@@ -5,11 +5,14 @@ namespace App\Http\Livewire\Rabbit;
 use App\Models\Cage;
 use App\Models\Rabbit;
 use Livewire\Component;
+use App\Models\BreedType;
 use Livewire\WithPagination;
 
 class ViewRabbits extends Component
 {
     use WithPagination;
+
+    public Rabbit $rabbit;
 
     /**
      * Search.
@@ -17,6 +20,13 @@ class ViewRabbits extends Component
      * @var string
      */
     public $search = '';
+
+    /**
+     * Show Save Modal.
+     *
+     * @var string
+     */
+    public $showSaveModal = false;
 
     /**
      * The Sort.
@@ -68,6 +78,13 @@ class ViewRabbits extends Component
     public $status;
 
     /**
+     * Check if one is creating.
+     *
+     * @var string
+     */
+    public $showRabbitNo = true;
+
+    /**
      * gender.
      *
      * @var string
@@ -103,6 +120,34 @@ class ViewRabbits extends Component
     protected $queryString = ['sortField', 'sortDirection'];
 
     /**
+     * Validate the rabbits attributes.
+     *
+     * @var array
+     */
+    public function rules()
+    {
+        return [
+            'rabbit.rabbit_no' => 'nullable',
+            'rabbit.cage_id' => 'required',
+            'rabbit.breed_id' => 'nullable',
+            'rabbit.gender' => 'required|in:' . collect(Rabbit::GENDER)->keys()->implode(','),
+            'rabbit.date_of_birth' => 'nullable',
+        ];
+    }
+
+    public function create()
+    {
+        $this->showSaveModal = true;
+        $this->rabbit = $this->makeBlankTransaction();
+        $this->showRabbitNo = false;
+    }
+
+    public function makeBlankTransaction()
+    {
+        return Rabbit::make([]);
+    }
+
+    /**
      * Validate the transfer of the rabbit from one cage to another.
      *
      * @return void
@@ -112,6 +157,31 @@ class ViewRabbits extends Component
         $this->selectRabbitId = $id;
 
         $this->confirmingRabbitDeletion = true;
+    }
+
+    /**
+     * Save the rabbit information.
+     *
+     * @return void
+     */
+    public function handleSave(Rabbit $rabbit)
+    {
+        $this->showSaveModal = true;
+        $this->rabbit = $rabbit;
+        $this->showRabbitNo = true;
+    }
+
+    /**
+     * Save the rabbit information.
+     *
+     * @return void
+     */
+    public function save()
+    {
+        $this->validate();
+
+        $this->rabbit->save();
+        $this->showSaveModal = false;
     }
 
     /**
@@ -175,9 +245,13 @@ class ViewRabbits extends Component
                 ->orderBy($this->sortField, $this->sortDirection);
 
         return view('livewire.rabbit.view-rabbits', [
-            'rabbits_count' => $rabbits_query->count(),
+            'rabbits_count' => Rabbit::count(),
+            'bucks' => Rabbit::where('gender', 'buck')->count(),
+            'does' => Rabbit::where('gender', 'doe')->count(),
+            'kits' => Rabbit::where('gender', 'unknown')->count(),
             'rabbits' => $rabbits_query->paginate(10),
             'cages' => Cage::all(),
+            'rabbitTypes' => BreedType::all(),
         ])->extends('layouts.app');
     }
 }

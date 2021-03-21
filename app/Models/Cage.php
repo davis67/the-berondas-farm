@@ -52,7 +52,7 @@ class Cage extends Model
      */
     public function rabbits()
     {
-        return $this->belongsToMany(Rabbit::class, 'cage_rabbit', 'cage_id', 'rabbit_id')->withPivot('date_of_transfer', 'is_occupant')->withTimestamps();
+        return $this->hasToMany(Rabbit::class, 'cage_id');
     }
 
     /**

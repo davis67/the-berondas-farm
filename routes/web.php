@@ -63,7 +63,7 @@ Route::middleware('auth')->group(function () {
     Route::get('farm/register', RegisterFarm::class)->name('farm.create');
     Route::get('farms', ViewFarms::class)->name('farms.index');
     Route::get('farms/{farm}', EditFarm::class)->name('farms.edit');
-    Route::get('farms/{farm}/rabbit-transfer', ServeRabbit::class)->name('farms.rabbits');
+    // Route::get('farms/{farm}/rabbit-transfer', ServeRabbit::class)->name('farms.rabbits');
 
     Route::get('batches/create', AddBatch::class)->name('batches.create');
     Route::get('batches', ViewBatches::class)->name('batches.index');
@@ -73,6 +73,7 @@ Route::middleware('auth')->group(function () {
     Route::get('rabbits/{rabbit}/edit', EditRabbit::class)->name('rabbits.edit');
     Route::get('rabbits', ViewRabbits::class)->name('rabbits.index');
     Route::get('rabbits/servicing/{service}/register-rabbit-birth', RegisterRabbitsBirth::class)->name('rabbits.register-birth');
+    Route::get('rabbits/{id}/serve-rabbit', ServeRabbit::class)->name('farms.rabbits');
     Route::get('breed-types/create', RegisterBreedTypes::class)->name('breed-types.create');
     Route::get('breed-types/index', ViewBreedTypes::class)->name('breed-types.index');
     Route::get('breed-types/{breedType}/edit', EditBreedTypes::class)->name('breed-types.edit');
