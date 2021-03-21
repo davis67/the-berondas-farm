@@ -89,7 +89,7 @@ class ViewRabbits extends Component
      *
      * @var string
      */
-    public $gender;
+    public $gender = '';
 
     /**
      * Date max.
@@ -117,7 +117,7 @@ class ViewRabbits extends Component
      *
      * @var array
      */
-    protected $queryString = ['sortField', 'sortDirection'];
+    protected $queryString = ['search', 'sortField', 'sortDirection'];
 
     /**
      * Validate the rabbits attributes.
@@ -208,6 +208,11 @@ class ViewRabbits extends Component
     public function resetFilters()
     {
         $this->reset(['date_max', 'date_min']);
+    }
+
+    public function updatingSearch()
+    {
+        $this->resetPage();
     }
 
     /**

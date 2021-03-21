@@ -49,8 +49,8 @@ class DatabaseSeeder extends Seeder
         }
         // User::factory(5)->create();
         Expense::factory(100)->create();
-        // Rabbit::factory(15)->create([
-        //     'farm_id' => 1,
-        // ]);
+        Rabbit::factory(15)->create([
+            'farm_id' => 1,
+        ]);
     }
 }

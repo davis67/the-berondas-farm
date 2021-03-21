@@ -106,9 +106,9 @@
                                         </select>
                                         <select id="gender" wire:model.lazy="gender" class="form-select px-3 py-3 block w-full rounded-none border transition duration-150 ease-in-out sm:text-sm sm:leading-5">
                                             <option value="" >Select the gender...</option>
-                                            <option value="buck" >Buck</option>
-                                            <option value="doe">Doe</option>
-                                            <option value="unknown">Unknown</option>
+                                            @foreach(App\Models\Rabbit::GENDER as $value => $label)
+                                                <option value="{{ $value}}">{{ $label }}</option>
+                                            @endforeach
                                         </select>
                                         <select id="status" wire:model.lazy="status" class="form-select px-3 py-3 block w-full rounded-none border transition duration-150 ease-in-out sm:text-sm sm:leading-5">
                                             <option value="" >Select the status...</option>

@@ -22,8 +22,8 @@ class RabbitFactory extends Factory
     public function definition()
     {
         return [
-            'breed' => $this->faker->name,
-            'gender' => 'female',
+            'rabbit_no' => $this->faker->name,
+            'gender' => 'doe',
             'status' => 'alive',
             'date_of_birth' => now()->addDays(-(mt_rand(10, 100))),
         ];
