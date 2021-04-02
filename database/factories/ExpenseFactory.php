@@ -22,7 +22,10 @@ class ExpenseFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'expense_date' => now(),
+            'expense_type_id' => mt_rand(1, 5),
+            'amount' => array_rand([100000, 75000, 50000, 200000]),
+            'farm_id' => 1,
         ];
     }
 }

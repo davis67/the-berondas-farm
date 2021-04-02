@@ -2,6 +2,7 @@
 
 use App\Http\Livewire\Auth\Login;
 use App\Http\Livewire\Auth\Verify;
+use App\Http\Livewire\ViewHomePage;
 use App\Http\Livewire\Auth\Register;
 use App\Http\Livewire\Cage\ShowCage;
 use App\Http\Livewire\Farm\EditFarm;
@@ -13,8 +14,9 @@ use App\Http\Livewire\Batch\ShowBatch;
 use App\Http\Livewire\Rabbit\AddRabbit;
 use App\Http\Livewire\Batch\ViewBatches;
 use App\Http\Livewire\Farm\RegisterFarm;
+use App\Http\Livewire\Rabbit\EditRabbit;
 use App\Http\Livewire\Rabbit\ServeRabbit;
-use App\Http\Livewire\Dashboard\Dashboard;
+use App\Http\Livewire\Rabbit\ViewRabbits;
 use App\Http\Livewire\Auth\Passwords\Email;
 use App\Http\Livewire\Auth\Passwords\Reset;
 use App\Http\Livewire\Expense\EditExpenses;
@@ -51,11 +53,12 @@ Route::middleware('auth:sanctum')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::get('register', Register::class)->name('register');
 
-    Route::get('/', Dashboard::class)->name('home');
     Route::get('email/verify/{id}/{hash}', EmailVerificationController::class)
         ->middleware('signed')
         ->name('verification.verify');
     Route::post('logout', LogoutController::class)->name('logout');
+
+    Route::get('/', ViewHomePage::class)->name('home');
 
     Route::get('farm/register', RegisterFarm::class)->name('farm.create');
     Route::get('farms', ViewFarms::class)->name('farms.index');
@@ -67,6 +70,8 @@ Route::middleware('auth')->group(function () {
     Route::get('batches/{batch}', ShowBatch::class)->name('batches.show');
 
     Route::get('rabbits/create', AddRabbit::class)->name('rabbits.create');
+    Route::get('rabbits/{rabbit}/edit', EditRabbit::class)->name('rabbits.edit');
+    Route::get('rabbits', ViewRabbits::class)->name('rabbits.index');
     Route::get('rabbits/servicing/{service}/register-rabbit-birth', RegisterRabbitsBirth::class)->name('rabbits.register-birth');
     Route::get('breed-types/create', RegisterBreedTypes::class)->name('breed-types.create');
     Route::get('breed-types/index', ViewBreedTypes::class)->name('breed-types.index');

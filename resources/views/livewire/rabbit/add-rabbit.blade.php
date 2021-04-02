@@ -49,8 +49,8 @@
                   </div>
                 </div>
                 <div class="sm:col-span-4">
-                  <label for="breed_id" class="block text-sm font-medium leading-5 text-gray-700">
-                    Breed
+                  <label for="gender" class="block text-sm font-medium leading-5 text-gray-700">
+                    Gender
                   </label>
                   <div class="mt-1 rounded-md shadow-sm">
                     <select id="breed_id" wire:model.lazy="breed_id" class="form-select px-3 py-3 block w-full rounded-none border transition duration-150 ease-in-out sm:text-sm sm:leading-5 @error('breed_id') border-red-300 text-red-900 placeholder-red-300 focus:border-red-300 focus:shadow-outline-red @enderror">
@@ -59,31 +59,59 @@
                         <option value="{{$breed->id}}">{{$breed->name}}</option>
                       @endforeach
                     </select>
-                    @error('breed_id')
-                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                    @error('gender')
+                    <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                     @enderror
                   </div>
                 </div>
-
-              </div>
-              <div class="mt-8 border-t border-gray-200 pt-5">
-                <div class="flex justify-end">
-                  <span class="inline-flex rounded-md shadow-sm">
-                    <x-primary-button >
-                      Cancel
-                    </x-primary-button>
-                  </span>
-                  <span class="ml-3 inline-flex rounded-md shadow-sm">
-                    <x-secondary-button type="submit">
-                      Save
-                    </x-secondary-button>
-                  </span>
+                <div class="mt-4 grid grid-cols-1 row-gap-6 col-gap-4 sm:grid-cols-6">
+                  <div class="sm:col-span-3">
+                    <label for="date_of_birth" class="block text-sm font-medium leading-5 text-gray-700">
+                      Date of Birth
+                    </label>
+                    <div class="mt-1 rounded-md shadow-sm">
+                      <input id="date_of_birth" type="date" wire:model.lazy="date_of_birth" class="form-input block w-full rounded-none border transition duration-150 ease-in-out sm:text-sm sm:leading-5 @error('date_of_birth') border-red-300 text-red-900 placeholder-red-300 focus:border-red-300 focus:shadow-outline-red @enderror" />
+                      @error('date_of_birth')
+                      <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                      @enderror
+                    </div>
+                  </div>
                 </div>
               </div>
-            </form>
-
-          </div>
+              <div class="sm:col-span-4">
+                <label for="breed_id" class="block text-sm font-medium leading-5 text-gray-700">
+                  Breed
+                </label>
+                <div class="mt-1 rounded-md shadow-sm">
+                  <select id="breed_id" wire:model.lazy="breed_id" class="form-select px-3 py-3 block w-full rounded-none border transition duration-150 ease-in-out sm:text-sm sm:leading-5 @error('breed_id') border-red-300 text-red-900 placeholder-red-300 focus:border-red-300 focus:shadow-outline-red @enderror">
+                    <option value="" >Select the breed type</option>
+                    @foreach($breeds as $breed)
+                    <option value="{{$breed->id}}">{{$breed->name}}</option>
+                    @endforeach
+                  </select>
+                  @error('breed_id')
+                  <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                  @enderror
+                </div>
+              </div>
+            </div>
+            <div class="mt-8 border-t border-gray-200 pt-5">
+              <div class="flex justify-end">
+                <span class="inline-flex rounded-md shadow-sm">
+                  <x-primary-button >
+                  Cancel
+                  </x-primary-button>
+                </span>
+                <span class="ml-3 inline-flex rounded-md shadow-sm">
+                  <x-secondary-button type="submit">
+                  Save
+                  </x-secondary-button>
+                </span>
+              </div>
+            </div>
+          </form>
         </div>
       </div>
     </div>
+  </div>
 </div>
