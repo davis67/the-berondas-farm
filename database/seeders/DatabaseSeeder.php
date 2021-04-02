@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use App\Models\Farm;
 use App\Models\User;
 use App\Models\Rabbit;
-use App\Models\Expense;
 use App\Models\ExpenseType;
 use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
@@ -48,7 +47,7 @@ class DatabaseSeeder extends Seeder
             ExpenseType::create($ExpenseType);
         }
         // User::factory(5)->create();
-        Expense::factory(100)->create();
+        // Farm::factory(15)->create();
         // Rabbit::factory(15)->create([
         //     'farm_id' => 1,
         // ]);
