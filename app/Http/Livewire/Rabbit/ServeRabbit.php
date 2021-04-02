@@ -43,9 +43,9 @@ class ServeRabbit extends Component
      *
      * @return void
      */
-    public function mount(Rabbit $rabbit)
+    public function mount($id)
     {
-        $this->rabbit = $rabbit->loadMissing('cages');
+        $this->rabbit = Rabbit::findOrFail($id);
     }
 
     /**
@@ -75,8 +75,8 @@ class ServeRabbit extends Component
     public function render()
     {
         return view('livewire.rabbit.serve-rabbit', [
-            'male_rabbits' => Rabbit::where('gender', 'male')->get(),
-            'female_rabbits' => Rabbit::where('gender', 'female')->get(),
+            'male_rabbits' => Rabbit::where('gender', 'buck')->get(),
+            'female_rabbits' => Rabbit::where('gender', 'doe')->get(),
         ]);
     }
 }

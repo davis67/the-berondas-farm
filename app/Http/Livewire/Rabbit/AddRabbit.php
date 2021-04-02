@@ -2,69 +2,81 @@
 
 namespace App\Http\Livewire\Rabbit;
 
+use App\Models\Cage;
 use App\Models\Rabbit;
 use Livewire\Component;
 use App\Models\BreedType;
 
 class AddRabbit extends Component
 {
-    /**
-     * The Instance of Breed.
-     *
-     * @var mixed
-     */
-    public $breed_id;
+	public Rabbit $rabbit;
+	/**
+	 * The Instance of Breed.
+	 *
+	 * @var mixed
+	 */
+	public $breed_id;
 
-    /**
-     * Date of Birth.
-     *
-     * @var date
-     */
-    public $date_of_birth;
+	/**
+	 * Date of Birth.
+	 *
+	 * @var date
+	 */
+	public $date_of_birth;
 
-    /**
-     * Gender.
-     *
-     * @var string
-     */
-    public $gender;
+	/**
+	 * Gender.
+	 *
+	 * @var string
+	 */
+	public $gender;
 
-    /**
-     * Status.
-     *
-     * @var string
-     */
-    public $status;
+	/**
+	 * cage.
+	 *
+	 * @var int
+	 */
+	public $cage_id;
 
-    public function addRabbit()
-    {
-        $this->validate([
-            'breed_id' => ['nullable'],
-            'date_of_birth' => ['nullable'],
-            'gender' => ['required'],
-        ]);
+	/**
+	 * Status.
+	 *
+	 * @var string
+	 */
+	public $status;
 
-        Rabbit::create([
-            'breed_id' => $this->breed_id,
-            'date_of_birth' => $this->date_of_birth,
-            'gender' => $this->gender,
-            'farm_id' => auth()->user()->farm_id,
-        ]);
+	public function addRabbit()
+	{
+		$this->validate([
+			'breed_id' => ['nullable'],
+			'date_of_birth' => ['nullable'],
+			'cage_id' => ['nullable'],
+			'gender' => ['required'],
+		]);
 
-        session()->flash('success', 'You have successfully updated a rabbit.');
+		Rabbit::create([
+			'breed_id' => $this->breed_id,
+			'date_of_birth' => $this->date_of_birth,
+			'cage_id' => $this->cage_id,
+			'gender' => $this->gender,
+			'farm_id' => auth()->user()->farm_id,
+		]);
 
-        return redirect(route('home'));
-    }
+		session()->flash('success', 'You have successfully updated a rabbit.');
 
-    /**
-     * Render the component.
-     *
-     * @return \Illuminate\View\View
-     */
-    public function render()
-    {
-        return view('livewire.rabbit.add-rabbit', [
-            'breeds' => BreedType::all(),
-        ]);
-    }
+		return redirect(route('home'));
+	}
+
+	/**
+	 * Render the component.
+	 *
+	 * @return \Illuminate\View\View
+	 */
+	public function render()
+	{
+		return view('livewire.rabbit.add-rabbit', [
+			'breeds' => BreedType::all(),
+			'cages' => Cage::all(),
+		]);
+	}
 }
