@@ -108,7 +108,7 @@ class ShowCage extends Component
         // dd($this->cage->current_rabbits);
 
         return view('livewire.cage.show-cage', [
-            'rabbits' => Rabbit::where('cage_id', null)->get(),
+            'rabbits' => Rabbit::all(),
         ])->extends('layouts.app');
     }
 }
