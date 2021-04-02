@@ -29,7 +29,7 @@
                             <select id="male_rabbit" wire:model.lazy="male_rabbit" class="form-input block w-full rounded-none border transition duration-150 ease-in-out sm:text-sm sm:leading-5 @error('male_rabbit') border-red-300 text-red-900 placeholder-red-300 focus:border-red-300 focus:shadow-outline-red @enderror">
                                 <option value="">Select Rabbit ... </option>
                                 @foreach($male_rabbits as $rabbit)
-                                    <option value="{{$rabbit->id}}">{{$rabbit->rabbit_no}}@if($rabbit->current_cage)({{ $rabbit->current_cage->cage_no}})@endif</option>
+                                    <option value="{{$rabbit->id}}">{{$rabbit->rabbit_no}}</option>
                                 @endforeach
                             </select>
                             @error('male_rabbit')
@@ -47,7 +47,7 @@
                             <select id="female_rabbit" wire:model.lazy="female_rabbit" class="form-input block w-full rounded-none border transition duration-150 ease-in-out sm:text-sm sm:leading-5 @error('female_rabbit') border-red-300 text-red-900 placeholder-red-300 focus:border-red-300 focus:shadow-outline-red @enderror">
                                 <option value="">Select Rabbit ... </option>
                                 @foreach($female_rabbits as $rabbit)
-                                    <option value="{{$rabbit->id}}">{{$rabbit->rabbit_no}}@if($rabbit->current_cage)({{ $rabbit->current_cage->cage_no}})@endif</option>
+                                    <option value="{{$rabbit->id}}">{{$rabbit->rabbit_no}}</option>
                                 @endforeach
                             </select>
                             @error('female_rabbit')

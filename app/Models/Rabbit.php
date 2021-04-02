@@ -26,26 +26,16 @@ class Rabbit extends Model
      *
      * @return void
      */
-<<<<<<< HEAD
     protected $with = ['currentCage'];
-=======
-    protected $appends = ['currentCage'];
->>>>>>> main
 
     /**
      * Returns the current cage info of the rabbit.
      *
      * @return [type] [description]
      */
-<<<<<<< HEAD
     public function currentCage()
     {
         return Rabbit::findOrFail($this->cage_id);
-=======
-    public function getCurrentCageAttribute()
-    {
-        return Cage::findOrFail($this->cage_id);
->>>>>>> main
     }
 
     /**
@@ -55,7 +45,7 @@ class Rabbit extends Model
      */
     public function cages()
     {
-        return $this->belongsToMany(Cage::class, 'cage_rabbit', 'rabbit_id', 'cage_id')->withPivot('date_of_transfer', 'is_occupant')->withTimestamps();
+        return $this->belongsToMany(Cage::class)->withPivot('date_of_transfer', 'is_occupant');
     }
 
     /**

@@ -35,7 +35,7 @@
                             <select id="rabbit" wire:model.lazy="rabbit" class="form-input block w-full rounded-none border transition duration-150 ease-in-out sm:text-sm sm:leading-5 @error('rabbit') border-red-300 text-red-900 placeholder-red-300 focus:border-red-300 focus:shadow-outline-red @enderror">
                                 <option value="">Select Rabbit ... </option>
                                 @foreach($rabbits as $rabbit)
-                                    <option value="{{$rabbit->id}}">{{$rabbit->rabbit_no}}@if($rabbit->current_cage)({{ $rabbit->current_cage->cage_no}})@endif</option>
+                                    <option value="{{$rabbit->id}}">{{$rabbit->rabbit_no}}</option>
                                 @endforeach
                             </select>
                             @error('rabbit')
@@ -82,8 +82,7 @@
                 <h3 class="text-lg leading-6 font-medium text-gray-900">
                   Current Rabbits in <span>{{$cage->cage_no}}</span>
                 </h3>
-
-                @forelse($cage->current_rabbits as $rabbit)
+                @forelse($cage->rabbits as $rabbit)
                 <div class="space-y-4 my-4">
                   <div x-data="{ tooltip: false }" class="relative z-30 inline-flex">
                     <div x-on:mouseover="tooltip = true" x-on:mouseleave="tooltip = false" class="inline-flex items-center justify-center px-4 py-2 bg-teal-600 border border-transparent rounded-none font-semibold text-xs text-white uppercase space-x-4 tracking-widest hover:bg-teal-500 focus:outline-none focus:border-teal-700 focus:shadow-outline-teal active:bg-teal-600 transition ease-in-out duration-150">
@@ -93,7 +92,6 @@
                       <div class="absolute top-0 z-10 w-64 p-2 -mt-1 text-sm leading-tight transform -translate-x-1/2 -translate-y-full bg-teal-50 rounded-none border border-gray-50 shadow-lg">
                         <div class="text-gray-500">NAME: {{$rabbit->rabbit_no}}</div>
                         <div class="text-gray-500">AGE: {{$rabbit->age()}}</div>
-                        @if($rabbit->date_of_birth)<div class="text-gray-500">Date of Birth: {{$rabbit->date_of_birth}}</div>@endif
                         <div class="text-gray-500 uppercase">GENDER: {{$rabbit->gender}}</div>
                         @if($rabbit->breed)<div class="text-gray-500 uppercase">BREED: {{$rabbit->breed}}</div>@endif
                       </div>
@@ -127,7 +125,7 @@
 
         <x-slot name="footer">
             <x-secondary-button wire:click="$toggle('confirmingRabbitTransfer')" wire:loading.attr="disabled">
-                Close
+                Nevermind
             </x-secondary-button>
 
             <x-danger-button class="ml-2" wire:click="handleTransfer" wire:loading.attr="disabled">

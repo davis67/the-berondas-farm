@@ -24,7 +24,7 @@ class ViewExpenses extends Component
      *
      * @var string
      */
-    public $sortField = 'expense_date';
+    public $sortField = 'amount';
 
     /**
      * The Sort Direction.
@@ -101,16 +101,14 @@ class ViewExpenses extends Component
      */
     public function render()
     {
-        $expenses_query = Expense::query()
+        return view('livewire.expense.view-expenses', [
+            'expenses' => Expense::query()
                 ->with('category')
                 ->when($this->search, fn ($query, $value) => $query->where('expense_type_id', $value))
-                ->when($this->date_min, fn ($query, $date) => $query->where('expense_date', '>=', Carbon::parse($date)))
-                ->when($this->date_max, fn ($query, $date) => $query->where('expense_date', '<=', Carbon::parse($date)))
-                ->orderBy($this->sortField, $this->sortDirection);
-
-        return view('livewire.expense.view-expenses', [
-            'expenses_count' => $expenses_query->pluck('amount')->sum(),
-            'expenses' => $expenses_query->paginate(10),
+                 ->when($this->date_min, fn ($query, $date) => $query->where('created_at', '>=', Carbon::parse($date)))
+                ->when($this->date_max, fn ($query, $date) => $query->where('created_at', '<=', Carbon::parse($date)))
+                ->orderBy($this->sortField, $this->sortDirection)
+                ->paginate(10),
             'expense_types' => ExpenseType::all(),
         ])->extends('layouts.app');
     }
