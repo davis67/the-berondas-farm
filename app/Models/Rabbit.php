@@ -22,40 +22,13 @@ class Rabbit extends Model
     protected $fillable = ['breed', 'date_of_birth', 'status', 'gender', 'rabbit_no', 'farm_id', 'servicing_id', 'cage_id'];
 
     /**
-     * Load relationship data.
-     *
-     * @return void
-     */
-<<<<<<< HEAD
-    protected $with = ['currentCage'];
-=======
-    protected $appends = ['currentCage'];
->>>>>>> main
-
-    /**
-     * Returns the current cage info of the rabbit.
-     *
-     * @return [type] [description]
-     */
-<<<<<<< HEAD
-    public function currentCage()
-    {
-        return Rabbit::findOrFail($this->cage_id);
-=======
-    public function getCurrentCageAttribute()
-    {
-        return Cage::findOrFail($this->cage_id);
->>>>>>> main
-    }
-
-    /**
      * Cage has one or many rabbits.
      *
      * @return [type] [description]
      */
     public function cages()
     {
-        return $this->belongsToMany(Cage::class, 'cage_rabbit', 'rabbit_id', 'cage_id')->withPivot('date_of_transfer', 'is_occupant')->withTimestamps();
+        return $this->belongsTo(Cage::class);
     }
 
     /**
