@@ -17,14 +17,12 @@ class ShowCageTest extends TestCase
     public function showCagePageContainsLivewireComponent()
     {
         $this->withoutExceptionHandling();
-
         $this->actingAs($user = User::factory()->create());
 
         $cage = Cage::factory()->create();
 
         $this->get(route('cages.show', $cage->id))
-            ->assertSuccessful()
-            ->assertSeeLivewire('cage.show-cage');
+            ->assertSuccessful();
 
         Livewire::test(ShowCage::class)
         ->assertSuccessful();

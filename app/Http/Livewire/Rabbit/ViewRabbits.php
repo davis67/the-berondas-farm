@@ -6,12 +6,23 @@ use App\Models\Cage;
 use App\Models\Rabbit;
 use Livewire\Component;
 use App\Models\BreedType;
-use Livewire\WithPagination;
+use App\Http\Livewire\DataTable\WithPerPagePagination;
 
 class ViewRabbits extends Component
 {
-    use WithPagination;
+    use WithPerPagePagination;
+    /**
+     * Select Page .
+     *
+     * @var int
+     */
+    public $selectPage;
 
+    /**
+     * Instance.
+     *
+     * @var object
+     */
     public Rabbit $rabbit;
 
     /**
@@ -135,13 +146,6 @@ class ViewRabbits extends Component
         ];
     }
 
-    public function create()
-    {
-        $this->showSaveModal = true;
-        $this->rabbit = $this->makeBlankTransaction();
-        $this->showRabbitNo = false;
-    }
-
     public function makeBlankTransaction()
     {
         return Rabbit::make([]);
@@ -233,6 +237,13 @@ class ViewRabbits extends Component
         return redirect(route('rabbits.index'));
     }
 
+    public function create()
+    {
+        $this->showSaveModal = true;
+        $this->rabbit = $this->makeBlankTransaction();
+        $this->showRabbitNo = false;
+    }
+
     /**
      * Render the component.
      *
@@ -240,7 +251,7 @@ class ViewRabbits extends Component
      */
     public function render()
     {
-        $rabbits_query = Rabbit::query()
+        $query = Rabbit::query()
                 ->when($this->search, fn ($query, $value) => $query->where('rabbit_no', $value))
                 ->when($this->gender, fn ($query, $value) => $query->where('gender', $value))
                 ->when($this->status, fn ($query, $value) => $query->where('status', $value))
@@ -254,7 +265,7 @@ class ViewRabbits extends Component
             'bucks' => Rabbit::where('gender', 'buck')->count(),
             'does' => Rabbit::where('gender', 'doe')->count(),
             'kits' => Rabbit::where('gender', 'unknown')->count(),
-            'rabbits' => $rabbits_query->paginate(10),
+            'rabbits' => $this->applyPagination($query),
             'cages' => Cage::all(),
             'rabbitTypes' => BreedType::all(),
         ])->extends('layouts.app');

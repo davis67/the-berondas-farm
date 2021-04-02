@@ -89,8 +89,26 @@
                                     </div>
                                     <x-button.link wire:click="$toggle('showFilters')" class="pl-3">@if($showFilters) Hide @endif More Filters</x-button.link>
                                 </div>
-                                <div class="flex-1 flex justify-end items-center">
-                                    <x-button.primary wire:click="create">Add new rabbit to Farm</x-button>
+                                <div class="px-12 space-x-2 items-center flex">
+                                    <x-input.group borderless paddingless for="perPage" label="Per Page">
+                                        <x-input.select wire:model="perPage" id="perPage">
+                                            <option value="10">10</option>
+                                            <option value="25">25</option>
+                                            <option value="50">50</option>
+                                            <option value="100">100</option>
+                                        </x-input.select>
+                                    </x-input.group>
+                                    <x-dropdown label="Bulk Action">
+                                        <x-dropdown.item type="button" wire:click="exportSelected" class="flex items-center space-x-2"> <x-icon.download class="text-cool-gray-400"/>
+                                            <span>Export</span>
+                                        </x-dropdown>
+                                        <x-dropdown.item type="button" wire:click="$toggle('showDeleteModal')" class="flex items-center space-x-2">
+                                        <x-icon.trash class="text-cool-gray-400"/>
+                                        <span>Delete</span>
+                                        </x-dropdown>
+                                    </x-dropdown>
+                                    <x-button.primary wire:click="create">Import</x-button.primary>
+                                    <x-button.primary wire:click="create">New</x-button.primary>
                                 </div>
 
                             </div>
@@ -131,6 +149,9 @@
                         <div class="bg-white flex flex-col mt-2">
                             <x-table>
                                 <x-slot name="head">
+                                    <x-table.header class="pr-0 w-8">
+                                        <x-input.checkbox wire:model="selectPage" />
+                                    </x-table.header>
                                     <x-table.header sortable wire:click="sortBy('rabbit_type_id')"
                                     :direction="$sortField === 'rabbit_no' ? $sortDirection : null">indentification no </x-table.header>
                                     <x-table.header sortable wire:click="sortBy('gender')"
@@ -143,6 +164,10 @@
                                 <x-slot name="body">
                                     @forelse($rabbits as $rabbit)
                                         <x-table.row wire:loading.class="opacity-50">
+                                            <x-table.cell class="pr-0">
+                                                <x-input.checkbox wire:model="selected" value="{{ $rabbit->id }}" />
+                                            </x-table.cell>
+
                                             <x-table.cell>
                                                 {{ $rabbit->rabbit_no }}
                                             </x-table.cell>
