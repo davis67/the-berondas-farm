@@ -6,17 +6,13 @@ use App\Models\Cage;
 use App\Models\Rabbit;
 use Livewire\Component;
 use App\Models\BreedType;
+use App\Http\Livewire\DataTable\WithSorting;
 use App\Http\Livewire\DataTable\WithPerPagePagination;
 
 class ViewRabbits extends Component
 {
     use WithPerPagePagination;
-    /**
-     * Select Page .
-     *
-     * @var int
-     */
-    public $selectPage;
+    use WithSorting;
 
     /**
      * Instance.
@@ -26,11 +22,11 @@ class ViewRabbits extends Component
     public Rabbit $rabbit;
 
     /**
-     * Search.
+     * Select Page .
      *
-     * @var string
+     * @var int
      */
-    public $search = '';
+    public $selectPage;
 
     /**
      * Show Save Modal.
@@ -38,20 +34,6 @@ class ViewRabbits extends Component
      * @var string
      */
     public $showSaveModal = false;
-
-    /**
-     * The Sort.
-     *
-     * @var string
-     */
-    public $sortField = 'created_at';
-
-    /**
-     * The Sort Direction.
-     *
-     * @var string
-     */
-    public $sortDirection = 'asc';
 
     /**
      * The Filters.
@@ -66,13 +48,12 @@ class ViewRabbits extends Component
      * @var array
      */
     public $selected = [];
-
     /**
-     * Date min.
+     * Check if all rows are selected.
      *
      * @var array
      */
-    public $date_min;
+    public $selectAll = false;
 
     /**
      * The selected rabbit instance.
@@ -82,32 +63,11 @@ class ViewRabbits extends Component
     public $selectRabbitId;
 
     /**
-     * Status     *.
-     *
-     * @var string
-     */
-    public $status;
-
-    /**
      * Check if one is creating.
      *
      * @var string
      */
     public $showRabbitNo = true;
-
-    /**
-     * gender.
-     *
-     * @var string
-     */
-    public $gender = '';
-
-    /**
-     * Date max.
-     *
-     * @var array
-     */
-    public $date_max;
 
     /**
      * Indicates if rabbit transfer is being confirmed.
@@ -117,18 +77,25 @@ class ViewRabbits extends Component
     public $confirmingRabbitDeletion = false;
 
     /**
-     * Cage Id.
+     * Show Delete Modal.
      *
-     * @var array
+     * @var bool
      */
-    public $cage_id;
+    public $showDeleteModal = false;
 
     /**
-     * Query String.
+     * Filters.
      *
      * @var array
      */
-    protected $queryString = ['search', 'sortField', 'sortDirection'];
+    public $filters = [
+        'search' => '',
+        'status' => '',
+        'gender' => '',
+        'cage_id' => null,
+        'date_max' => null,
+        'date_min' => null,
+    ];
 
     /**
      * Validate the rabbits attributes.
@@ -146,6 +113,22 @@ class ViewRabbits extends Component
         ];
     }
 
+    public function updatedSelectPage($value)
+    {
+        if ($value) {
+            $this->selected = $this->rows->pluck('id')->map(fn ($id) => (string) $id);
+
+            return $this->selected;
+        }
+        $this->selected = [];
+    }
+
+    public function selectAll()
+    {
+        $this->selectAll = true;
+        $this->selected = $this->rowsQuery->pluck('id')->map(fn ($id) => (string) $id);
+    }
+
     public function makeBlankTransaction()
     {
         return Rabbit::make([]);
@@ -161,6 +144,41 @@ class ViewRabbits extends Component
         $this->selectRabbitId = $id;
 
         $this->confirmingRabbitDeletion = true;
+    }
+
+    /**
+     * Generate export from the selected rows.
+     *
+     * @return Response
+     */
+    public function exportSelected()
+    {
+        return response()->streamDownload(function () {
+            echo $this->selectedRowsQuery->toCsv();
+        }, 'rabbits.csv');
+    }
+
+    /**
+     * Selected Rows.
+     *
+     * @return Response
+     */
+    public function getSelectedRowsQueryProperty()
+    {
+        return (clone $this->rowsQuery)
+            ->unless($this->selectAll, fn ($query) => $query->whereKey($this->selected));
+    }
+
+    /**
+     * Delete all the selected rows.
+     *
+     * @return Response
+     */
+    public function deleteSelected()
+    {
+        $this->selectedRowsQuery
+        ->delete();
+        $this->showDeleteModal = false;
     }
 
     /**
@@ -189,34 +207,13 @@ class ViewRabbits extends Component
     }
 
     /**
-     * Sort the expenses by the fields.
-     *
-     * @var void
-     */
-    public function sortBy($field)
-    {
-        if ($this->sortField == $field) {
-            $this->sortDirection = 'asc' == $this->sortDirection ? 'desc' : 'asc';
-        } else {
-            $this->sortDirection = 'asc';
-        }
-
-        $this->sortField = $field;
-    }
-
-    /**
      * Reset Filters.
      *
      * @var void
      */
     public function resetFilters()
     {
-        $this->reset(['date_max', 'date_min']);
-    }
-
-    public function updatingSearch()
-    {
-        $this->resetPage();
+        $this->reset('filters');
     }
 
     /**
@@ -245,27 +242,46 @@ class ViewRabbits extends Component
     }
 
     /**
+     * Row Query.
+     *
+     * @return
+     */
+    public function getRowsQueryProperty()
+    {
+        $query = Rabbit::query()
+                ->when($this->filters['search'], fn ($query, $search) => $query->where('rabbit_no', 'like', '%' . $search . '%'))
+                ->when($this->filters['gender'], fn ($query, $value) => $query->where('gender', $value))
+                ->when($this->filters['status'], fn ($query, $value) => $query->where('status', $value))
+                ->when($this->filters['cage_id'], fn ($query, $value) => $query->where('cage_id', $value))
+                ->when($this->filters['date_min'], fn ($query, $date) => $query->where('date_of_birth', '>=', Carbon::parse($date)))
+                ->when($this->filters['date_max'], fn ($query, $date) => $query->where('date_of_birth', '<=', Carbon::parse($date)));
+
+        return $this->applySorting($query);
+    }
+
+    /**
+     * Row.
+     *
+     * @return
+     */
+    public function getRowsProperty()
+    {
+        return $this->applyPagination($this->rowsQuery);
+    }
+
+    /**
      * Render the component.
      *
      * @return \Illuminate\View\View
      */
     public function render()
     {
-        $query = Rabbit::query()
-                ->when($this->search, fn ($query, $value) => $query->where('rabbit_no', $value))
-                ->when($this->gender, fn ($query, $value) => $query->where('gender', $value))
-                ->when($this->status, fn ($query, $value) => $query->where('status', $value))
-                ->when($this->cage_id, fn ($query, $value) => $query->where('cage_id', $value))
-                ->when($this->date_min, fn ($query, $date) => $query->where('date_of_birth', '>=', Carbon::parse($date)))
-                ->when($this->date_max, fn ($query, $date) => $query->where('date_of_birth', '<=', Carbon::parse($date)))
-                ->orderBy($this->sortField, $this->sortDirection);
-
         return view('livewire.rabbit.view-rabbits', [
             'rabbits_count' => Rabbit::count(),
             'bucks' => Rabbit::where('gender', 'buck')->count(),
             'does' => Rabbit::where('gender', 'doe')->count(),
             'kits' => Rabbit::where('gender', 'unknown')->count(),
-            'rabbits' => $this->applyPagination($query),
+            'rabbits' => $this->rows,
             'cages' => Cage::all(),
             'rabbitTypes' => BreedType::all(),
         ])->extends('layouts.app');
