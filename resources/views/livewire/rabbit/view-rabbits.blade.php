@@ -14,8 +14,8 @@
                 Total Rabbits
               </dt>
               <dd class="mt-1 flex justify-between items-baseline md:block lg:flex">
-                <div class="flex items-baseline text-2xl leading-8 font-semibold text-indigo-600">
-                  {{ count($rabbits) }}
+                <div class="flex items-baseline text-2xl leading-8 font-semibold text-teal-600">
+                  {{ $rabbits_count }}
                 </div>
               </dd>
             </dl>
@@ -28,7 +28,7 @@
                 Bucks
               </dt>
               <dd class="mt-1 flex justify-between items-baseline md:block lg:flex">
-                <div class="flex items-baseline text-2xl leading-8 font-semibold text-indigo-600">
+                <div class="flex items-baseline text-2xl leading-8 font-semibold text-teal-600">
                   {{ $bucks }}
                 </div>
               </dd>
@@ -42,7 +42,7 @@
                 Does
               </dt>
               <dd class="mt-1 flex justify-between items-baseline md:block lg:flex">
-                <div class="flex items-baseline text-2xl leading-8 font-semibold text-indigo-600">
+                <div class="flex items-baseline text-2xl leading-8 font-semibold text-teal-600">
                   {{ $does }}
                 </div>
               </dd>
@@ -56,7 +56,7 @@
                 Kits
               </dt>
               <dd class="mt-1 flex justify-between items-baseline md:block lg:flex">
-                <div class="flex items-baseline text-2xl leading-8 font-semibold text-indigo-600">
+                <div class="flex items-baseline text-2xl leading-8 font-semibold text-teal-600">
                   {{ $kits }}
                 </div>
               </dd>
@@ -72,16 +72,6 @@
                 <div class="align-middle min-w-full  shadow overflow-hidden sm:rounded-lg">
                     <div class="bg-white border border-cool-gray-200  sm:px-6 lg:px-8">
                         <div class="w-full">
-                            <div class="my-4">
-                                @if (session()->has('success'))
-                                <div class="font-medium text-green-700">
-                                    {{ session('success') }}
-                                </div>
-                                @endif
-                            </div>
-                            <div class="my-4">
-                            <a href="{{route('breed-types.index')}}" class="underline font-bold leading-6 text-md uppercase">View all Breed Types</a>
-                            </div>
                             <div class="w-full flex">
                                 <div class="w-full flex-1 flex">
                                     <div class="py-2">
@@ -107,8 +97,8 @@
                                         <span>Delete</span>
                                         </x-dropdown>
                                     </x-dropdown>
-                                    <x-button.primary wire:click="create">Import</x-button.primary>
                                     <x-button.primary wire:click="create">New</x-button.primary>
+                                    <x-button.href href="{{route('breed-types.index')}}">Breeds</x-button.primary>
                                 </div>
 
                             </div>
@@ -130,9 +120,9 @@
                                         </select>
                                         <select id="status" wire:model.lazy="filters.status" class="form-select px-3 py-3 block w-full rounded-none border transition duration-150 ease-in-out sm:text-sm sm:leading-5">
                                             <option value="" >Select the status...</option>
-                                            <option value="active" >alive</option>
-                                            <option value="dead">dead</option>
-                                            <option value="sold">sold</option>
+                                            @foreach(App\Models\Rabbit::STATUS as $value => $label)
+                                                <option value="{{ $value}}">{{ $label }}</option>
+                                            @endforeach
                                         </select>
                                         <x-input.group inline for="filter-date-min" label="Minimum Date of Birth">
                                         <x-input.date type="date" wire:model.lazy="filters.date_min" id="date_min" placeholder="MM/DD/YYYY" />
@@ -156,7 +146,7 @@
                                     <x-table.header sortable wire:click="sortBy('gender')" :direction="$sorts['gender'] ?? null">Gender</x-table.header>
                                     <x-table.header sortable wire:click="sortBy('cage_id')" :direction="$sorts['cage_id'] ?? null">Cage</x-table.header>
                                     <x-table.header sortable>Breed</x-table.header>
-                                    <x-table.header sortable>status</x-table.header>
+                                    <x-table.header sortable  wire:click="sortBy('status')" :direction="$sorts['status'] ?? null">Status</x-table.header>
                                 </x-slot>
                                 <x-slot name="body">
                                   @if($selectPage)

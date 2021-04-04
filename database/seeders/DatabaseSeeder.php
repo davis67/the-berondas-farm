@@ -49,7 +49,7 @@ class DatabaseSeeder extends Seeder
         User::factory(5)->create();
 
         Farm::factory(15)->create();
-        Rabbit::factory(15)->create([
+        Rabbit::factory(100)->create([
             'farm_id' => 1,
         ]);
     }

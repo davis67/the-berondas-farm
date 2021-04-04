@@ -34,7 +34,7 @@ class RabbitsTest extends TestCase
         $rabbitB = Rabbit::factory()->create(['farm_id' => $user->farm_id, 'rabbit_no' => 'another']);
 
         Livewire::test(ViewRabbits::class)
-                ->set('search', 'number1')
+                ->set('filters.search', 'number1')
                 ->assertSee($rabbitA->rabbit_no)
                 ->assertDontSee($rabbitB->rabbit_no);
     }
@@ -50,7 +50,7 @@ class RabbitsTest extends TestCase
         $rabbitC = Rabbit::factory()->create(['farm_id' => $user->farm_id, 'gender' => 'buck']);
 
         Livewire::test(ViewRabbits::class)
-                ->set('gender', 'doe')
+                ->set('filters.gender', 'doe')
                 ->assertSee($rabbitA->name)
                 ->assertSee($rabbitB->name);
     }
@@ -71,7 +71,7 @@ class RabbitsTest extends TestCase
         $rabbitC = Rabbit::factory()->create(['farm_id' => $user->farm_id, 'cage_id' => $cage2->id]);
 
         Livewire::test(ViewRabbits::class)
-                ->set('cage_id', $cage1->id)
+                ->set('filters.cage_id', $cage1->id)
                 ->assertSee($rabbitA->name)
                 ->assertSee($rabbitB->name);
     }
@@ -86,7 +86,7 @@ class RabbitsTest extends TestCase
         $rabbitC = Rabbit::factory()->create(['farm_id' => $user->farm_id, 'status' => 'alive']);
 
         Livewire::test(ViewRabbits::class)
-                ->set('status', 'alive')
+                ->set('filter.status', 'alive')
                 ->assertSee($rabbitA->name)
                 ->assertSee($rabbitC->name);
     }

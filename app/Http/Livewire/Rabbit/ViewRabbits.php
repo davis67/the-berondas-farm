@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Rabbit;
 
+use Carbon\Carbon;
 use App\Models\Cage;
 use App\Models\Rabbit;
 use Livewire\Component;
@@ -13,7 +14,6 @@ class ViewRabbits extends Component
 {
     use WithPerPagePagination;
     use WithSorting;
-
     /**
      * Instance.
      *
@@ -92,7 +92,7 @@ class ViewRabbits extends Component
         'search' => '',
         'status' => '',
         'gender' => '',
-        'cage_id' => null,
+        'cage_id' => '',
         'date_max' => null,
         'date_min' => null,
     ];
@@ -250,7 +250,7 @@ class ViewRabbits extends Component
     {
         $query = Rabbit::query()
                 ->when($this->filters['search'], fn ($query, $search) => $query->where('rabbit_no', 'like', '%' . $search . '%'))
-                ->when($this->filters['gender'], fn ($query, $value) => $query->where('gender', $value))
+                ->when($this->filters['gender'], fn ($query, $gender) => $query->where('gender', $gender))
                 ->when($this->filters['status'], fn ($query, $value) => $query->where('status', $value))
                 ->when($this->filters['cage_id'], fn ($query, $value) => $query->where('cage_id', $value))
                 ->when($this->filters['date_min'], fn ($query, $date) => $query->where('date_of_birth', '>=', Carbon::parse($date)))
@@ -270,6 +270,16 @@ class ViewRabbits extends Component
     }
 
     /**
+     * Querying Rabbits that are alive.
+     *
+     * @return
+     */
+    public function getLiveRabbitsProperty()
+    {
+        return Rabbit::alive();
+    }
+
+    /**
      * Render the component.
      *
      * @return \Illuminate\View\View
@@ -277,10 +287,10 @@ class ViewRabbits extends Component
     public function render()
     {
         return view('livewire.rabbit.view-rabbits', [
-            'rabbits_count' => Rabbit::count(),
-            'bucks' => Rabbit::where('gender', 'buck')->count(),
-            'does' => Rabbit::where('gender', 'doe')->count(),
-            'kits' => Rabbit::where('gender', 'unknown')->count(),
+            'rabbits_count' => $this->liveRabbits->count(),
+            'bucks' => $this->liveRabbits->where('gender', 'buck')->count(),
+            'does' => $this->liveRabbits->where('gender', 'doe')->count(),
+            'kits' => $this->liveRabbits->where('gender', 'unknown')->count(),
             'rabbits' => $this->rows,
             'cages' => Cage::all(),
             'rabbitTypes' => BreedType::all(),

@@ -21,7 +21,7 @@ class CreateRabbitsTable extends Migration
             $table->unsignedBigInteger('sire_id')->index()->nullable();
             $table->unsignedBigInteger('cage_id')->index()->nullable();
             $table->unsignedBigInteger('breed_id')->index()->nullable();
-            $table->string('gender')->nullable();
+            $table->string('gender')->default('unknown');
             $table->string('status')->default('alive');
             $table->date('date_of_birth')->nullable();
             $table->timestamps();

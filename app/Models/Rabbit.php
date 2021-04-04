@@ -17,6 +17,8 @@ class Rabbit extends Model
     const GENDER = [
         'doe' => 'Doe',
         'buck' => 'Buck',
+        'dam' => 'Dam',
+        'sire' => 'Sire',
         'unknown' => 'Unknown',
     ];
 
@@ -50,6 +52,16 @@ class Rabbit extends Model
     public function cage()
     {
         return $this->belongsTo(Cage::class, 'cage_id');
+    }
+
+    /**
+     * Scoping Alive rabbits.
+     *
+     * @return [type] [description]
+     */
+    public function scopeAlive($query)
+    {
+        return $query->where('status', 'alive');
     }
 
     /**
