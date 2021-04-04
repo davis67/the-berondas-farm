@@ -107,6 +107,6 @@ class EditCages extends Component
      */
     public function render()
     {
-        return view('livewire.cage.edit-cages');
+        return view('livewire.cage.edit');
     }
 }

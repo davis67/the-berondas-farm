@@ -14,7 +14,9 @@ class RabbitController extends Controller
      */
     public function index()
     {
-        //
+        $rabbits = Rabbit::paginate(10);
+
+        return response()->json(['data' => $rabbits], 200);
     }
 
     /**
@@ -24,62 +26,50 @@ class RabbitController extends Controller
      */
     public function create()
     {
-        //
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Rabbit  $rabbit
      * @return \Illuminate\Http\Response
      */
     public function show(Rabbit $rabbit)
     {
-        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Rabbit  $rabbit
      * @return \Illuminate\Http\Response
      */
     public function edit(Rabbit $rabbit)
     {
-        //
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Rabbit  $rabbit
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Rabbit $rabbit)
     {
-        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Rabbit  $rabbit
      * @return \Illuminate\Http\Response
      */
     public function destroy(Rabbit $rabbit)
     {
-        //
     }
 }

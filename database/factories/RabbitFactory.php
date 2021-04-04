@@ -23,8 +23,8 @@ class RabbitFactory extends Factory
     {
         return [
             'rabbit_no' => $this->faker->name,
-            'gender' => 'doe',
-            'status' => 'alive',
+            'gender' => collect(Rabbit::GENDER)->keys()->random(),
+            'status' => collect(Rabbit::STATUS)->keys()->random(),
             'date_of_birth' => now()->addDays(-(mt_rand(10, 100))),
         ];
     }

@@ -14,8 +14,8 @@
                 Total Rabbits
               </dt>
               <dd class="mt-1 flex justify-between items-baseline md:block lg:flex">
-                <div class="flex items-baseline text-2xl leading-8 font-semibold text-indigo-600">
-                  {{ count($rabbits) }}
+                <div class="flex items-baseline text-2xl leading-8 font-semibold text-teal-600">
+                  {{ $rabbits_count }}
                 </div>
               </dd>
             </dl>
@@ -28,7 +28,7 @@
                 Bucks
               </dt>
               <dd class="mt-1 flex justify-between items-baseline md:block lg:flex">
-                <div class="flex items-baseline text-2xl leading-8 font-semibold text-indigo-600">
+                <div class="flex items-baseline text-2xl leading-8 font-semibold text-teal-600">
                   {{ $bucks }}
                 </div>
               </dd>
@@ -42,7 +42,7 @@
                 Does
               </dt>
               <dd class="mt-1 flex justify-between items-baseline md:block lg:flex">
-                <div class="flex items-baseline text-2xl leading-8 font-semibold text-indigo-600">
+                <div class="flex items-baseline text-2xl leading-8 font-semibold text-teal-600">
                   {{ $does }}
                 </div>
               </dd>
@@ -56,7 +56,7 @@
                 Kits
               </dt>
               <dd class="mt-1 flex justify-between items-baseline md:block lg:flex">
-                <div class="flex items-baseline text-2xl leading-8 font-semibold text-indigo-600">
+                <div class="flex items-baseline text-2xl leading-8 font-semibold text-teal-600">
                   {{ $kits }}
                 </div>
               </dd>
@@ -72,25 +72,33 @@
                 <div class="align-middle min-w-full  shadow overflow-hidden sm:rounded-lg">
                     <div class="bg-white border border-cool-gray-200  sm:px-6 lg:px-8">
                         <div class="w-full">
-                            <div class="my-4">
-                                @if (session()->has('success'))
-                                <div class="font-medium text-green-700">
-                                    {{ session('success') }}
-                                </div>
-                                @endif
-                            </div>
-                            <div class="my-4">
-                            <a href="{{route('breed-types.index')}}" class="underline font-bold leading-6 text-md uppercase">View all Breed Types</a>
-                            </div>
                             <div class="w-full flex">
                                 <div class="w-full flex-1 flex">
                                     <div class="py-2">
-                                        <x-input.text  wire:model.lazy="search" id="search" placeholder="Search here..." wire:model.lazy="search"/>
+                                        <x-input.text  wire:model.lazy="filters.search" id="search" placeholder="Search here..." />
                                     </div>
                                     <x-button.link wire:click="$toggle('showFilters')" class="pl-3">@if($showFilters) Hide @endif More Filters</x-button.link>
                                 </div>
-                                <div class="flex-1 flex justify-end items-center">
-                                    <x-button.primary wire:click="create">Add new rabbit to Farm</x-button>
+                                <div class="px-12 space-x-2 items-center flex">
+                                    <x-input.group borderless paddingless for="perPage" label="Per Page">
+                                        <x-input.select wire:model="perPage" id="perPage">
+                                            <option value="10">10</option>
+                                            <option value="25">25</option>
+                                            <option value="50">50</option>
+                                            <option value="100">100</option>
+                                        </x-input.select>
+                                    </x-input.group>
+                                    <x-dropdown label="Bulk Action">
+                                        <x-dropdown.item type="button" wire:click="exportSelected" class="flex items-center space-x-2"> <x-icon.download class="text-cool-gray-400"/>
+                                            <span>Export</span>
+                                        </x-dropdown>
+                                        <x-dropdown.item type="button" wire:click="$toggle('showDeleteModal')" class="flex items-center space-x-2">
+                                        <x-icon.trash class="text-cool-gray-400"/>
+                                        <span>Delete</span>
+                                        </x-dropdown>
+                                    </x-dropdown>
+                                    <x-button.primary wire:click="create">New</x-button.primary>
+                                    <x-button.href href="{{route('breed-types.index')}}">Breeds</x-button.primary>
                                 </div>
 
                             </div>
@@ -98,29 +106,29 @@
                                 @if($showFilters)
                                 <div class="bg-white p-4 rounded shadow flex relative">
                                     <div class="w-1/2 pl-2 space-y-4">
-                                        <select id="cage_id" wire:model="cage_id" class="form-select px-3 py-3 block w-full rounded-none border transition duration-150 ease-in-out sm:text-sm sm:leading-5">
+                                        <select id="cage_id" wire:model="filters.cage_id" class="form-select px-3 py-3 block w-full rounded-none border transition duration-150 ease-in-out sm:text-sm sm:leading-5">
                                             <option value="" >Select Rabbit by Cage ...</option>
                                             @foreach($cages as $cage)
                                             <option value="{{ $cage->id }}" >{{ $cage->cage_no }}.</option>
                                             @endforeach
                                         </select>
-                                        <select id="gender" wire:model.lazy="gender" class="form-select px-3 py-3 block w-full rounded-none border transition duration-150 ease-in-out sm:text-sm sm:leading-5">
+                                        <select id="gender" wire:model.lazy="filters.gender" class="form-select px-3 py-3 block w-full rounded-none border transition duration-150 ease-in-out sm:text-sm sm:leading-5">
                                             <option value="" >Select the gender...</option>
                                             @foreach(App\Models\Rabbit::GENDER as $value => $label)
                                                 <option value="{{ $value}}">{{ $label }}</option>
                                             @endforeach
                                         </select>
-                                        <select id="status" wire:model.lazy="status" class="form-select px-3 py-3 block w-full rounded-none border transition duration-150 ease-in-out sm:text-sm sm:leading-5">
+                                        <select id="status" wire:model.lazy="filters.status" class="form-select px-3 py-3 block w-full rounded-none border transition duration-150 ease-in-out sm:text-sm sm:leading-5">
                                             <option value="" >Select the status...</option>
-                                            <option value="active" >alive</option>
-                                            <option value="dead">dead</option>
-                                            <option value="sold">sold</option>
+                                            @foreach(App\Models\Rabbit::STATUS as $value => $label)
+                                                <option value="{{ $value}}">{{ $label }}</option>
+                                            @endforeach
                                         </select>
                                         <x-input.group inline for="filter-date-min" label="Minimum Date of Birth">
-                                        <x-input.date type="date" wire:model.lazy="date_min" id="date_min" placeholder="MM/DD/YYYY" />
+                                        <x-input.date type="date" wire:model.lazy="filters.date_min" id="date_min" placeholder="MM/DD/YYYY" />
                                         </x-input.group>
                                         <x-input.group inline for="filter-date-max" label="Maximum Date of Birth">
-                                        <x-input.date type="date" wire:model.lazy="date_max" id="date_max" placeholder="MM/DD/YYYY" />
+                                        <x-input.date type="date" wire:model.lazy="filters.date_max" id="date_max" placeholder="MM/DD/YYYY" />
                                         </x-input.group>
                                         <x-button.link wire:click="resetFilters" class="absolute right-0 bottom-0 p-4">Reset Filters</x-button.link>
                                     </div>
@@ -131,18 +139,36 @@
                         <div class="bg-white flex flex-col mt-2">
                             <x-table>
                                 <x-slot name="head">
-                                    <x-table.header sortable wire:click="sortBy('rabbit_type_id')"
-                                    :direction="$sortField === 'rabbit_no' ? $sortDirection : null">indentification no </x-table.header>
-                                    <x-table.header sortable wire:click="sortBy('gender')"
-                                    :direction="$sortField === 'gender' ? $sortDirection : null">Gender</x-table.header>
-                                    <x-table.header sortable wire:click="sortBy('cage')"
-                                    :direction="$sortField === 'cage' ? $sortDirection : null">Cage</x-table.header>
+                                    <x-table.header class="pr-0 w-8">
+                                        <x-input.checkbox wire:model="selectPage" />
+                                    </x-table.header>
+                                    <x-table.header sortable wire:click="sortBy('rabbit_no')" :direction="$sorts['rabbit_no'] ?? null">indentification no </x-table.header>
+                                    <x-table.header sortable wire:click="sortBy('gender')" :direction="$sorts['gender'] ?? null">Gender</x-table.header>
+                                    <x-table.header sortable wire:click="sortBy('cage_id')" :direction="$sorts['cage_id'] ?? null">Cage</x-table.header>
                                     <x-table.header sortable>Breed</x-table.header>
-                                    <x-table.header sortable>status</x-table.header>
+                                    <x-table.header sortable  wire:click="sortBy('status')" :direction="$sorts['status'] ?? null">Status</x-table.header>
                                 </x-slot>
                                 <x-slot name="body">
+                                  @if($selectPage)
+                                    <x-table.row class="bg-cool-gray-100 " wire:key="row-message">
+                                    <x-table.cell colspan="7">
+                                    @unless($selectAll)
+                                    <div>
+                                        <span>You selected <strong>{{ $rabbits->count() }}</strong> rabbits, do you want to select <strong>{{ $rabbits->total() }}</strong> rabbits.<x-button.link class="ml-1 text-blue-600" wire:click="selectAll">Select All</x-button.link></span>
+                                    </div>
+                                    @else
+                                        <div><span>You are currently selecting all <strong>{{ $rabbits->total() }}</strong> rabbits.</span></div>
+                                    @endif
+
+                                    </x-table.cell>
+                                    </x-table.row>
+                                    @endif
                                     @forelse($rabbits as $rabbit)
                                         <x-table.row wire:loading.class="opacity-50">
+                                            <x-table.cell class="pr-0">
+                                                <x-input.checkbox wire:model="selected" value="{{ $rabbit->id }}" />
+                                            </x-table.cell>
+
                                             <x-table.cell>
                                                 {{ $rabbit->rabbit_no }}
                                             </x-table.cell>
@@ -263,5 +289,18 @@
         </x-confirmation-modal>
     @endif
     </div>
+
+    <form wire:submit.prevent="deleteSelected">
+           <x-modal.confirmation wire:model.defer="showDeleteModal">
+               <x-slot name="title">Delete Rabbit(s)</x-slot>
+               <x-slot name="content">
+                 Are you sure you want to delete these rabbits? This action is irreversible
+               </x-slot>
+               <x-slot name="footer">
+                   <x-button.secondary class="bg-red-600" wire:click="$set('showDeleteModal', false)">Cancel</x-button.secondary>
+                   <x-button.primary type="submit">Delete</x-button.primary>
+               </x-slot>
+           </x-modal.dialog>
+       </form>
 
 </div>

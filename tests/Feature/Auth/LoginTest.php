@@ -2,19 +2,19 @@
 
 namespace Tests\Feature\Auth;
 
+use Tests\TestCase;
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Livewire\Livewire;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Livewire\Livewire;
-use Tests\TestCase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class LoginTest extends TestCase
 {
     use RefreshDatabase;
 
     /** @test */
-    public function can_view_login_page()
+    public function canViewLoginPage()
     {
         $this->get(route('login'))
             ->assertSuccessful()
@@ -22,7 +22,7 @@ class LoginTest extends TestCase
     }
 
     /** @test */
-    public function is_redirected_if_already_logged_in()
+    public function isRedirectedIfAlreadyLoggedIn()
     {
         $user = User::factory()->create();
 
@@ -33,7 +33,7 @@ class LoginTest extends TestCase
     }
 
     /** @test */
-    public function a_user_can_login()
+    public function aUserCanLogin()
     {
         $user = User::factory()->create(['password' => Hash::make('password')]);
 
@@ -46,7 +46,7 @@ class LoginTest extends TestCase
     }
 
     /** @test */
-    public function is_redirected_to_the_home_page_after_login()
+    public function isRedirectedToTheHomePageAfterLogin()
     {
         $user = User::factory()->create(['password' => Hash::make('password')]);
 
@@ -58,7 +58,7 @@ class LoginTest extends TestCase
     }
 
     /** @test */
-    public function email_is_required()
+    public function emailIsRequired()
     {
         $user = User::factory()->create(['password' => Hash::make('password')]);
 
@@ -69,7 +69,7 @@ class LoginTest extends TestCase
     }
 
     /** @test */
-    public function email_must_be_valid_email()
+    public function emailMustBeValidEmail()
     {
         $user = User::factory()->create(['password' => Hash::make('password')]);
 
@@ -81,7 +81,7 @@ class LoginTest extends TestCase
     }
 
     /** @test */
-    public function password_is_required()
+    public function passwordIsRequired()
     {
         $user = User::factory()->create(['password' => Hash::make('password')]);
 
@@ -92,7 +92,7 @@ class LoginTest extends TestCase
     }
 
     /** @test */
-    public function bad_login_attempt_shows_message()
+    public function badLoginAttemptShowsMessage()
     {
         $user = User::factory()->create();
 
