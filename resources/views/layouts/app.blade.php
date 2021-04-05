@@ -21,6 +21,9 @@
              <a href="{{route('farms.index')}}" class="ml-8 {{ Nav::isRoute('farms.index') }} {{ Nav::isRoute('farms.edit') }} {{ Nav::isRoute('rabbits.create') }} {{ Nav::isRoute('breed-types.create') }} {{ Nav::isRoute('breed-types.index') }} {{ Nav::isRoute('breed-types.edit') }} inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
               Farms
             </a>
+            <a href="{{route('rabbits.index')}}" class="ml-8 inline-flex items-center {{ Nav::isRoute('rabbits.index') }} px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
+              Rabbits
+            </a>
             <a href="{{route('expenses.index')}}" class="ml-8 inline-flex items-center {{ Nav::isRoute('expenses.create') }} {{ Nav::isRoute('expenses.index') }} px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
               Expenses
             </a>
@@ -73,6 +76,7 @@
       <div class="pt-2 pb-3">
         <a href="{{route('home')}}" class="block {{ Nav::isRoute('home', $activeClass = 'border-l-4 text-teal-700 border-teal-500 bg-teal-50 ') }} pl-3 pr-4 py-2  text-base font-medium focus:outline-none focus:text-teal-800 focus:bg-teal-100 focus:border-teal-700 transition duration-150 ease-in-out">Home</a>
         <a href="{{route('batches.create')}}" class="mt-1 block {{ Nav::isRoute('batches.create', $activeClass = 'border-l-4 text-teal-700 border-teal-500 bg-teal-50 ') }} pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">Batches</a>
+        <a href="{{route('rabbits.index')}}" class="mt-1 block pl-3 pr-4 py-2 border-l-4 {{ Nav::isRoute('rabbits.index', $activeClass = 'border-l-4 text-teal-700 border-teal-500 bg-teal-50 ') }} border-transparent text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">Rabbits</a>
         <a href="{{route('farm.create')}}" class="mt-1 {{ Nav::isRoute('farm.create', $activeClass = 'border-l-4 text-teal-700 border-teal-500 bg-teal-50 ') }} block pl-3 pr-4 py-2 border-l-4 {{ Nav::isRoute('farms.index', $activeClass = 'border-l-4 text-teal-700 border-teal-500 bg-teal-50 ') }} border-transparent text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">Farms</a>
         <a href="#" class="mt-1 block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">Expenses</a>
         <a href="#" class="mt-1 block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">Report</a>
@@ -114,6 +118,7 @@
         </h1>
       </div>
     </header>
+    <x-notification/>
     <main>
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <!-- Replace with your content -->
