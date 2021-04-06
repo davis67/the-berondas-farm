@@ -8,11 +8,13 @@ use App\Models\Rabbit;
 use Livewire\Component;
 use App\Models\BreedType;
 use App\Http\Livewire\DataTable\WithSorting;
+use App\Http\Livewire\DataTable\WithBulkAction;
 use App\Http\Livewire\DataTable\WithPerPagePagination;
 
 class ViewRabbits extends Component
 {
     use WithPerPagePagination;
+    use WithBulkAction;
     use WithSorting;
     /**
      * Instance.
@@ -20,13 +22,6 @@ class ViewRabbits extends Component
      * @var object
      */
     public Rabbit $rabbit;
-
-    /**
-     * Select Page .
-     *
-     * @var int
-     */
-    public $selectPage;
 
     /**
      * Show Save Modal.
@@ -41,19 +36,6 @@ class ViewRabbits extends Component
      * @var bool
      */
     public $showFilters = false;
-
-    /**
-     * The Selected.
-     *
-     * @var array
-     */
-    public $selected = [];
-    /**
-     * Check if all rows are selected.
-     *
-     * @var array
-     */
-    public $selectAll = false;
 
     /**
      * The selected rabbit instance.
@@ -113,23 +95,22 @@ class ViewRabbits extends Component
         ];
     }
 
-    public function updatedSelectPage($value)
+    /**
+     * Reset Filters.
+     *
+     * @var void
+     */
+    public function resetFilters()
     {
-        if ($value) {
-            $this->selected = $this->rows->pluck('id')->map(fn ($id) => (string) $id);
-
-            return $this->selected;
-        }
-        $this->selected = [];
+        $this->reset('filters');
     }
 
-    public function selectAll()
-    {
-        $this->selectAll = true;
-        $this->selected = $this->rowsQuery->pluck('id')->map(fn ($id) => (string) $id);
-    }
-
-    public function makeBlankTransaction()
+    /**
+     * Registers a blank rabbit.
+     *
+     * @return <type> ( description_of_the_return_value )
+     */
+    public function registersBlankRabbit()
     {
         return Rabbit::make([]);
     }
@@ -156,17 +137,8 @@ class ViewRabbits extends Component
         return response()->streamDownload(function () {
             echo $this->selectedRowsQuery->toCsv();
         }, 'rabbits.csv');
-    }
 
-    /**
-     * Selected Rows.
-     *
-     * @return Response
-     */
-    public function getSelectedRowsQueryProperty()
-    {
-        return (clone $this->rowsQuery)
-            ->unless($this->selectAll, fn ($query) => $query->whereKey($this->selected));
+        $this->notify('Data Exported successfully');
     }
 
     /**
@@ -179,6 +151,7 @@ class ViewRabbits extends Component
         $this->selectedRowsQuery
         ->delete();
         $this->showDeleteModal = false;
+        $this->notify('Data Deleted successfully');
     }
 
     /**
@@ -203,17 +176,10 @@ class ViewRabbits extends Component
         $this->validate();
 
         $this->rabbit->save();
-        $this->showSaveModal = false;
-    }
 
-    /**
-     * Reset Filters.
-     *
-     * @var void
-     */
-    public function resetFilters()
-    {
-        $this->reset('filters');
+        $this->showSaveModal = false;
+
+        $this->notify('Rabbit Info successfully Saved.');
     }
 
     /**
@@ -227,17 +193,17 @@ class ViewRabbits extends Component
 
         $selectedRabbit->delete();
 
-        $this->confirmingRabbitTransfer = false;
+        $this->confirmingRabbitDeletion = false;
 
-        session()->flash('success', 'Rabbit Info successfully deleted.');
+        $this->notify('Rabbit Info successfully deleted.');
 
-        return redirect(route('rabbits.index'));
+        // return redirect(route('rabbits.index'));
     }
 
     public function create()
     {
         $this->showSaveModal = true;
-        $this->rabbit = $this->makeBlankTransaction();
+        $this->rabbit = $this->registersBlankRabbit();
         $this->showRabbitNo = false;
     }
 

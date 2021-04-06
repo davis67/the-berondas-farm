@@ -6,6 +6,8 @@ use App\Http\Controllers\ApiAuth\LoginController;
 
 Route::post('/login', LoginController::class);
 
-Route::middleware('auth:sanctum')->group(function () {
-    Route::get('/rabbits', [RabbitController::class, 'index']);
-});
+Route::middleware('auth:sanctum')->group(
+    function () {
+        Route::get('/rabbits', [RabbitController::class, 'index']);
+    }
+);
