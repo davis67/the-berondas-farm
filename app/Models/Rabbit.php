@@ -29,7 +29,7 @@ class Rabbit extends Model
     ];
 
     /**
-     * The attributes that should be cast to native types.
+     * The attributes that should be cast to native genders.
      *
      * @var array
      */
@@ -55,13 +55,28 @@ class Rabbit extends Model
     }
 
     /**
-     * Scoping Alive rabbits.
+     * Scope a query to only include alive rabbits.
      *
-     * @return [type] [description]
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeAlive($query)
     {
         return $query->where('status', 'alive');
+    }
+
+    /**
+     * Scope a query to only include rabbits of a given gender.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param mixed                                 $type
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeOfGender($query, $gender)
+    {
+        return $query->where('gender', $gender);
     }
 
     /**

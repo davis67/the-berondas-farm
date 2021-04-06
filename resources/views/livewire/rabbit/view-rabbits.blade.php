@@ -6,7 +6,7 @@
       <h3 class="text-lg leading-6 font-medium text-gray-900">
         Summary Report
       </h3>
-      <div class="mt-5 grid grid-cols-1 rounded-lg bg-white overflow-hidden shadow md:grid-cols-4">
+      <div class="mt-5 grid grid-cols-1 rounded-lg bg-white overflow-hidden shadow md:grid-cols-6">
         <div>
           <div class="px-4 py-5 sm:p-6">
             <dl>
@@ -30,6 +30,34 @@
               <dd class="mt-1 flex justify-between items-baseline md:block lg:flex">
                 <div class="flex items-baseline text-2xl leading-8 font-semibold text-teal-600">
                   {{ $bucks }}
+                </div>
+              </dd>
+            </dl>
+          </div>
+        </div>
+        <div class="border-t border-gray-200 md:border-0 md:border-l">
+          <div class="px-4 py-5 sm:p-6">
+            <dl>
+              <dt class="text-base leading-6 font-normal text-gray-900">
+                Dam
+              </dt>
+              <dd class="mt-1 flex justify-between items-baseline md:block lg:flex">
+                <div class="flex items-baseline text-2xl leading-8 font-semibold text-teal-600">
+                  {{ $dam }}
+                </div>
+              </dd>
+            </dl>
+          </div>
+        </div>
+        <div class="border-t border-gray-200 md:border-0 md:border-l">
+          <div class="px-4 py-5 sm:p-6">
+            <dl>
+              <dt class="text-base leading-6 font-normal text-gray-900">
+                Sire
+              </dt>
+              <dd class="mt-1 flex justify-between items-baseline md:block lg:flex">
+                <div class="flex items-baseline text-2xl leading-8 font-semibold text-teal-600">
+                  {{ $sire }}
                 </div>
               </dd>
             </dl>
@@ -86,6 +114,7 @@
                                             <option value="25">25</option>
                                             <option value="50">50</option>
                                             <option value="100">100</option>
+                                            <option value="{{ $all_rabbits_count }}">All</option>
                                         </x-input.select>
                                     </x-input.group>
                                     <x-dropdown label="Bulk Action">
@@ -228,11 +257,9 @@
        <x-modal.dialog wire:model.defer="showSaveModal">
            <x-slot name="title">Save a Rabbit</x-slot>
            <x-slot name="content">
-            @if($showRabbitNo)
-            <x-input.group  for="rabbit_no" :error="$errors->first('editing.rabbit_no')" label="Rabbit No">
+            <x-input.group  for="rabbit_no" :error="$errors->first('rabbit.rabbit_no')" label="Rabbit No">
                     <x-input.text  wire:model="rabbit.rabbit_no"  id="rabbit_no"/>
             </x-input.group>
-            @endif
             <x-input.group for="gender" :error="$errors->first('rabbit.gender')" label="Gender">
                    <x-input.select wire:model="rabbit.gender"  id="gender">
                        <option value="">Select Gender ...</option>
