@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\Batch\ShowBatch;
 use App\Http\Livewire\Batch\ViewBatches;
 use App\Http\Livewire\Farm\RegisterFarm;
+use App\Http\Livewire\Rabbit\ShowRabbit;
 use App\Http\Livewire\Rabbit\ServeRabbit;
 use App\Http\Livewire\Rabbit\ViewRabbits;
 use App\Http\Livewire\Dashboard\Dashboard;
@@ -72,6 +73,7 @@ Route::middleware('auth')->group(
         Route::get('batches/{batch}', ShowBatch::class)->name('batches.show');
 
         Route::get('rabbits', ViewRabbits::class)->name('rabbits.index');
+        Route::get('rabbits/{rabbit}', ShowRabbit::class)->name('rabbits.show');
         Route::get('rabbits/servicing/{service}/register-rabbit-birth', RegisterRabbitsBirth::class)->name('rabbits.register-birth');
         Route::get('rabbits/{id}/serve-rabbit', ServeRabbit::class)->name('farms.rabbits');
         Route::get('breed-types/create', RegisterBreedTypes::class)->name('breed-types.create');

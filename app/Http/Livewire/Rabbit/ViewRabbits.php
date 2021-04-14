@@ -13,244 +13,274 @@ use App\Http\Livewire\DataTable\WithPerPagePagination;
 
 class ViewRabbits extends Component
 {
-    use WithPerPagePagination;
-    use WithBulkAction;
-    use WithSorting;
-    /**
-     * Instance.
-     *
-     * @var object
-     */
-    public Rabbit $rabbit;
+	use WithPerPagePagination;
+	use WithBulkAction;
+	use WithSorting;
+	/**
+	 * Instance.
+	 *
+	 * @var object
+	 */
+	public Rabbit $rabbit;
 
-    /**
-     * Show Save Modal.
-     *
-     * @var string
-     */
-    public $showSaveModal = false;
+	/**
+	 * Show Save Modal.
+	 *
+	 * @var string
+	 */
+	public $showSaveModal = false;
 
-    /**
-     * The Filters.
-     *
-     * @var bool
-     */
-    public $showFilters = false;
+	/**
+	 * Show Details page.
+	 *
+	 * @var string
+	 */
+	public $showDetailsScreen = false;
 
-    /**
-     * The selected rabbit instance.
-     *
-     * @var mixed
-     */
-    public $selectRabbitId;
+	/**
+	 * The Filters.
+	 *
+	 * @var bool
+	 */
+	public $showFilters = false;
 
-    /**
-     * Indicates if rabbit transfer is being confirmed.
-     *
-     * @var bool
-     */
-    public $confirmingRabbitDeletion = false;
+	/**
+	 * The selected rabbit instance.
+	 *
+	 * @var mixed
+	 */
+	public $selectedRabbit = null;
 
-    /**
-     * Show Delete Modal.
-     *
-     * @var bool
-     */
-    public $showDeleteModal = false;
+	/**
+	 * Indicates if rabbit transfer is being confirmed.
+	 *
+	 * @var bool
+	 */
+	public $confirmingRabbitDeletion = false;
 
-    /**
-     * Filters.
-     *
-     * @var array
-     */
-    public $filters = [
-        'search' => '',
-        'status' => '',
-        'gender' => '',
-        'cage_id' => '',
-        'date_max' => null,
-        'date_min' => null,
-    ];
+	/**
+	 * Show Delete Modal.
+	 *
+	 * @var bool
+	 */
+	public $showDeleteModal = false;
 
-    /**
-     * Validate the rabbits attributes.
-     *
-     * @var array
-     */
-    public function rules()
-    {
-        return [
-            'rabbit.rabbit_no' => 'nullable',
-            'rabbit.cage_id' => 'required',
-            'rabbit.breed_id' => 'nullable',
-            'rabbit.gender' => 'required|in:' . collect(Rabbit::GENDER)->keys()->implode(','),
-            'rabbit.date_of_birth' => 'nullable',
-        ];
-    }
+	/**
+	 * Filters.
+	 *
+	 * @var array
+	 */
+	public $filters = [
+		'search' => '',
+		'status' => '',
+		'gender' => '',
+		'cage_id' => '',
+		'date_max' => null,
+		'date_min' => null,
+	];
 
-    /**
-     * Reset Filters.
-     *
-     * @var void
-     */
-    public function resetFilters()
-    {
-        $this->reset('filters');
-    }
+	/**
+	 * Validate the rabbits attributes.
+	 *
+	 * @var array
+	 */
+	public function rules()
+	{
+		return [
+			'rabbit.rabbit_no' => 'nullable',
+			'rabbit.cage_id' => 'required',
+			'rabbit.breed_id' => 'nullable',
+			'rabbit.gender' => 'required|in:' . collect(Rabbit::GENDER)->keys()->implode(','),
+			'rabbit.date_of_birth' => 'nullable',
+		];
+	}
 
-    /**
-     * Registers a blank rabbit.
-     *
-     * @return <type> ( description_of_the_return_value )
-     */
-    public function registersBlankRabbit()
-    {
-        return Rabbit::make([]);
-    }
+	/**
+	 * Reset Filters.
+	 *
+	 * @var void
+	 */
+	public function resetFilters()
+	{
+		$this->reset('filters');
+	}
 
-    /**
-     * Validate the transfer of the rabbit from one cage to another.
-     *
-     * @return void
-     */
-    public function validateDeletion($id)
-    {
-        $this->selectRabbitId = $id;
+	/**
+	 * Registers a blank rabbit.
+	 *
+	 * @return <type> ( description_of_the_return_value )
+	 */
+	public function registersBlankRabbit()
+	{
+		return Rabbit::make([]);
+	}
 
-        $this->confirmingRabbitDeletion = true;
-    }
+	/**
+	 * Select rabbit for details display .
+	 *
+	 * @return <type> ( description_of_the_return_value )
+	 */
+	public function selectRabbit($id)
+	{
+		$this->showDetailsScreen = true;
+		$this->selectedRabbit = Rabbit::findOrFail($id);
+	}
 
-    /**
-     * Generate export from the selected rows.
-     *
-     * @return Response
-     */
-    public function exportSelected()
-    {
-        return response()->streamDownload(
-            function () {
-                echo $this->selectedRowsQuery->toCsv();
-            },
-            'rabbits.csv'
-        );
+	/**
+	 * Close the display dialog for showing rabbit details
+	 *
+	 * @return <type> ( description_of_the_return_value )
+	 */
+	public function deselectRabbit()
+	{
+		return $this->showDetailsScreen = !$this->showDetailsScreen;
+		// $this->selectedRabbit = null;
+	}
 
-        $this->notify('Data Exported successfully');
-    }
+	/**
+	 * Validate the transfer of the rabbit from one cage to another.
+	 *
+	 * @return void
+	 */
+	public function validateDeletion($id)
+	{
+		$this->selectRabbitId = $id;
 
-    /**
-     * Delete all the selected rows.
-     *
-     * @return Response
-     */
-    public function deleteSelected()
-    {
-        $this->selectedRowsQuery
-            ->delete();
-        $this->showDeleteModal = false;
-        $this->notify('Data Deleted successfully');
-    }
+		$this->confirmingRabbitDeletion = true;
+	}
 
-    /**
-     * Save the rabbit information.
-     *
-     * @return void
-     */
-    public function handleSave(Rabbit $rabbit)
-    {
-        $this->showSaveModal = true;
-        $this->rabbit = $rabbit;
-        $this->showRabbitNo = true;
-    }
+	/**
+	 * Generate export from the selected rows.
+	 *
+	 * @return Response
+	 */
+	public function exportSelected()
+	{
+		return response()->streamDownload(
+			function () {
+				echo $this->selectedRowsQuery->toCsv();
+			},
+			'rabbits.csv'
+		);
 
-    /**
-     * Save the rabbit information.
-     *
-     * @return void
-     */
-    public function save()
-    {
-        $this->validate();
+		$this->notify('Data Exported successfully');
+	}
 
-        $this->rabbit->save();
+	/**
+	 * Delete all the selected rows.
+	 *
+	 * @return Response
+	 */
+	public function deleteSelected()
+	{
+		$this->selectedRowsQuery
+			->delete();
+		$this->showDeleteModal = false;
+		$this->notify('Data Deleted successfully');
+	}
 
-        $this->showSaveModal = false;
+	/**
+	 * Save the rabbit information.
+	 *
+	 * @return void
+	 */
+	public function handleSave(Rabbit $rabbit)
+	{
+		$this->showSaveModal = true;
+		$this->rabbit = $rabbit;
+		$this->showRabbitNo = true;
+	}
 
-        $this->notify('Rabbit Info successfully Saved.');
-    }
+	/**
+	 * Save the rabbit information.
+	 *
+	 * @return void
+	 */
+	public function save()
+	{
+		$this->validate();
 
-    /**
-     * Handle the deletion of the rabbit.
-     *
-     * @return void
-     */
-    public function handleDeletion()
-    {
-        $selectedRabbit = Rabbit::findOrFail($this->selectRabbitId);
+		$this->rabbit->save();
 
-        $selectedRabbit->delete();
+		$this->showSaveModal = false;
 
-        $this->confirmingRabbitDeletion = false;
+		$this->notify('Rabbit Info successfully Saved.');
+	}
 
-        $this->notify('Rabbit Info successfully deleted.');
+	/**
+	 * Handle the deletion of the rabbit.
+	 *
+	 * @return void
+	 */
+	public function handleDeletion()
+	{
+		$selectedRabbit = Rabbit::findOrFail($this->selectRabbitId);
 
-        // return redirect(route('rabbits.index'));
-    }
+		$selectedRabbit->delete();
 
-    public function create()
-    {
-        $this->showSaveModal = true;
-        $this->rabbit = $this->registersBlankRabbit();
-        $this->showRabbitNo = false;
-    }
+		$this->confirmingRabbitDeletion = false;
 
-    /**
-     * Row Query.
-     *
-     * @return
-     */
-    public function getRowsQueryProperty()
-    {
-        $query = Rabbit::query()
-            ->when($this->filters['search'], fn ($query, $search) => $query->where('rabbit_no', 'like', '%' . $search . '%'))
-            ->when($this->filters['gender'], fn ($query, $gender) => $query->where('gender', $gender))
-            ->when($this->filters['status'], fn ($query, $value) => $query->where('status', $value))
-            ->when($this->filters['cage_id'], fn ($query, $value) => $query->where('cage_id', $value))
-            ->when($this->filters['date_min'], fn ($query, $date) => $query->where('date_of_birth', '>=', Carbon::parse($date)))
-            ->when($this->filters['date_max'], fn ($query, $date) => $query->where('date_of_birth', '<=', Carbon::parse($date)));
+		$this->notify('Rabbit Info successfully deleted.');
 
-        return $this->applySorting($query);
-    }
+		// return redirect(route('rabbits.index'));
+	}
 
-    /**
-     * Row.
-     *
-     * @return
-     */
-    public function getRowsProperty()
-    {
-        return $this->applyPagination($this->rowsQuery);
-    }
+	public function create()
+	{
+		$this->showSaveModal = true;
+		$this->rabbit = $this->registersBlankRabbit();
+		$this->showRabbitNo = false;
+	}
 
-    /**
-     * Render the component.
-     *
-     * @return \Illuminate\View\View
-     */
-    public function render()
-    {
-        return view(
-            'livewire.rabbit.view-rabbits', [
-                'rabbits_count' => Rabbit::alive()->count(),
-                'all_rabbits_count' => Rabbit::count(),
-                'bucks' => Rabbit::ofGender('buck')->alive()->count(),
-                'dam' => Rabbit::ofGender('dam')->alive()->count(),
-                'sire' => Rabbit::ofGender('sire')->alive()->count(),
-                'does' => Rabbit::ofGender('doe')->alive()->count(),
-                'kits' => Rabbit::ofGender('unknown')->alive()->count(),
-                'rabbits' => $this->rows,
-                'cages' => Cage::all(),
-                'rabbitTypes' => BreedType::all(),
-            ]
-        )->extends('layouts.app');
-    }
+	/**
+	 * Row Query.
+	 *
+	 * @return
+	 */
+	public function getRowsQueryProperty()
+	{
+		$query = Rabbit::query()
+			->when($this->filters['search'], fn ($query, $search) => $query->where('rabbit_no', 'like', '%' . $search . '%'))
+			->when($this->filters['gender'], fn ($query, $gender) => $query->where('gender', $gender))
+			->when($this->filters['status'], fn ($query, $value) => $query->where('status', $value))
+			->when($this->filters['cage_id'], fn ($query, $value) => $query->where('cage_id', $value))
+			->when($this->filters['date_min'], fn ($query, $date) => $query->where('date_of_birth', '>=', Carbon::parse($date)))
+			->when($this->filters['date_max'], fn ($query, $date) => $query->where('date_of_birth', '<=', Carbon::parse($date)));
+
+		return $this->applySorting($query);
+	}
+
+	/**
+	 * Row.
+	 *
+	 * @return
+	 */
+	public function getRowsProperty()
+	{
+		return $this->applyPagination($this->rowsQuery);
+	}
+
+	/**
+	 * Render the component.
+	 *
+	 * @return \Illuminate\View\View
+	 */
+	public function render()
+	{
+		return view(
+			'livewire.rabbit.view-rabbits',
+			[
+				'rabbits_count' => Rabbit::alive()->count(),
+				'all_rabbits_count' => Rabbit::count(),
+				'bucks' => Rabbit::ofGender('buck')->alive()->count(),
+				'dam' => Rabbit::ofGender('dam')->alive()->count(),
+				'sire' => Rabbit::ofGender('sire')->alive()->count(),
+				'does' => Rabbit::ofGender('doe')->alive()->count(),
+				'kits' => Rabbit::ofGender('unknown')->alive()->count(),
+				'rabbits' => $this->rows,
+				'cages' => Cage::all(),
+				'rabbitTypes' => BreedType::all(),
+			]
+		)->extends('layouts.app');
+	}
 }
