@@ -45,13 +45,6 @@ class ViewRabbits extends Component
     public $selectRabbitId;
 
     /**
-     * Check if one is creating.
-     *
-     * @var string
-     */
-    public $showRabbitNo = true;
-
-    /**
      * Indicates if rabbit transfer is being confirmed.
      *
      * @var bool
@@ -134,9 +127,12 @@ class ViewRabbits extends Component
      */
     public function exportSelected()
     {
-        return response()->streamDownload(function () {
-            echo $this->selectedRowsQuery->toCsv();
-        }, 'rabbits.csv');
+        return response()->streamDownload(
+            function () {
+                echo $this->selectedRowsQuery->toCsv();
+            },
+            'rabbits.csv'
+        );
 
         $this->notify('Data Exported successfully');
     }
@@ -149,7 +145,7 @@ class ViewRabbits extends Component
     public function deleteSelected()
     {
         $this->selectedRowsQuery
-        ->delete();
+            ->delete();
         $this->showDeleteModal = false;
         $this->notify('Data Deleted successfully');
     }
@@ -215,12 +211,12 @@ class ViewRabbits extends Component
     public function getRowsQueryProperty()
     {
         $query = Rabbit::query()
-                ->when($this->filters['search'], fn ($query, $search) => $query->where('rabbit_no', 'like', '%' . $search . '%'))
-                ->when($this->filters['gender'], fn ($query, $gender) => $query->where('gender', $gender))
-                ->when($this->filters['status'], fn ($query, $value) => $query->where('status', $value))
-                ->when($this->filters['cage_id'], fn ($query, $value) => $query->where('cage_id', $value))
-                ->when($this->filters['date_min'], fn ($query, $date) => $query->where('date_of_birth', '>=', Carbon::parse($date)))
-                ->when($this->filters['date_max'], fn ($query, $date) => $query->where('date_of_birth', '<=', Carbon::parse($date)));
+            ->when($this->filters['search'], fn ($query, $search) => $query->where('rabbit_no', 'like', '%' . $search . '%'))
+            ->when($this->filters['gender'], fn ($query, $gender) => $query->where('gender', $gender))
+            ->when($this->filters['status'], fn ($query, $value) => $query->where('status', $value))
+            ->when($this->filters['cage_id'], fn ($query, $value) => $query->where('cage_id', $value))
+            ->when($this->filters['date_min'], fn ($query, $date) => $query->where('date_of_birth', '>=', Carbon::parse($date)))
+            ->when($this->filters['date_max'], fn ($query, $date) => $query->where('date_of_birth', '<=', Carbon::parse($date)));
 
         return $this->applySorting($query);
     }
@@ -236,30 +232,25 @@ class ViewRabbits extends Component
     }
 
     /**
-     * Querying Rabbits that are alive.
-     *
-     * @return
-     */
-    public function getLiveRabbitsProperty()
-    {
-        return Rabbit::alive();
-    }
-
-    /**
      * Render the component.
      *
      * @return \Illuminate\View\View
      */
     public function render()
     {
-        return view('livewire.rabbit.view-rabbits', [
-            'rabbits_count' => $this->liveRabbits->count(),
-            'bucks' => $this->liveRabbits->where('gender', 'buck')->count(),
-            'does' => $this->liveRabbits->where('gender', 'doe')->count(),
-            'kits' => $this->liveRabbits->where('gender', 'unknown')->count(),
-            'rabbits' => $this->rows,
-            'cages' => Cage::all(),
-            'rabbitTypes' => BreedType::all(),
-        ])->extends('layouts.app');
+        return view(
+            'livewire.rabbit.view-rabbits', [
+                'rabbits_count' => Rabbit::alive()->count(),
+                'all_rabbits_count' => Rabbit::count(),
+                'bucks' => Rabbit::ofGender('buck')->alive()->count(),
+                'dam' => Rabbit::ofGender('dam')->alive()->count(),
+                'sire' => Rabbit::ofGender('sire')->alive()->count(),
+                'does' => Rabbit::ofGender('doe')->alive()->count(),
+                'kits' => Rabbit::ofGender('unknown')->alive()->count(),
+                'rabbits' => $this->rows,
+                'cages' => Cage::all(),
+                'rabbitTypes' => BreedType::all(),
+            ]
+        )->extends('layouts.app');
     }
 }
