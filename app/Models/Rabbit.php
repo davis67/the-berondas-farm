@@ -55,6 +55,16 @@ class Rabbit extends Model
     }
 
     /**
+     * Returns the logs info of the rabbit.
+     *
+     * @return [type] [description]
+     */
+    public function getLogsAttribute()
+    {
+        return BreedingLog::where('sire_id', $this->id)->get() ?? null;
+    }
+
+    /**
      * Scope a query to only include alive rabbits.
      *
      * @param \Illuminate\Database\Eloquent\Builder $query

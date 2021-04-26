@@ -16,7 +16,6 @@ class ShowCageTest extends TestCase
     /** @test */
     public function showCagePageContainsLivewireComponent()
     {
-        $this->withoutExceptionHandling();
         $this->actingAs($user = User::factory()->create());
 
         $cage = Cage::factory()->create();
