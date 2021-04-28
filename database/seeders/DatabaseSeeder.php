@@ -54,6 +54,8 @@ class DatabaseSeeder extends Seeder
 		Rabbit::factory(40)->create([
 			'farm_id' => 1,
 		]);
-		BreedingLog::factory(50)->create();
+		BreedingLog::factory(50)->create([
+			'farm_id' => 1,
+		]);
 	}
 }
