@@ -45,7 +45,7 @@
                                 </div>
                             </div>
                             <div class="bg-white flex flex-col mt-2">
-                                @include('livewire.rabbit.partials.table')
+                                @include('livewire.rabbit.partials.table', ['rabbits' => $rabbits])
                                 <div class="bg-white px-4 py-3 border-t border-cool-gray-200 sm:px-6">
                                     {{ $rabbits->links() }}
                                 </div>

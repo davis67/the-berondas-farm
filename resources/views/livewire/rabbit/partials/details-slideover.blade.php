@@ -110,7 +110,7 @@
                                         </div>
                                     </div>
                                     <div>
-                                        @include('livewire.rabbit.partials.breeding-log')
+                                        @include('livewire.rabbit.partials.breeding-log', ['selectedRabbit' => $selectedRabbit])
                                     </div>
                                     <div class="flex">
                                         <button type="button"

@@ -338,12 +338,12 @@ class BreedingLogs extends Component
 	 */
 	public function render()
 	{
-		// dd(BreedingLog::with('sire', 'dam')->get());
+		// dd(BreedingLog::paginate($this->perPage));
 		return view(
 			'livewire.logs.breeding-logs',
 			[
 				'rabbits_count' => Rabbit::alive()->count(),
-				'logs' => BreedingLog::with('sire', 'dam')->paginate($this->perPage),
+				'logs' => BreedingLog::paginate($this->perPage),
 				'all_rabbits_count' => Rabbit::count(),
 				'bucks' => Rabbit::ofGender('buck')->alive()->count(),
 				'dam' => Rabbit::ofGender('dam')->alive()->count(),

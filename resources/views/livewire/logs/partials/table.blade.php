@@ -56,10 +56,18 @@
                     </x-table.cell>
 
                     <x-table.cell>
-                        {{ $log->sire_id }}
+                        @if($log->sire)
+                            {{ $log->sire->rabbit_no }}
+                        @else
+                            Not Specified
+                        @endif
                     </x-table.cell>
                     <x-table.cell>
-                        {{ $log->dam_id }}
+                        @if($log->dam)
+                            {{ $log->dam->rabbit_no }}
+                        @else
+                            Not Specified
+                        @endif
                     </x-table.cell>
                     <x-table.cell>
                        {{ $log->date_of_mating_for_humans }}
@@ -75,15 +83,23 @@
                      </x-table.cell>
                     <x-table.cell>
                         @if($log->is_successful_mating)
-                        {{$log->age}}
+                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium leading-4 bg-cool-gray-100 text-cool-gray-800">{{$log->age}}</span>
                         @else
-                        90
+                            @if($log->expected_kiddle_days >= 0)
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium leading-4 bg-teal-100 text-teal-800">
+                                    ExpectedBirthday
+                                </span>
+                            @else
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium leading-4 bg-orange-100 text-orange-800">
+                                    {{$log->expected_kiddle_days}} days
+                                </span>
+                            @endif
                         @endif
                     </x-table.cell>
                     <x-table.cell>
                         <div class="flex">
                             <x-button.link class="view-rabbit text-sm"
-                                           wire:click="selectRabbit({{ $log->id }})">
+                                           wire:click="selectLog({{ $log->id }})">
                                 <svg xmlns="http://www.w3.org/2000/svg"
                                      class="h-6 w-6 text-teal-600"
                                      fill="none"

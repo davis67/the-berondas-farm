@@ -8,7 +8,7 @@
         <div class="absolute inset-0 overflow-hidden">
             <div x-description="Background overlay, show/hide based on slide-over state."
                  class="absolute inset-0"
-                 wire:click="deselectRabbit()"
+                 wire:click="deselectLog()"
                  aria-hidden="true"></div>
             <div class="absolute inset-y-0 right-0 pl-10 max-w-full flex sm:pl-16">
 
@@ -25,7 +25,7 @@
 
                                     <div id="slide-over-title">
                                         <h2 class="text-lg font-medium text-gray-900">
-                                            <span class="sr-only">Details for </span>{{ $selectedLog->rabbit_no }}
+                                            <span class="sr-only">Details for </span>{{ $selectedLog->sire->rabbit_no }}
                                         </h2>
                                         <p class="text-sm font-medium text-gray-500">Breed not Specified</p>
                                     </div>
@@ -64,13 +64,13 @@
                                             <div class="py-3 flex justify-between text-sm font-medium">
                                                 <dt class="text-gray-500">Gender</dt>
                                                 <dd class="text-gray-900 capitalize">
-                                                    {{ $selectedLog->gender }}
+                                                    {{ $selectedLog->sire->gender }}
                                                 </dd>
                                             </div>
                                             <div class="py-3 flex justify-between text-sm font-medium">
                                                 <dt class="text-gray-500">Date of Birth</dt>
                                                 <dd class="text-gray-900">
-                                                    @if ($selectedLog->date_of_birth){{ $selectedLog->date_of_birth }}@else None @endif
+                                                    @if ($selectedLog->sire->date_of_birth){{ $selectedLog->sire->date_of_birth }}@else None @endif
                                                 </dd>
                                             </div>
                                             <div class="py-3 flex justify-between text-sm font-medium">
@@ -110,7 +110,7 @@
                                         </div>
                                     </div>
                                     <div>
-                                        @include('livewire.rabbit.partials.breeding-log')
+                                        @include('livewire.logs.partials.breeding-log')
                                     </div>
                                     <div class="flex">
                                         <button type="button"
