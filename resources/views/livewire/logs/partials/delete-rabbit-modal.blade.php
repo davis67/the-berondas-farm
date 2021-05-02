@@ -1,7 +1,7 @@
 <x-modal.dialog wire:model.defer="showDeleteModal">
-    <x-slot name="title">Delete Rabbit(s)</x-slot>
+    <x-slot name="title">Delete Log(s)</x-slot>
     <x-slot name="content">
-        Are you sure you want to delete these rabbits? This action is irreversible
+        Are you sure you want to delete these Logs? This action is irreversible
     </x-slot>
     <x-slot name="footer">
         <x-button.secondary class="bg-red-600"

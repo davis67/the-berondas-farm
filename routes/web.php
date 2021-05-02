@@ -73,7 +73,7 @@ Route::middleware('auth')->group(
 		Route::get('batches/{batch}', ShowBatch::class)->name('batches.show');
 
 		Route::get('rabbits', ViewRabbits::class)->name('rabbits.index');
-		Route::get('logs', BreedingLogs::class)->name('rabbits.logs');
+		Route::get('logs', BreedingLogs::class)->name('logs.index');
 		Route::get('rabbits/servicing/{service}/register-rabbit-birth', RegisterRabbitsBirth::class)->name('rabbits.register-birth');
 		Route::get('rabbits/{id}/serve-rabbit', ServeRabbit::class)->name('farms.rabbits');
 		Route::get('breed-types/create', RegisterBreedTypes::class)->name('breed-types.create');

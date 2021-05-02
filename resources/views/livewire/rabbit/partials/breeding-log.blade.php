@@ -2,7 +2,6 @@
     <h3 class="font-medium text-gray-900">Previous Breeding Log</h3>
     <ul class="mt-2 border-t border-b border-gray-200 divide-y divide-gray-200">
         @if($selectedRabbit->logs != null)
-        {{-- @json($selectedRabbit->logs) --}}
         @foreach($selectedRabbit->logs as $log)
         <li class="py-3 flex justify-between items-center">
             <div class="flex items-center">

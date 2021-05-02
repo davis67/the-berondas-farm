@@ -20,11 +20,11 @@ class BreedingLog extends Model
 	protected $fillable = ['sire_id', 'dam_id', 'date_of_mating', 'expected_kiddle_date', 'kindle_date', 'litters', 'is_successful_mating', 'litters', 'dead_litters', 'doe_litters'];
 
 	/**
-	 * Load relationship data.
+	 * append data
 	 *
 	 * @return void
 	 */
-	protected $with = ['sire', 'dam'];
+	protected $appends = ['age', 'dam', 'sire'];
 
 	/**
 	 * The "booted" method of the model.
@@ -48,6 +48,16 @@ class BreedingLog extends Model
 	public function getExpectedKiddleDateForHumansAttribute()
 	{
 		return Carbon::parse($this->expected_kiddle_date)->format('d M, Y');
+	}
+
+	/**
+	 * Expected Days remaining to give birth.
+	 *
+	 * @return string
+	 */
+	public function getExpectedKiddleDaysAttribute()
+	{
+		return Carbon::parse($this->expected_kiddle_date)->diffInDays(Carbon::now(), false) . 'days';
 	}
 
 	/**
@@ -91,22 +101,22 @@ class BreedingLog extends Model
 	}
 
 	/**
-	* Has one Dam.
+	* Dam
 	*
 	* @return [type] [description]
 	*/
-	public function dam()
+	public function getDamAttribute()
 	{
-		return $this->hasOne(Rabbit::class, 'dam_id');
+		return Rabbit::findOrFail($this->dam_id) ?? null;
 	}
 
 	/**
-	* Has one sire.
+	* Sire
 	*
 	* @return [type] [description]
 	*/
-	public function sire()
+	public function getSireAttribute()
 	{
-		return $this->hasOne(Rabbit::class, 'sire_id');
+		return Rabbit::findOrFail($this->sire_id) ?? null;
 	}
 }
