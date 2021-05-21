@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Rabbit;
+namespace App\Http\Livewire\Logs;
 
 use Carbon\Carbon;
 use App\Models\Cage;
@@ -12,7 +12,7 @@ use App\Http\Livewire\DataTable\WithSorting;
 use App\Http\Livewire\DataTable\WithBulkAction;
 use App\Http\Livewire\DataTable\WithPerPagePagination;
 
-class ViewRabbits extends Component
+class BreedingLogs extends Component
 {
 	use WithPerPagePagination;
 	use WithBulkAction;
@@ -22,7 +22,7 @@ class ViewRabbits extends Component
 	 *
 	 * @var object
 	 */
-	public Rabbit $rabbit;
+	public BreedingLog $breedingLog;
 
 	/**
 	 * Show Save Modal.
@@ -56,14 +56,14 @@ class ViewRabbits extends Component
 	 *
 	 * @var mixed
 	 */
-	public $selectedRabbit = null;
+	public $selectedLog = null;
 
 	/**
 	 * Indicates if rabbit transfer is being confirmed.
 	 *
 	 * @var bool
 	 */
-	public $confirmingRabbitDeletion = false;
+	public $confirmingLogDeletion = false;
 
 	/**
 	 * Show Delete Modal.
@@ -193,10 +193,10 @@ class ViewRabbits extends Component
 	 *
 	 * @return <type> ( description_of_the_return_value )
 	 */
-	public function selectRabbit($id)
+	public function selectLog($id)
 	{
 		$this->showDetailsScreen = true;
-		$this->selectedRabbit = Rabbit::findOrFail($id);
+		$this->selectedLog = BreedingLog::findOrFail($id);
 	}
 
 	/**
@@ -204,10 +204,10 @@ class ViewRabbits extends Component
 	 *
 	 * @return <type> ( description_of_the_return_value )
 	 */
-	public function deselectRabbit()
+	public function deselectLog()
 	{
 		return $this->showDetailsScreen = !$this->showDetailsScreen;
-		$this->selectedRabbit = null;
+		$this->selectedLog = null;
 	}
 
 	/**
@@ -217,9 +217,9 @@ class ViewRabbits extends Component
 	 */
 	public function validateDeletion($id)
 	{
-		$this->selectRabbitId = $id;
+		$this->selectLogId = $id;
 
-		$this->confirmingRabbitDeletion = true;
+		$this->confirmingLogDeletion = true;
 	}
 
 	/**
@@ -257,10 +257,10 @@ class ViewRabbits extends Component
 	 *
 	 * @return void
 	 */
-	public function handleSave(Rabbit $rabbit)
+	public function handleSave(BreedingLog $breedingLog)
 	{
 		$this->showSaveModal = true;
-		$this->rabbit = $rabbit;
+		$this->breedingLog = $breedingLog;
 		$this->showRabbitNo = true;
 	}
 
@@ -287,11 +287,11 @@ class ViewRabbits extends Component
 	 */
 	public function handleDeletion()
 	{
-		$selectedRabbit = Rabbit::findOrFail($this->selectRabbitId);
+		$selectedLog = Rabbit::findOrFail($this->selectLogId);
 
-		$selectedRabbit->delete();
+		$selectedLog->delete();
 
-		$this->confirmingRabbitDeletion = false;
+		$this->confirmingLogDeletion = false;
 
 		$this->notify('Rabbit Info successfully deleted.');
 	}
@@ -338,10 +338,12 @@ class ViewRabbits extends Component
 	 */
 	public function render()
 	{
+		// dd(BreedingLog::paginate($this->perPage));
 		return view(
-			'livewire.rabbit.view-rabbits',
+			'livewire.logs.breeding-logs',
 			[
 				'rabbits_count' => Rabbit::alive()->count(),
+				'logs' => BreedingLog::paginate($this->perPage),
 				'all_rabbits_count' => Rabbit::count(),
 				'bucks' => Rabbit::ofGender('buck')->alive()->count(),
 				'dam' => Rabbit::ofGender('dam')->alive()->count(),

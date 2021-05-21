@@ -30,6 +30,7 @@ use App\Http\Livewire\Rabbit\RegisterBreedTypes;
 use App\Http\Livewire\Expense\CreateExpenseTypes;
 use App\Http\Livewire\Rabbit\RegisterRabbitsBirth;
 use App\Http\Controllers\Auth\EmailVerificationController;
+use App\Http\Livewire\Logs\BreedingLogs;
 
 Route::middleware('guest')->group(
 	function () {
@@ -72,6 +73,7 @@ Route::middleware('auth')->group(
 		Route::get('batches/{batch}', ShowBatch::class)->name('batches.show');
 
 		Route::get('rabbits', ViewRabbits::class)->name('rabbits.index');
+		Route::get('logs', BreedingLogs::class)->name('logs.index');
 		Route::get('rabbits/servicing/{service}/register-rabbit-birth', RegisterRabbitsBirth::class)->name('rabbits.register-birth');
 		Route::get('rabbits/{id}/serve-rabbit', ServeRabbit::class)->name('farms.rabbits');
 		Route::get('breed-types/create', RegisterBreedTypes::class)->name('breed-types.create');

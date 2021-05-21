@@ -8,7 +8,7 @@
         <div class="absolute inset-0 overflow-hidden">
             <div x-description="Background overlay, show/hide based on slide-over state."
                  class="absolute inset-0"
-                 wire:click="deselectRabbit()"
+                 wire:click="deselectLog()"
                  aria-hidden="true"></div>
             <div class="absolute inset-y-0 right-0 pl-10 max-w-full flex sm:pl-16">
 
@@ -25,7 +25,7 @@
 
                                     <div id="slide-over-title">
                                         <h2 class="text-lg font-medium text-gray-900">
-                                            <span class="sr-only">Details for </span>{{ $selectedRabbit->rabbit_no }}
+                                            <span class="sr-only">Details for </span>{{ $selectedLog->sire->rabbit_no }}
                                         </h2>
                                         <p class="text-sm font-medium text-gray-500">Breed not Specified</p>
                                     </div>
@@ -58,59 +58,31 @@
                                             <div class="py-3 flex justify-between text-sm font-medium">
                                                 <dt class="text-gray-500">Current Cage</dt>
                                                 <dd class="text-gray-900">
-                                                    @if ($selectedRabbit->cage){{ $selectedRabbit->cage->cage_no }}@else None @endif
+                                                    @if ($selectedLog->cage){{ $selectedLog->cage->cage_no }}@else None @endif
                                                 </dd>
                                             </div>
                                             <div class="py-3 flex justify-between text-sm font-medium">
                                                 <dt class="text-gray-500">Gender</dt>
                                                 <dd class="text-gray-900 capitalize">
-                                                    {{ $selectedRabbit->gender }}
+                                                    {{ $selectedLog->sire->gender }}
                                                 </dd>
                                             </div>
+                                            @if ($selectedLog->sire->date_of_birth)
                                             <div class="py-3 flex justify-between text-sm font-medium">
                                                 <dt class="text-gray-500">Date of Birth</dt>
                                                 <dd class="text-gray-900">
-                                                    @if ($selectedRabbit->date_of_birth){{ $selectedRabbit->date_of_birth }}@else None @endif
+                                                    @if ($selectedLog->sire->date_of_birth){{ $selectedLog->sire->date_of_birth_for_humans }}@else None @endif
                                                 </dd>
                                             </div>
+                                            @endif
                                             <div class="py-3 flex justify-between text-sm font-medium">
                                                 <dt class="text-gray-500">Weight</dt>
                                                 <dd class="text-gray-900">3kgs</dd>
                                             </div>
-                                            <div class="py-3 flex justify-between text-sm font-medium">
-                                                <dt class="text-gray-500">Last modified</dt>
-                                                <dd class="text-gray-900">June 8, 2020</dd>
-                                            </div>
-                                            <div class="py-3 flex justify-between text-sm font-medium">
-                                                <dt class="text-gray-500">Beed Type</dt>
-                                                <dd class="text-gray-900">Not Specified</dd>
-                                            </div>
-                                            <div class="py-3 flex justify-between text-sm font-medium">
-                                                <dt class="text-gray-500">Status</dt>
-                                                <dd class="text-teal-900 capitalize font-bold">{{ $selectedRabbit->status }}</dd>
-                                            </div>
                                         </dl>
                                     </div>
                                     <div>
-                                        <h3 class="font-medium text-gray-900">Description</h3>
-                                        <div class="mt-2 flex items-center justify-between">
-                                            <p class="text-sm text-gray-500 italic">Add a description to this Rabbit.</p>
-                                            <button type="button"
-                                                    class="-mr-2 h-8 w-8 bg-white rounded-full flex items-center justify-center text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-teal-500">
-                                                <svg class="h-5 w-5"
-                                                     x-description="Heroicon name: solid/pencil"
-                                                     xmlns="http://www.w3.org/2000/svg"
-                                                     viewBox="0 0 20 20"
-                                                     fill="currentColor"
-                                                     aria-hidden="true">
-                                                    <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"></path>
-                                                </svg>
-                                                <span class="sr-only">Add description</span>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        @include('livewire.rabbit.partials.breeding-log', ['selectedRabbit' => $selectedRabbit])
+                                        @include('livewire.logs.partials.breeding-log')
                                     </div>
                                     <div class="flex">
                                         <button type="button"
