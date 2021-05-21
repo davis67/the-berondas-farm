@@ -2,41 +2,60 @@
 
 namespace App\Http\Livewire\Auth;
 
-use App\Providers\RouteServiceProvider;
-use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
+use App\Action\ActivityType;
+use App\Action\ActivityService;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Livewire\Traits\LoggableActivity;
 
 class Login extends Component
 {
-    /** @var string */
-    public $email = '';
+	use LoggableActivity;
 
-    /** @var string */
-    public $password = '';
+	/** @var string */
+	public $email = '';
 
-    /** @var bool */
-    public $remember = false;
+	/** @var string */
+	public $password = '';
 
-    protected $rules = [
-        'email' => ['required', 'email'],
-        'password' => ['required'],
-    ];
+	/** @var bool */
+	public $remember = false;
 
-    public function authenticate()
-    {
-        $this->validate();
+	/*** @var ActivityService $activityService */
+	protected $activity = null;
 
-        if (!Auth::attempt(['email' => $this->email, 'password' => $this->password], $this->remember)) {
-            $this->addError('email', trans('auth.failed'));
+	protected $rules = [
+		'email' => ['required', 'email'],
+		'password' => ['required'],
+	];
 
-            return;
-        }
+	/**
+	 * Component mount.
+	 * @param ActivityService $activityService
+	 */
+	public function mount(ActivityService $activityService)
+	{
+		$this->activity = $activityService;
+	}
 
-        return redirect()->intended(route('home'));
-    }
+	public function authenticate()
+	{
+		$this->validate();
 
-    public function render()
-    {
-        return view('livewire.auth.login')->extends('layouts.auth');
-    }
+		if (!Auth::attempt(['email' => $this->email, 'password' => $this->password], $this->remember)) {
+			$this->addError('email', trans('auth.failed'));
+			app(ActivityService::class)->logFailedLogin($this->email);
+			return;
+		}
+		$user = auth()->user();
+
+		$this->logActivity(ActivityType::AUTH_LOGIN, $user);
+
+		return redirect()->intended(route('home'));
+	}
+
+	public function render()
+	{
+		return view('livewire.auth.login')->extends('layouts.auth');
+	}
 }

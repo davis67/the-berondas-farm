@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Livewire\AddRole;
+use App\Http\Livewire\Settings;
+use App\Http\Livewire\ListRoles;
 use App\Http\Livewire\Auth\Login;
 use App\Http\Livewire\Auth\Verify;
 use App\Http\Livewire\Auth\Register;
@@ -12,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\Batch\ShowBatch;
 use App\Http\Livewire\Batch\ViewBatches;
 use App\Http\Livewire\Farm\RegisterFarm;
+use App\Http\Livewire\Logs\BreedingLogs;
 use App\Http\Livewire\Rabbit\ServeRabbit;
 use App\Http\Livewire\Rabbit\ViewRabbits;
 use App\Http\Livewire\Dashboard\Dashboard;
@@ -30,7 +34,6 @@ use App\Http\Livewire\Rabbit\RegisterBreedTypes;
 use App\Http\Livewire\Expense\CreateExpenseTypes;
 use App\Http\Livewire\Rabbit\RegisterRabbitsBirth;
 use App\Http\Controllers\Auth\EmailVerificationController;
-use App\Http\Livewire\Logs\BreedingLogs;
 
 Route::middleware('guest')->group(
 	function () {
@@ -89,5 +92,9 @@ Route::middleware('auth')->group(
 		Route::get('expense-types/create', CreateExpenseTypes::class)->name('expense-types.create');
 		Route::get('expense-types/index', ViewExpenseTypes::class)->name('expense-types.index');
 		Route::get('expense-types/{expenseType}/edit', EditExpenseTypes::class)->name('expense-types.edit');
+
+		Route::get('settings', Settings::class)->name('settings.index');
+		Route::get('settings/roles/new', AddRole::class)->name('roles.create');
+		Route::get('settings/roles', ListRoles::class)->name('roles.index');
 	}
 );
