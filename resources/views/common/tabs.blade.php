@@ -5,20 +5,6 @@
                 <div class="max-w-7xl mx-auto">
 
                     <div>
-                        <div class="sm:hidden">
-                            <label for="tabs" class="sr-only">Select a tab</label>
-                            <select id="tabs" name="tabs" class="block w-full focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md">
-
-                                <option>General Settings</option>
-
-                                <option>Audit Logs</option>
-
-                                <option selected="">Users</option>
-
-                                <option>Roles</option>
-
-                            </select>
-                        </div>
                         <div class="hidden sm:block">
                             <nav class="flex space-x-4" aria-label="Tabs">
 
@@ -44,7 +30,7 @@
                                     <span class="self-center">Users</span>
                                 </a>
 
-                                <a href="#" class="text-primary_400 flex items-center hover:text-primary_500 px-3 py-2 font-medium text-sm rounded-md" x-state-description="undefined: &quot;bg-gray-100 text-primary_500&quot;, undefined: &quot;text-primary_400 hover:text-primary_500&quot;">
+                                <a href="{{ route('roles.index') }}" class="text-primary_400 flex items-center hover:text-primary_500 px-3 py-2 font-medium text-sm rounded-md" x-state-description="undefined: &quot;bg-gray-100 text-primary_500&quot;, undefined: &quot;text-primary_400 hover:text-primary_500&quot;">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z" />
                                     </svg>

@@ -101,6 +101,15 @@ class PermissionService
 	}
 
 	/**
+	 * Build the entity jointPermissions for a particular role.
+	 */
+	public function buildJointPermissionForRole(Role $role)
+	{
+		$roles = [$role];
+		$this->deleteManyJointPermissionsForRoles($roles);
+	}
+
+	/**
 	 * Delete the entity jointPermissions attached to a particular role.
 	 */
 	public function deleteJointPermissionsForRole(Role $role)

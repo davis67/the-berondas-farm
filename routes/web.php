@@ -1,8 +1,6 @@
 <?php
 
-use App\Http\Livewire\AddRole;
 use App\Http\Livewire\Settings;
-use App\Http\Livewire\ListRoles;
 use App\Http\Livewire\Auth\Login;
 use App\Http\Livewire\Auth\Verify;
 use App\Http\Livewire\Auth\Register;
@@ -34,6 +32,7 @@ use App\Http\Livewire\Rabbit\RegisterBreedTypes;
 use App\Http\Livewire\Expense\CreateExpenseTypes;
 use App\Http\Livewire\Rabbit\RegisterRabbitsBirth;
 use App\Http\Controllers\Auth\EmailVerificationController;
+use App\Http\Controllers\RoleController;
 
 Route::middleware('guest')->group(
 	function () {
@@ -94,7 +93,12 @@ Route::middleware('auth')->group(
 		Route::get('expense-types/{expenseType}/edit', EditExpenseTypes::class)->name('expense-types.edit');
 
 		Route::get('settings', Settings::class)->name('settings.index');
-		Route::get('settings/roles/new', AddRole::class)->name('roles.create');
-		Route::get('settings/roles', ListRoles::class)->name('roles.index');
+		Route::get('settings/roles', [RoleController::class, 'index'])->name('roles.index');
+		Route::get('settings/roles/new', [RoleController::class, 'create'])->name('roles.create');
+		Route::post('settings/roles/new', [RoleController::class, 'store'])->name('roles.store');
+		Route::get('settings/roles/{id}', [RoleController::class, 'edit'])->name('roles.edit');
+		Route::put('settings/roles/{id}', [RoleController::class, 'update'])->name('roles.update');
+		Route::get('/roles/delete/{id}', [RoleController::class, 'showDelete'])->name('roles.showDelete');
+		Route::delete('/roles/delete/{id}', [RoleController::class, 'destroy'])->name('roles.destroy');
 	}
 );

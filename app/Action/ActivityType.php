@@ -17,4 +17,8 @@ class ActivityType
 
 	const AUTH_LOGIN = 'auth_login';
 	const AUTH_REGISTER = 'auth_register';
+
+	const ROLE_CREATE = 'role_create';
+	const ROLE_UPDATE = 'role_update';
+	const ROLE_DELETE = 'role_delete';
 }

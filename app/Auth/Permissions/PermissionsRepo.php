@@ -3,6 +3,8 @@
 namespace App\Auth\Permissions;
 
 use App\Auth\Role;
+use App\Action\ActivityType;
+use App\Action\ActivityService;
 use App\Exceptions\PermissionsException;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -12,7 +14,7 @@ class PermissionsRepo
 	protected $role;
 	protected $permissionService;
 
-	protected $systemRoles = ['admin', 'public'];
+	protected $systemRoles = ['admin'];
 
 	/**
 	 * PermissionsRepo constructor.
@@ -57,9 +59,10 @@ class PermissionsRepo
 		$role->save();
 
 		$permissions = isset($roleData['permissions']) ? array_keys($roleData['permissions']) : [];
+
 		$this->assignRolePermissions($role, $permissions);
-		// $this->permissionService->buildJointPermissionForRole($role);
-		// Activity::add(ActivityType::ROLE_CREATE, $role);
+		$this->permissionService->buildJointPermissionForRole($role);
+		app(ActivityService::class)->add(ActivityType::ROLE_CREATE, $role);
 		return $role;
 	}
 
@@ -87,8 +90,8 @@ class PermissionsRepo
 
 		$role->fill($roleData);
 		$role->save();
-		// $this->permissionService->buildJointPermissionForRole($role);
-		// Activity::add(ActivityType::ROLE_UPDATE, $role);
+		$this->permissionService->buildJointPermissionForRole($role);
+		app(ActivityService::class)->add(ActivityType::ROLE_UPDATE, $role);
 	}
 
 	/**
@@ -101,11 +104,10 @@ class PermissionsRepo
 
 		if ($permissionNameArray) {
 			$permissions = $this->permission->newQuery()
-				->whereIn('name', $permissionNameArray)
-				->pluck('id')
-				->toArray();
+			->whereIn('name', $permissionNameArray)
+			->pluck('id')
+			->toArray();
 		}
-
 		$role->permissions()->sync($permissions);
 	}
 
@@ -125,7 +127,7 @@ class PermissionsRepo
 		// Prevent deleting admin role or default registration role.
 		if ($role->system_name && in_array($role->system_name, $this->systemRoles)) {
 			throw new PermissionsException(trans('errors.role_system_cannot_be_deleted'));
-		} elseif ($role->id === intval(setting('registration-role'))) {
+		} elseif ($role->sytem_name === 'admin') {
 			throw new PermissionsException(trans('errors.role_registration_default_cannot_delete'));
 		}
 
@@ -138,7 +140,7 @@ class PermissionsRepo
 		}
 
 		$this->permissionService->deleteJointPermissionsForRole($role);
-		// Activity::add(ActivityType::ROLE_DELETE, $role);
+		app(ActivityService::class)->add(ActivityType::ROLE_DELETE, $role);
 		$role->delete();
 	}
 }

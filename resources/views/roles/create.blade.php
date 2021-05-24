@@ -1,3 +1,5 @@
+@extends('layouts.app')
+@section('content')
     <div>
         @include('common.tabs')
         <div class="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8">
@@ -5,7 +7,8 @@
             <div class="bg-white mt-12">
                 <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
                     <div class="max-w-5xl mx-auto">
-                        <form wire:submit.prevent="addNewRole">
+                        <form method="POST" action="{{ route('roles.store') }}">
+                            @csrf
                             <div class="space-y-8 divide-y divide-gray-200">
                                 <div>
                                     <div>
@@ -25,7 +28,7 @@
                                                 Role Name
                                             </label>
                                             <div class="mt-1">
-                                                <input type="text" wire:model.lazy="display_name" id="display_name" autocomplete="display_name" class="shadow-sm focus:ring-gray-500 focus:border-gray-500 block w-full sm:text-sm border-gray-300 rounded-md @error('display_name') border-red-300 text-red-900 ring-red-500 focus:border-red-300 focus:shadow-outline-red @enderror">
+                                                <input type="text" name="display_name" id="display_name" autocomplete="display_name" class="shadow-sm focus:ring-gray-500 focus:border-gray-500 block w-full sm:text-sm border-gray-300 rounded-md @error('display_name') border-red-300 text-red-900 ring-red-500 focus:border-red-300 focus:shadow-outline-red @enderror">
                                                 @error('display_name')
                                                     <p class=" mt-2 text-sm text-red-600">{{ $message }}</p>
                                                 @enderror
@@ -37,7 +40,7 @@
                                                 Short Description of Role
                                             </label>
                                             <div class="mt-1">
-                                                <input type="text" wire:model.lazy="description" id="description" autocomplete="description" class="shadow-sm focus:ring-gray-500 focus:border-gray-500 block w-full sm:text-sm border-gray-300 rounded-md @error('description') border-red-300 text-red-900 ring-red-500 focus:border-red-300 focus:shadow-outline-red @enderror">
+                                                <input type="text" name="description" id="description" autocomplete="description" class="shadow-sm focus:ring-gray-500 focus:border-gray-500 block w-full sm:text-sm border-gray-300 rounded-md @error('description') border-red-300 text-red-900 ring-red-500 focus:border-red-300 focus:shadow-outline-red @enderror">
                                                 @error('description')
                                                     <p class=" mt-2 text-sm text-red-600">{{ $message }}</p>
                                                 @enderror
@@ -187,3 +190,4 @@
         </div>
     </div>
     </div>
+@stop
