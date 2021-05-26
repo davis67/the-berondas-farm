@@ -36,6 +36,12 @@ class BreedingLogs extends Component
 	 * @var string
 	 */
 	public $showSaveModal = false;
+	/**
+	 * Show Edit Log Modal.
+	 *
+	 * @var string
+	 */
+	public $showEditLogModal = false;
 
 	/**
 	 * Show Details page.
@@ -85,6 +91,22 @@ class BreedingLogs extends Component
 	 * @var date
 	 */
 	public $dam_id = '';
+
+	/**
+	 * log.
+	 *
+	 * @var array
+	 */
+	public $breedLog = [
+		'rabbit_no' => '',
+		'date_of_mating' => '',
+		'kiddle_date' => '',
+		'is_successful_mating' => '',
+		'litters' => null,
+		'dead_litters' => null,
+		'dam_id' => null,
+		'litter_current_cage' => null,
+	];
 	/**
 	 * Filters.
 	 *
@@ -262,6 +284,53 @@ class BreedingLogs extends Component
 		$this->showSaveModal = true;
 		$this->breedingLog = $breedingLog;
 		$this->showRabbitNo = true;
+	}
+
+	/**
+	 * Save the rabbit information.
+	 *
+	 * @return void
+	 */
+	public function handleEditLog(BreedingLog $breedingLog)
+	{
+		$this->breedingLog = $breedingLog;
+		$this->breedLog['date_of_mating'] = $breedingLog->date_of_mating;
+		$this->breedLog['kiddle_date'] = $breedingLog->created_at;
+		$this->breedLog['is_successful_mating'] = $breedingLog->is_successful_mating;
+		$this->breedLog['litters'] = $breedingLog->litters;
+		$this->breedLog['dead_litters'] = $breedingLog->dead_litters;
+		$this->breedLog['dam_id'] = $breedingLog->dam_id;
+		$this->breedLog['litter_current_cage'] = $breedingLog->litter_current_cage;
+		$this->showEditLogModal = true;
+	}
+
+	/**
+	 * Update the rabbit log information.
+	 *
+	 * @return void
+	 */
+	public function updateLog()
+	{
+		$this->validate(
+			[
+				'breedLog.date_of_mating' => 'required',
+				'breedLog.dam_id' => 'required',
+				'breedLog.kiddle_date' => 'required',
+				'breedLog.dead_litters' => 'nullable',
+				'breedLog.litters' => 'nullable',
+			]
+		);
+		$log = $this->breedingLog->update([
+			'dam_id' => $this->breedLog['dam_id'],
+			'date_of_mating' => $this->breedLog['date_of_mating'],
+			'kiddle_date' => $this->breedLog['kiddle_date'],
+			'dead_litters' => $this->breedLog['dead_litters'],
+			'litters' => $this->breedLog['litters']
+		]);
+
+		$log == true ? $this->showEditLogModal = true : $this->showEditLogModal = false;
+
+		// $this->showEditLogModal = false;
 	}
 
 	/**
